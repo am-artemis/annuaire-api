@@ -30,7 +30,13 @@ class UserTransformer extends BaseTransformer
                 'campus' => $this->itemArray($user->campus, new CampusTransformer),
                 'year' => (int) $user->year,
             ],
+            'gadz' => null,
         ];
+
+        if ($gadz = $user->gadz) {
+            $data['gadz'] = $this->itemArray($gadz, new GadzTransformer);
+            $data['gadz']['promsTBK'] = $user->campus->prefix . $gadz->proms;
+        }
 
         return $data;
     }

@@ -25,3 +25,17 @@ $factory->define(App\User::class, function ($faker) {
         'updated_at' => Carbon\Carbon::now(),
     ];
 });
+
+$factory->define(App\Gadz::class, function ($faker) {
+    $fams = $faker->randomElements([rand(1,154), rand(1,154), rand(1,154)], $count = rand(1,3));
+    asort($fams);
+    
+    return [
+        'buque' => ucfirst($faker->word),
+        'fams' => implode('-', $fams),
+        'famsSearch' => implode(',', $fams),
+        'proms' => rand(212,215),
+        'created_at' => Carbon\Carbon::now(),
+        'updated_at' => Carbon\Carbon::now(),
+    ];
+});

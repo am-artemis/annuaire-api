@@ -14,7 +14,7 @@ class UserController extends Controller
      *
      * @var array
      */
-    private static $relationships = ['campus'];
+    private static $relationships = ['campus', 'gadz'];
 
     /**
      * Display a listing of the resource.

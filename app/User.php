@@ -50,12 +50,12 @@ class User extends ApiModel {
         return $this->belongsTo('App\Campus', 'campus_id');
     }
 
-/* Pas d'autre classes pour le moment
     public function gadz()
     {
         return $this->hasOne('App\Gadz', 'user_id');
     }
 
+/* Pas d'autre classes pour le moment
     public function campus()
     {
         return $this->belongsTo('App\Campus', 'campus_id');

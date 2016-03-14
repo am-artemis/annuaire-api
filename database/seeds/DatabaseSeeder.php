@@ -19,7 +19,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call('CampusTableSeeder');
 
-        factory(App\User::class, 100)->create();
+        factory(App\User::class, 100)->create()->each(function($user) {
+            // 4 chances sur 5 d'avoir un gadz
+            if (rand(0,4)) {
+                $user->gadz()->save(factory(App\Gadz::class)->make());
+            }
+        });
 
         // DB::rollBack();
         DB::commit();
