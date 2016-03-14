@@ -10,13 +10,20 @@ use App\User;
 class UserController extends Controller
 {
     /**
+     * List of relationships to load.
+     *
+     * @var array
+     */
+    private static $relationships = ['campus'];
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
      */
     public function index()
     {
-        $users = User::paginate(30);
+        $users = User::with(self::$relationships)->paginate(30);
 
         return $this->response->paginator($users, new UserTransformer);
     }
@@ -29,7 +36,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with(self::$relationships)->findOrFail($id);
 
         return $this->response->item($user, new UserTransformer);
     }

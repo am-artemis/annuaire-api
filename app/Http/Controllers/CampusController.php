@@ -10,6 +10,13 @@ use App\Campus;
 class CampusController extends Controller
 {
     /**
+     * List of relationships to load.
+     *
+     * @var array
+     */
+    private static $relationships = [];
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
