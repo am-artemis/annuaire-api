@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Http\Transformers\CampusTransformer;
+
 use App\Campus;
 
 class CampusController extends Controller
@@ -13,7 +16,9 @@ class CampusController extends Controller
      */
     public function index()
     {
-        return Campus::all();
+        $campuses = Campus::all();
+
+        return $this->response->array($campuses, new CampusTransformer);
     }
 
     /**
@@ -24,6 +29,8 @@ class CampusController extends Controller
      */
     public function show($id)
     {
-        return Campus::findOrFail($id);
+        $campus = Campus::findOrFail($id);
+
+        return $this->response->item($campus, new CampusTransformer);
     }
 }

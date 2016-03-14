@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Http\Transformers\UserTransformer;
+
 use App\User;
 
 class UserController extends Controller
@@ -13,7 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        $users = User::paginate(30);
+
+        return $this->response->paginator($users, new UserTransformer);
     }
 
     /**
@@ -24,6 +29,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::findOrFail($id);
+        $user = User::findOrFail($id);
+
+        return $this->response->item($user, new UserTransformer);
     }
 }

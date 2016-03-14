@@ -24,7 +24,7 @@ class User extends ApiModel {
      *
      * @var array
      */
-    protected $hidden = ['id','auth_id', 'campus_id', 'created_at', 'updated_at'];
+    protected $hidden = ['id','auth_id', 'created_at', 'updated_at'];
 
     /**
      * Tell if the model contains timestamps or if it doesn't.
@@ -38,7 +38,7 @@ class User extends ApiModel {
      *
      * @var array
      */
-    protected $dates = ['birthday'];
+    protected $dates = ['created_at', 'updated_at', 'birthday'];
 
     /**
      * TODO
