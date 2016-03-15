@@ -36,9 +36,12 @@ app('Dingo\Api\Transformer\Factory')->register('App\Campus', 'App\Http\Transform
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
-    $api->get('users/', ['as' => 'users.index', 'uses' => 'App\Http\Controllers\UserController@index']);
+    $api->get('users', ['as' => 'users.index', 'uses' => 'App\Http\Controllers\UserController@index']);
     $api->get('users/{id}', ['as' => 'users.show', 'uses' => 'App\Http\Controllers\UserController@show']);
+    $api->post('users', ['as' => 'users.store', 'uses' => 'App\Http\Controllers\UserController@store']);
+    $api->put('users/{id}', ['as' => 'users.update', 'uses' => 'App\Http\Controllers\UserController@update']);
+    $api->delete('users/{id}', ['as' => 'users.destroy', 'uses' => 'App\Http\Controllers\UserController@destroy']);
 
-    $api->get('campuses/', ['as' => 'campuses.index', 'uses' => 'App\Http\Controllers\CampusController@index']);
+    $api->get('campuses', ['as' => 'campuses.index', 'uses' => 'App\Http\Controllers\CampusController@index']);
     $api->get('campuses/{id}', ['as' => 'campuses.show', 'uses' => 'App\Http\Controllers\CampusController@show']);
 });
