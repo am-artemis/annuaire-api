@@ -39,3 +39,11 @@ $factory->define(App\Gadz::class, function ($faker) {
         'updated_at' => Carbon\Carbon::now(),
     ];
 });
+
+$factory->define(App\Photo::class, function ($faker) {
+    return [
+        'src' => $faker->imageUrl(400, 400),
+        'type' => array('profile', 'biaude')[rand(0, 1)],
+        'title' => $faker->sentence(rand(4, 8), true),
+    ];
+});

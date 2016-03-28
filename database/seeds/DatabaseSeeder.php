@@ -24,6 +24,11 @@ class DatabaseSeeder extends Seeder
             if (rand(0,4)) {
                 $user->gadz()->save(factory(App\Gadz::class)->make());
             }
+
+            // Photos
+            for ($i=rand(0,4); $i > 0 ; $i--) {
+                $user->photos()->save(factory(App\Photo::class)->make());
+            }
         });
 
         // DB::rollBack();

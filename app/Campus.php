@@ -2,7 +2,7 @@
 
 namespace App;
 
-// Model and other classes or used in ApiModel Class
+// Extends are done in ApiModel such as Illuminate\Database\Eloquent\Model
 
 class Campus extends ApiModel {
     /**

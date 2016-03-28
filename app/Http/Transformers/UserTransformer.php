@@ -17,7 +17,7 @@ class UserTransformer extends BaseTransformer
     {
         $data = [
             'id' => $user->id,
-            'self' => url(implode('/', ['api', 'users', $user->id])),
+            'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('users.show', $user->id),
             'contact' => [
                 'firstname' => $user->firstname,
                 'lastname' => $user->lastname,
@@ -25,12 +25,14 @@ class UserTransformer extends BaseTransformer
                 'gender' => $user->gender,
                 'mail' => $user->mail,
                 'phone' => $user->phone,
+                'photo' => $user->profilePicSrc(),
             ],
             'promo' => [
                 'campus' => $this->itemArray($user->campus, new CampusTransformer),
                 'year' => (int) $user->year,
             ],
             'gadz' => null,
+            'photos' => null,
         ];
 
         if ($gadz = $user->gadz) {
@@ -38,6 +40,12 @@ class UserTransformer extends BaseTransformer
             $data['gadz']['promsTBK'] = $user->campus->prefix . $gadz->proms;
         }
 
+        if ($photos = $user->photos) {
+            // $data['contact']['photo'] = $user->profilePicSrc();
+            $data['photos'] = $this->collectionArray($photos, new PhotoTransformer);
+        }
+
+        // TODO: Filtrer la réponse pour enlever les champs inutiles (parametre fields)
         return $data;
     }
 }

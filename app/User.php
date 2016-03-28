@@ -2,7 +2,7 @@
 
 namespace App;
 
-// Model and other classes or used in ApiModel Class
+// Extends are done in ApiModel such as Illuminate\Database\Eloquent\Model
 
 class User extends ApiModel {
     /**
@@ -45,6 +45,21 @@ class User extends ApiModel {
      *
      * @return void
      */
+    public function profilePicSrc() {
+        $photo = $this->photos()->where('type', 'profile')->orderBy('created_at', 'desc')->first();
+
+        if ($photo) {
+            return $photo->src();
+        } else {
+            return url('assets/link/to/default/photo.jpg');
+        }
+    }
+
+    /**
+     * TODO
+     *
+     * @return void
+     */
     public function campus()
     {
         return $this->belongsTo('App\Campus', 'campus_id');
@@ -53,6 +68,11 @@ class User extends ApiModel {
     public function gadz()
     {
         return $this->hasOne('App\Gadz', 'user_id');
+    }
+
+    public function photos()
+    {
+        return $this->hasMany('App\Photo', 'user_id');
     }
 
 /* Pas d'autre classes pour le moment

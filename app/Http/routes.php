@@ -23,6 +23,7 @@ $app->get('/', function () use ($app) {
 
 app('Dingo\Api\Transformer\Factory')->register('App\User', 'App\Http\Transformers\UserTransformer');
 app('Dingo\Api\Transformer\Factory')->register('App\Campus', 'App\Http\Transformers\CampusTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Photos', 'App\Http\Transformers\PhotosTransformer');
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +45,7 @@ $api->version('v1', function ($api) {
 
     $api->get('campuses', ['as' => 'campuses.index', 'uses' => 'App\Http\Controllers\CampusController@index']);
     $api->get('campuses/{id}', ['as' => 'campuses.show', 'uses' => 'App\Http\Controllers\CampusController@show']);
+    
+    $api->get('photos', ['as' => 'photos.index', 'uses' => 'App\Http\Controllers\PhotoController@index']);
+    $api->get('photos/{id}', ['as' => 'photos.show', 'uses' => 'App\Http\Controllers\PhotoController@show']);
 });
