@@ -75,6 +75,11 @@ class User extends ApiModel {
         return $this->hasMany('App\Photo', 'user_id');
     }
 
+    public function addresses()
+    {
+        return $this->hasMany('App\Address', 'user_id');
+    }
+
 /* Pas d'autre classes pour le moment
     public function campus()
     {
@@ -99,11 +104,6 @@ class User extends ApiModel {
     public function resams()
     {
         return $this->belongsToMany('App\Resam', 'user_resam', 'user_id', 'resam_id')->withPivot('room', 'from', 'to')->withTimestamps();
-    }
-
-    public function addresses()
-    {
-        return $this->hasMany('App\Address', 'user_id');
     }
 
     public function socials()

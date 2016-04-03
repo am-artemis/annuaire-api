@@ -47,3 +47,19 @@ $factory->define(App\Photo::class, function ($faker) {
         'title' => $faker->sentence(rand(4, 8), true),
     ];
 });
+
+$factory->define(App\Address::class, function ($faker) {
+    return [
+        'name' => $faker->sentence(5),
+        'address' => $faker->streetAddress,
+        'zipcode' => $faker->postcode,
+        'city' => $faker->city,
+        'country' => $faker->country,
+        'lat' => $faker->latitude(-90, 90),
+        'lng' => $faker->longitude(-180, 180),
+        'phone' => '0' . rand(1,5) . str_pad(rand(1,pow(10, 8)), 8, '0', STR_PAD_LEFT),
+        'from' => Carbon\Carbon::now()->subMonths(rand(17,25))->subDays(rand(0,30)),
+        'to' => array(Carbon\Carbon::now()->subMonths(rand(17,25))->subDays(rand(0,30)), null)[rand(0, 1)],
+        'type' => array('perso', 'family')[rand(0,1)],
+    ];
+});

@@ -24,6 +24,7 @@ $app->get('/', function () use ($app) {
 app('Dingo\Api\Transformer\Factory')->register('App\User', 'App\Http\Transformers\UserTransformer');
 app('Dingo\Api\Transformer\Factory')->register('App\Campus', 'App\Http\Transformers\CampusTransformer');
 app('Dingo\Api\Transformer\Factory')->register('App\Photos', 'App\Http\Transformers\PhotosTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Address', 'App\Http\Transformers\AddressTransformer');
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,8 @@ $api->version('v1', function ($api) {
     
     $api->get('photos', ['as' => 'photos.index', 'uses' => 'App\Http\Controllers\PhotoController@index']);
     $api->get('photos/{id}', ['as' => 'photos.show', 'uses' => 'App\Http\Controllers\PhotoController@show']);
+    
+    $api->get('addresses', ['as' => 'addresses.index', 'uses' => 'App\Http\Controllers\AddressController@index']);
+    $api->get('addresses/{id}', ['as' => 'addresses.show', 'uses' => 'App\Http\Controllers\AddressController@show']);
+    $api->delete('addresses/{id}', ['as' => 'addresses.destroy', 'uses' => 'App\Http\Controllers\AddressController@destroy']);
 });

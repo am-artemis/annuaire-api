@@ -29,6 +29,11 @@ class DatabaseSeeder extends Seeder
             for ($i=rand(0,4); $i > 0 ; $i--) {
                 $user->photos()->save(factory(App\Photo::class)->make());
             }
+
+            // Address
+            for ($i=rand(0,2); $i > 0 ; $i--) {
+                $user->addresses()->save(factory(App\Address::class)->make());
+            }
         });
 
         // DB::rollBack();
