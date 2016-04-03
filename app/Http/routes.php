@@ -23,7 +23,7 @@ $app->get('/', function () use ($app) {
 
 app('Dingo\Api\Transformer\Factory')->register('App\User', 'App\Http\Transformers\UserTransformer');
 app('Dingo\Api\Transformer\Factory')->register('App\Campus', 'App\Http\Transformers\CampusTransformer');
-app('Dingo\Api\Transformer\Factory')->register('App\Photos', 'App\Http\Transformers\PhotosTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Photo', 'App\Http\Transformers\PhotoTransformer');
 app('Dingo\Api\Transformer\Factory')->register('App\Address', 'App\Http\Transformers\AddressTransformer');
 
 /*
