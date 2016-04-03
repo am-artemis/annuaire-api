@@ -2,12 +2,27 @@
 
 namespace App\Http\Transformers;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use Dingo\Api\Http\Request;
 
 use App\User;
 
 class UserTransformer extends BaseTransformer
 {
+    /**
+     * List of fields available.
+     *
+     * @var array
+     */
+    protected $fields = ['id', 'self', 'contact', 'promo', 'gadz', 'photos'];
+
+    /**
+     * List of minimal set of fields to filter before sending the response if null, all fields will be sent.
+     *
+     * @var array
+     */
+    protected $fields_minimal = ['id', 'self', 'contact', 'promo', 'gadz'];
+
     /**
      * Turn this item object into a generic array
      *
@@ -45,7 +60,8 @@ class UserTransformer extends BaseTransformer
             $data['photos'] = $this->collectionArray($photos, new PhotoTransformer);
         }
 
-        // TODO: Filtrer la réponse pour enlever les champs inutiles (parametre fields)
+        $data = $this->filter($data);
+
         return $data;
     }
 }

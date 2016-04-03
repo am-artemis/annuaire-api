@@ -7,42 +7,65 @@ use League\Fractal\TransformerAbstract;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\ArraySerializer;
 
-use Illuminate\Http\Request;
-
 class BaseTransformer extends TransformerAbstract
 {
-    // Request functions
-
+    /**
+     * List of fields available.
+     *
+     * @var array
+     */
     protected $fields = [];
-    protected $fields_min = [];
-    protected $fields_all = [];
 
-    function __construct(Request $request = null) {
-        if ($request and $request->has('fields')) {
-            $fields = explode(',', $request->input('fields'));
+    /**
+     * List of minimal set of fields to filter before sending the response if null, all fields will be sent.
+     *
+     * @var array
+     */
+    protected $fields_minimal = null;
 
-            if (in_array('all', $fields)) {
-                $this->fields = $this->fields_all;
-            } elseif (in_array('min', $fields)) {
-                $this->fields = $this->fields_min;
-            } else {
-                $this->fields = ['self'];
+    /**
+     * Get filter set to apply
+     *
+     * @return array
+     */
+    protected function getFilter() {
+        // Dependency injection don't work in Transformers for the moment
+        $request = app()->request;
+
+        // Set the fields
+        if ($request->has('fields')) {
+            $request_fields = explode(',', $request->input('fields'));
+
+            // If $this->fields_minimal is not null, let the possiblity to query all (by defaul all is sent if $fields_minimal is null)
+            if (in_array('all', $request_fields) or in_array('*', $request_fields)) {
+                return $this->fields;
+            } elseif (in_array('min', $request_fields)) {
+                // Permits to use 'min' to define the minimal config (May not be kept in the future)
+                return array_unique(array_merge($this->fields_minimal, $request_fields));
             }
 
-            $this->fields = array_merge($this->fields, array_diff($fields, ['min', 'all']));
+            return array_intersect($this->fields, $request_fields);
+        } else {
+            // If nothing specified, return all the available fields or the minimal set
+            if (is_null($this->fields_minimal)) {
+                return $this->fields;
+            } else {
+                return $this->fields_minimal;
+            }
         }
     }
 
-    public function filter($data) {
-        $fields = $this->fields;
+    /**
+     * Filter an array with given fields.
+     *
+     * @return array
+     */
+    protected function filter($data) {
+        $filter = $this->getFilter();
 
-        if (empty($fields)) {
-            return $data;
-        } else {
-            return array_filter($data, function ($value, $key) use ($fields) {
-                return in_array($key, $fields);
-            }, ARRAY_FILTER_USE_BOTH);
-        }
+        $filtered_array = array_filter($data, function ($value, $key) use ($filter) { return in_array($key, $filter); }, ARRAY_FILTER_USE_BOTH);
+
+        return $filtered_array;
     }
 
 
