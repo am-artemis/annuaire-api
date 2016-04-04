@@ -65,19 +65,44 @@ class User extends ApiModel {
         return $this->belongsTo('App\Campus', 'campus_id');
     }
 
+    /**
+     * TODO
+     *
+     * @return void
+     */
     public function gadz()
     {
         return $this->hasOne('App\Gadz', 'user_id');
     }
 
+    /**
+     * TODO
+     *
+     * @return void
+     */
     public function photos()
     {
         return $this->hasMany('App\Photo', 'user_id');
     }
 
+    /**
+     * TODO
+     *
+     * @return void
+     */
     public function addresses()
     {
         return $this->hasMany('App\Address', 'user_id');
+    }
+
+    /**
+     * TODO
+     *
+     * @return void
+     */
+    public function resams()
+    {
+        return $this->belongsToMany('App\Resam', 'user_resam', 'user_id', 'resam_id')->withPivot('room', 'from', 'to')->withTimestamps();
     }
 
 /* Pas d'autre classes pour le moment
@@ -99,11 +124,6 @@ class User extends ApiModel {
     public function jobs()
     {
         return $this->hasMany('App\Job', 'user_id');
-    }
-
-    public function resams()
-    {
-        return $this->belongsToMany('App\Resam', 'user_resam', 'user_id', 'resam_id')->withPivot('room', 'from', 'to')->withTimestamps();
     }
 
     public function socials()

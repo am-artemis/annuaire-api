@@ -25,6 +25,7 @@ app('Dingo\Api\Transformer\Factory')->register('App\User', 'App\Http\Transformer
 app('Dingo\Api\Transformer\Factory')->register('App\Campus', 'App\Http\Transformers\CampusTransformer');
 app('Dingo\Api\Transformer\Factory')->register('App\Photo', 'App\Http\Transformers\PhotoTransformer');
 app('Dingo\Api\Transformer\Factory')->register('App\Address', 'App\Http\Transformers\AddressTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Resam', 'App\Http\Transformers\ResamTransformer');
 
 /*
 |--------------------------------------------------------------------------
@@ -53,4 +54,7 @@ $api->version('v1', function ($api) {
     $api->get('addresses', ['as' => 'addresses.index', 'uses' => 'App\Http\Controllers\AddressController@index']);
     $api->get('addresses/{id}', ['as' => 'addresses.show', 'uses' => 'App\Http\Controllers\AddressController@show']);
     $api->delete('addresses/{id}', ['as' => 'addresses.destroy', 'uses' => 'App\Http\Controllers\AddressController@destroy']);
+    
+    $api->get('resams', ['as' => 'resams.index', 'uses' => 'App\Http\Controllers\ResamController@index']);
+    $api->get('resams/{id}', ['as' => 'resams.show', 'uses' => 'App\Http\Controllers\ResamController@show']);
 });
