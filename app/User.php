@@ -105,17 +105,17 @@ class User extends ApiModel {
         return $this->belongsToMany('App\Resam', 'user_resam', 'user_id', 'resam_id')->withPivot('room', 'from', 'to')->withTimestamps();
     }
 
-/* Pas d'autre classes pour le moment
-    public function campus()
-    {
-        return $this->belongsTo('App\Campus', 'campus_id');
-    }
-
+    /**
+     * TODO
+     *
+     * @return void
+     */
     public function cursus()
     {
         return $this->belongsToMany('App\Cursus', 'user_cursus', 'user_id', 'cursus_id')->withPivot('from', 'to')->withTimestamps();
     }
 
+/* Pas d'autre classes pour le moment
     public function degrees()
     {
         return $this->belongsToMany('App\Degree', 'user_degree', 'user_id', 'degree_id')->withTimestamps();

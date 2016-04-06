@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call('CampusTableSeeder');
         $this->call('ResamTableSeeder');
+        $this->call('CursusTableSeeder');
 
         factory(App\User::class, 100)->create()->each(function($user) {
             // 4 chances sur 5 d'avoir un gadz
@@ -45,6 +46,17 @@ class DatabaseSeeder extends Seeder
                         'to' => Carbon::now()->addDays(rand(50,1540)),
                         ];
                     $user->resams()->attach($resam->id, $dates);
+                }
+            });
+
+            // Cursus
+            App\Cursus::get(['id'])->random(3)->each(function ($cursus) use ($user) {
+                if(rand(0,1)) {
+                    $dates = [
+                        'from' => Carbon::now()->subDays(rand(50,1540)),
+                        'to' => Carbon::now()->addDays(rand(50,1540)),
+                        ];
+                    $user->cursus()->attach($cursus->id, $dates);
                 }
             });
         });

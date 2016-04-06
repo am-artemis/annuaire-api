@@ -63,3 +63,14 @@ $factory->define(App\Address::class, function ($faker) {
         'type' => array('perso', 'family')[rand(0,1)],
     ];
 });
+
+$factory->define(App\Cursus::class, function ($faker) {
+    // Permits to link school and campus randomisation
+    $has_campus = rand(0, 1);
+    return [
+        'title' => $faker->sentence(6),
+        'description' => $faker->sentences(3, true),
+        'campus_id' => $has_campus ? App\Campus::all()->random()->id : null,
+        'school' => $has_campus ? null : 'Ecole ' . $faker->sentence(3),
+    ];
+});
