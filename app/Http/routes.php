@@ -30,6 +30,7 @@ app('Dingo\Api\Transformer\Factory')->register('App\Cursus', 'App\Http\Transform
 app('Dingo\Api\Transformer\Factory')->register('App\Degree', 'App\Http\Transformers\DegreeTransformer');
 app('Dingo\Api\Transformer\Factory')->register('App\Bouls', 'App\Http\Transformers\BoulsTransformer');
 app('Dingo\Api\Transformer\Factory')->register('App\Job', 'App\Http\Transformers\JobTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Social', 'App\Http\Transformers\SocialTransformer');
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +74,7 @@ $api->version('v1', function ($api) {
     
     $api->get('jobs', ['as' => 'jobs.index', 'uses' => 'App\Http\Controllers\JobController@index']);
     $api->get('jobs/{id}', ['as' => 'jobs.show', 'uses' => 'App\Http\Controllers\JobController@show']);
+    
+    $api->get('socials', ['as' => 'socials.index', 'uses' => 'App\Http\Controllers\SocialController@index']);
+    $api->get('socials/{id}', ['as' => 'socials.show', 'uses' => 'App\Http\Controllers\SocialController@show']);
 });

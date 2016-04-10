@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserDegreeTable extends Migration
+class CreateSocialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,10 @@ class CreateUserDegreeTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_degree', function(Blueprint $table) {
-            $table->integer('user_id')->unsigned();
-            $table->integer('degree_id')->unsigned();
-            $table->integer('year');
-            $table->timestamps();
+        Schema::create('socials', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 50);
+            $table->text('logo');
         });
     }
 
@@ -27,6 +26,6 @@ class CreateUserDegreeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_degree');
+        Schema::drop('socials');
     }
 }

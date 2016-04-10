@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call('ResamTableSeeder');
         $this->call('CursusTableSeeder');
         $this->call('DegreeTableSeeder');
+        $this->call('SocialTableSeeder');
 
         factory(App\User::class, 100)->create()->each(function($user) {
             // 4 chances sur 5 d'avoir un gadz
@@ -80,6 +81,15 @@ class DatabaseSeeder extends Seeder
             for ($i=rand(0,2); $i > 0 ; $i--) {
                 $user->jobs()->save(factory(App\Job::class)->make());
             }
+
+            App\Social::get(['id'])->random(3)->each(function ($social) use ($user) {
+                if(rand(0,1)) {
+                    $pivot = [
+                        'url' => 'test'.rand(10000,99999).'.url',
+                        ];
+                    $user->socials()->attach($social->id, $pivot);
+                }
+            });
         });
 
         // DB::rollBack();
