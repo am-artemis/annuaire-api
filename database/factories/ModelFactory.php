@@ -77,11 +77,21 @@ $factory->define(App\Cursus::class, function ($faker) {
 });
 
 $factory->define(App\Degree::class, function ($faker) {
-    // Permits to link school and campus randomisation
-    $has_campus = rand(0, 1);
     return [
         'title' => $faker->sentence(rand(4,8)),
         'school' => $faker->sentence(rand(2,5)),
         'am' => rand(0, 1) ? true : false,
+    ];
+});
+
+$factory->define(App\Bouls::class, function ($faker) {
+    $strass = ucfirst($faker->word);
+    $roles = ['Zt', 'Vp', 'Respo', 'Xgnasse'];
+    return [
+        'title' => $roles[rand(0, count($roles) - 1 )] . ' ' . $strass,
+        'strass' => $strass,
+        'from' => Carbon\Carbon::now()->subMonths(rand(17,25))->subDays(rand(0,30)),
+        'to' => array(Carbon\Carbon::now()->subMonths(rand(17,25))->subDays(rand(0,30)), null)[rand(0, 1)],
+        'campus_id' => App\Campus::all()->random()->id,
     ];
 });

@@ -70,6 +70,11 @@ class DatabaseSeeder extends Seeder
                     $user->degrees()->attach($degree->id, $pivot);
                 }
             });
+
+            // Bouls
+            for ($i=rand(0,2); $i > 0 ; $i--) {
+                $user->bouls()->save(factory(App\Bouls::class)->make());
+            }
         });
 
         // DB::rollBack();

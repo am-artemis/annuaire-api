@@ -125,6 +125,16 @@ class User extends ApiModel {
         return $this->belongsToMany('App\Degree', 'user_degree', 'user_id', 'degree_id')->withPivot('year')->withTimestamps();
     }
 
+    /**
+     * TODO
+     *
+     * @return void
+     */
+    public function bouls()
+    {
+        return $this->hasMany('App\Bouls', 'user_id');
+    }
+
 /* Pas d'autre classes pour le moment
     public function jobs()
     {
@@ -134,11 +144,6 @@ class User extends ApiModel {
     public function socials()
     {
         return $this->belongsToMany('App\Social', 'user_social', 'user_id', 'social_id')->withPivot('url')->withTimestamps();
-    }
-
-    public function bouls()
-    {
-        return $this->hasMany('App\Bouls', 'user_id');
     }
 
     public function photos()
