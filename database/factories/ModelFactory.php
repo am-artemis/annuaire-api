@@ -59,8 +59,8 @@ $factory->define(App\Address::class, function ($faker) {
         'lat' => $faker->latitude(-90, 90),
         'lng' => $faker->longitude(-180, 180),
         'phone' => '0' . rand(1,5) . str_pad(rand(1,pow(10, 8)), 8, '0', STR_PAD_LEFT),
-        'from' => Carbon\Carbon::now()->subMonths(rand(17,25))->subDays(rand(0,30)),
-        'to' => array(Carbon\Carbon::now()->subMonths(rand(17,25))->subDays(rand(0,30)), null)[rand(0, 1)],
+        'from' => Carbon\Carbon::now()->subMonths(rand(17,70))->subDays(rand(0,30)),
+        'to' => array(Carbon\Carbon::now()->subMonths(rand(-20,16))->subDays(rand(0,30)), null)[rand(0, 1)],
         'type' => array('perso', 'family')[rand(0,1)],
     ];
 });
@@ -90,8 +90,19 @@ $factory->define(App\Bouls::class, function ($faker) {
     return [
         'title' => $roles[rand(0, count($roles) - 1 )] . ' ' . $strass,
         'strass' => $strass,
-        'from' => Carbon\Carbon::now()->subMonths(rand(17,25))->subDays(rand(0,30)),
-        'to' => array(Carbon\Carbon::now()->subMonths(rand(17,25))->subDays(rand(0,30)), null)[rand(0, 1)],
+        'from' => Carbon\Carbon::now()->subMonths(rand(17,70))->subDays(rand(0,30)),
+        'to' => array(Carbon\Carbon::now()->subMonths(rand(-20,16))->subDays(rand(0,30)), null)[rand(0, 1)],
         'campus_id' => App\Campus::all()->random()->id,
+    ];
+});
+
+$factory->define(App\Job::class, function ($faker) {
+    $strass = ucfirst($faker->word);
+    $roles = ['Zt', 'Vp', 'Respo', 'Xgnasse'];
+    return [
+        'title' => $faker->sentence(rand(4,8)),
+        'description' => $faker->sentences(3, true),
+        'from' => Carbon\Carbon::now()->subMonths(rand(17,70))->subDays(rand(0,30)),
+        'to' => array(Carbon\Carbon::now()->subMonths(rand(-20,16))->subDays(rand(0,30)), null)[rand(0, 1)],
     ];
 });

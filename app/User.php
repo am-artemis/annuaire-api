@@ -135,25 +135,20 @@ class User extends ApiModel {
         return $this->hasMany('App\Bouls', 'user_id');
     }
 
-/* Pas d'autre classes pour le moment
+    /**
+     * TODO
+     *
+     * @return void
+     */
     public function jobs()
     {
         return $this->hasMany('App\Job', 'user_id');
     }
 
+/* Pas d'autre classes pour le moment
     public function socials()
     {
         return $this->belongsToMany('App\Social', 'user_social', 'user_id', 'social_id')->withPivot('url')->withTimestamps();
-    }
-
-    public function photos()
-    {
-        return $this->hasMany('App\Photo', 'user_id');
-    }
-
-    public function tags()
-    {
-        return $this->hasOne('App\Tags', 'user_id');
     }
 */
 }

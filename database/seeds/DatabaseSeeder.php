@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
                 $user->photos()->save(factory(App\Photo::class)->make());
             }
 
-            // Address
+            // Addresses
             for ($i=rand(0,2); $i > 0 ; $i--) {
                 $user->addresses()->save(factory(App\Address::class)->make());
             }
@@ -74,6 +74,11 @@ class DatabaseSeeder extends Seeder
             // Bouls
             for ($i=rand(0,2); $i > 0 ; $i--) {
                 $user->bouls()->save(factory(App\Bouls::class)->make());
+            }
+
+            // Jobs
+            for ($i=rand(0,2); $i > 0 ; $i--) {
+                $user->jobs()->save(factory(App\Job::class)->make());
             }
         });
 

@@ -14,7 +14,7 @@ class UserTransformer extends BaseTransformer
      *
      * @var array
      */
-    protected $fields = ['id', 'self', 'contact', 'promo', 'gadz', 'photos', 'addresses', 'resams', 'cursus', 'tags', 'degrees', 'bouls'];
+    protected $fields = ['id', 'self', 'contact', 'promo', 'gadz', 'photos', 'addresses', 'resams', 'cursus', 'tags', 'degrees', 'bouls', 'jobs'];
 
     /**
      * List of minimal set of fields to filter before sending the response if null, all fields will be sent.
@@ -54,6 +54,7 @@ class UserTransformer extends BaseTransformer
             'tags' => $user->tags,
             'degrees' => null,
             'bouls' => null,
+            'job' => null,
         ];
 
         if ($gadz = $user->gadz) {
@@ -84,6 +85,10 @@ class UserTransformer extends BaseTransformer
 
         if ( $bouls = $user->bouls and $bouls->count() ) {
             $data['bouls'] = $this->collectionArray($bouls, new BoulsTransformer);
+        }
+
+        if ( $jobs = $user->jobs and $jobs->count() ) {
+            $data['jobs'] = $this->collectionArray($jobs, new JobTransformer);
         }
 
         $data = $this->filter($data);
