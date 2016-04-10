@@ -14,7 +14,7 @@ class UserTransformer extends BaseTransformer
      *
      * @var array
      */
-    protected $fields = ['id', 'self', 'contact', 'promo', 'gadz', 'photos', 'addresses', 'resams', 'cursus'];
+    protected $fields = ['id', 'self', 'contact', 'promo', 'gadz', 'photos', 'addresses', 'resams', 'cursus', 'tags'];
 
     /**
      * List of minimal set of fields to filter before sending the response if null, all fields will be sent.
@@ -51,6 +51,7 @@ class UserTransformer extends BaseTransformer
             'addresses' => null,
             'resams' => null,
             'cursus' => null,
+            'tags' => $user->tags,
         ];
 
         if ($gadz = $user->gadz) {

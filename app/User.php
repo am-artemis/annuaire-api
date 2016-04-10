@@ -17,7 +17,7 @@ class User extends ApiModel {
      *
      * @var array
      */
-    protected $fillable = ['firstname', 'lastname', 'year', 'gender', 'mail', 'phone', 'campus_id', 'birthday'];
+    protected $fillable = ['firstname', 'lastname', 'year', 'gender', 'mail', 'phone', 'campus_id', 'birthday', 'tags'];
 
     /**
      * The attributes excluded from the model's JSON form.

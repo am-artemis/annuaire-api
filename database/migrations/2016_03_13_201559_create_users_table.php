@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->enum('gender', array('m', 'f'))->nullable();
             $table->string('mail', 100)->unique();
             $table->string('phone', 50);
+            $table->text('tags')->nullable();
             $table->timestamps();
         });
     }
