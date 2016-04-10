@@ -75,3 +75,13 @@ $factory->define(App\Cursus::class, function ($faker) {
         'school' => $has_campus ? null : 'Ecole ' . $faker->sentence(3),
     ];
 });
+
+$factory->define(App\Degree::class, function ($faker) {
+    // Permits to link school and campus randomisation
+    $has_campus = rand(0, 1);
+    return [
+        'title' => $faker->sentence(rand(4,8)),
+        'school' => $faker->sentence(rand(2,5)),
+        'am' => rand(0, 1) ? true : false,
+    ];
+});

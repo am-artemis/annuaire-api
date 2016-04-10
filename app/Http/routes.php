@@ -61,4 +61,7 @@ $api->version('v1', function ($api) {
     
     $api->get('cursus', ['as' => 'cursus.index', 'uses' => 'App\Http\Controllers\CursusController@index']);
     $api->get('cursus/{id}', ['as' => 'cursus.show', 'uses' => 'App\Http\Controllers\CursusController@show']);
+    
+    $api->get('degrees', ['as' => 'degrees.index', 'uses' => 'App\Http\Controllers\DegreeController@index']);
+    $api->get('degrees/{id}', ['as' => 'degrees.show', 'uses' => 'App\Http\Controllers\DegreeController@show']);
 });
