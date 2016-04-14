@@ -44,6 +44,9 @@ app('Dingo\Api\Transformer\Factory')->register('App\Social', 'App\Http\Transform
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
+    // Recherche temporaire
+    $api->get('search', ['as' => 'search', 'uses' => 'App\Http\Controllers\SearchController@index']);
+
     $api->get('users', ['as' => 'users.index', 'uses' => 'App\Http\Controllers\UserController@index']);
     $api->get('users/{id}', ['as' => 'users.show', 'uses' => 'App\Http\Controllers\UserController@show']);
     $api->post('users', ['as' => 'users.store', 'uses' => 'App\Http\Controllers\UserController@store']);
