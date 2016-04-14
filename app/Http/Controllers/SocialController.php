@@ -21,9 +21,9 @@ class SocialController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $socials = Social::with(self::$relationships)->paginate(30);
+        $socials = Social::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
 
         return $this->response->paginator($socials, new SocialTransformer);
     }

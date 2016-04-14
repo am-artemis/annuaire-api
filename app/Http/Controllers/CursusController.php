@@ -21,9 +21,9 @@ class CursusController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cursus = Cursus::with(self::$relationships)->paginate(30);
+        $cursus = Cursus::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
 
         return $this->response->paginator($cursus, new CursusTransformer);
     }

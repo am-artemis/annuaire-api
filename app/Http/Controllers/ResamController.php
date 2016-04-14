@@ -21,9 +21,9 @@ class ResamController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $resams = Resam::with(self::$relationships)->paginate(30);
+        $resams = Resam::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
 
         return $this->response->paginator($resams, new ResamTransformer);
     }

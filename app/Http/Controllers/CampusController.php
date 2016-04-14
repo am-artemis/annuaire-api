@@ -21,9 +21,9 @@ class CampusController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $campuses = Campus::all();
+        $campuses = Campus::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
 
         return $this->response->array($campuses, new CampusTransformer);
     }
