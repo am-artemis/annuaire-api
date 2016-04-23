@@ -151,13 +151,13 @@ $deploy->post_deploy = function() use ($deploy) {
 
     // Composer install
     unset($output);
-    exec('composer install', $output);
-    $deploy->log('Composer install: '.implode(' ', $output));
+    exec('composer install -d ../ 2>&1', $output);
+    $deploy->log("Composer install:\n" . implode("\n", $output));
 
-    // Un peu de slack !
+    // Message slack
     unset($output);
-    exec('curl -X POST --data-urlencode \'payload={"channel": "#artemisv2", "username": "DeployBot", "text": "New deployment on the API server !", "icon_emoji": ":ghost:"}\' https://hooks.slack.com/services/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', $output);
-    $deploy->log('Un ptit message slack.. '.implode(' ', $output));
+    exec('curl -X POST --data-urlencode \'payload={"channel": "#artemisv2", "username": "DeployBot", "text": "New deployment on the API server !", "icon_emoji": ":ghost:"}\' https://hooks.slack.com/services/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 2>&1', $output);
+    $deploy->log('Un ptit message slack.. '.implode(' / ', $output));
 
 };
 
