@@ -4,7 +4,8 @@ namespace App;
 
 // Model and other classes or used in ApiModel Class
 
-class Social extends ApiModel {
+class Social extends ApiModel
+{
     /**
      * The table name used for the model.
      *

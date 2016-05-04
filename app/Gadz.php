@@ -4,7 +4,8 @@ namespace App;
 
 // Model and other classes or used in ApiModel Class
 
-class Gadz extends ApiModel {
+class Gadz extends ApiModel
+{
     /**
      * The table name used for the model.
      *

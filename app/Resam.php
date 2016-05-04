@@ -4,7 +4,8 @@ namespace App;
 
 // Extends are done in ApiModel such as Illuminate\Database\Eloquent\Model
 
-class Resam extends ApiModel {
+class Resam extends ApiModel
+{
     /**
      * The table name used for the model.
      *

@@ -51,7 +51,7 @@ class UserController extends Controller
     {
         $fields = array_keys($request->all());
 
-        if ( !in_array('contact', $fields) or !in_array('promo', $fields) ) {
+        if (!in_array('contact', $fields) or !in_array('promo', $fields)) {
             throw new \Symfony\Component\HttpKernel\Exception\BadRequestHttpException("User must have `contact` and `promo` fields.");
         }
 

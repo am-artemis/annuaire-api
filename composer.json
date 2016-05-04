@@ -1,18 +1,21 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
-    "license": "MIT",
-    "type": "project",
+    "name": "Artemis Annuaire APi",
     "require": {
         "php": ">=5.5.9",
         "laravel/lumen-framework": "5.2.*",
         "vlucas/phpdotenv": "~2.2",
-        "dingo/api": "1.0.x@dev"
+        "dingo/api": "1.0.x@dev",
+        "laravel/socialite": "^2.0",
+        "doctrine/dbal": "2.5.*",
+        "barryvdh/laravel-cors": "^0.8.0"
+
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
-        "phpunit/phpunit": "~4.0"
+        "fzaninotto/faker": "1.5.*",
+        "phpunit/phpunit": "4.*",
+        "squizlabs/php_codesniffer": "2.*",
+        "barryvdh/laravel-ide-helper": "^2.1"
+
     },
     "autoload": {
         "psr-4": {

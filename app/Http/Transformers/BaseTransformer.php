@@ -28,7 +28,8 @@ class BaseTransformer extends TransformerAbstract
      *
      * @return array
      */
-    protected function getFilter() {
+    protected function getFilter()
+    {
         // Dependency injection don't work in Transformers for the moment
         $request = app()->request;
 
@@ -60,10 +61,13 @@ class BaseTransformer extends TransformerAbstract
      *
      * @return array
      */
-    protected function filter($data) {
+    protected function filter($data)
+    {
         $filter = $this->getFilter();
 
-        $filtered_array = array_filter($data, function ($value, $key) use ($filter) { return in_array($key, $filter); }, ARRAY_FILTER_USE_BOTH);
+        $filtered_array = array_filter($data, function ($value, $key) use ($filter) {
+            return in_array($key, $filter);
+        }, ARRAY_FILTER_USE_BOTH);
 
         return $filtered_array;
     }
@@ -71,14 +75,16 @@ class BaseTransformer extends TransformerAbstract
 
     // Transformer functions
 
-    public function itemArray($model, $transformer, $resourceKey = null) {
+    public function itemArray($model, $transformer, $resourceKey = null)
+    {
         // Transforme le model
         $resource = $this->item($model, $transformer, $resourceKey);
 
         return $this->arraySerialize($resource);
     }
 
-    public function collectionArray($collection, $transformer, $resourceKey = null) {
+    public function collectionArray($collection, $transformer, $resourceKey = null)
+    {
         // Transforme la collection
         $resource = $this->collection($collection, $transformer, $resourceKey);
 
@@ -87,7 +93,8 @@ class BaseTransformer extends TransformerAbstract
         return $result['data'];
     }
 
-    private function arraySerialize($resource) {
+    private function arraySerialize($resource)
+    {
         // Instancie le manager
         $manager = new Manager();
         $manager->setSerializer(new ArraySerializer());
@@ -95,6 +102,4 @@ class BaseTransformer extends TransformerAbstract
         // Retourne la resource sous la forme d'un array
         return $manager->createData($resource)->toArray();;
     }
-
-
 }

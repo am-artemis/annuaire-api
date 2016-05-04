@@ -4,7 +4,8 @@ namespace App;
 
 // Extends are done in ApiModel such as Illuminate\Database\Eloquent\Model
 
-class Job extends ApiModel {
+class Job extends ApiModel
+{
     /**
      * The table name used for the model.
      *

@@ -4,7 +4,8 @@ namespace App;
 
 // Model and other classes or used in ApiModel Class
 
-class Bouls extends ApiModel {
+class Bouls extends ApiModel
+{
     /**
      * The table name used for the model.
      *

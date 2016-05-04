@@ -4,7 +4,8 @@ namespace App;
 
 // Extends are done in ApiModel such as Illuminate\Database\Eloquent\Model
 
-class Degree extends ApiModel {
+class Degree extends ApiModel
+{
     /**
      * The table name used for the model.
      *

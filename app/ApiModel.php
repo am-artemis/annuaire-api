@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class ApiModel extends Model {
+abstract class ApiModel extends Model
+{
     /**
      * List of fields to convert into Carbon objects.
      *

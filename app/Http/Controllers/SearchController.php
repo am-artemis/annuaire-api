@@ -28,7 +28,9 @@ class SearchController extends Controller
         $q = $request->input('q');
 
         // Temporaire, renvoi tous les users
-        if($q == "***") return User::all();
+        if ($q == "***") {
+            return User::all();
+        }
 
         // relations dans lesquelles chercher
         $where = ['firstname', 'lastname', 'mail', 'phone', 'gadz.buque', 'gadz.fams', 'gadz.famsSearch', 'campus.city','year'];
@@ -52,8 +54,11 @@ class SearchController extends Controller
             }
 
             $results = $query->get();
-            if($index == 0) $users = $results;
-            else $users = $users->intersect($results);
+            if ($index == 0) {
+                $users = $results;
+            } else {
+                $users = $users->intersect($results);
+            }
             $users = $users->unique();
         }
 

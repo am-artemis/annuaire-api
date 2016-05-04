@@ -27,7 +27,7 @@ class ResamTransformer extends BaseTransformer
             ],
         ];
 
-        if ( isset($resam->pivot) ) {
+        if (isset($resam->pivot)) {
             $data['pivot'] = [
                 'room' => $resam->pivot->room,
                 'from' => $resam->pivot->from,

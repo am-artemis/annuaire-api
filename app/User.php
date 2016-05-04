@@ -4,7 +4,8 @@ namespace App;
 
 // Extends are done in ApiModel such as Illuminate\Database\Eloquent\Model
 
-class User extends ApiModel {
+class User extends ApiModel
+{
     /**
      * The table name used for the model.
      *
@@ -45,7 +46,8 @@ class User extends ApiModel {
      *
      * @return void
      */
-    public function profilePicSrc() {
+    public function profilePicSrc()
+    {
         $photo = $this->photos()->where('type', 'profile')->orderBy('created_at', 'desc')->first();
 
         if ($photo) {
