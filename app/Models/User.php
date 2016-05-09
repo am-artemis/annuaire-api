@@ -23,10 +23,10 @@ namespace App\Models;
  * @property-read \App\Models\Gadz $gadz
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Photo[] $photos
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Address[] $addresses
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Resam[] $resams
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Cursus[] $cursus
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Residence[] $residences
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Course[] $courses
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Degree[] $degrees
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Bouls[] $bouls
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Responsibility[] $responsabilities
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Job[] $jobs
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Social[] $socials
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
@@ -42,6 +42,7 @@ namespace App\Models;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Responsibility[] $responsibilities
  */
 class User extends ApiModel
 {
@@ -117,14 +118,15 @@ class User extends ApiModel
         return $this->hasMany('App\Models\Address', 'user_id');
     }
 
-    public function resams()
+    public function residences()
     {
-        return $this->belongsToMany('App\Models\Resam', 'user_resam', 'user_id', 'resam_id')->withPivot('room', 'from', 'to')->withTimestamps();
+        return $this->belongsToMany('App\Models\Residence', 'user_residence', 'user_id', 'residence_id')
+            ->withPivot('room', 'from', 'to')->withTimestamps();
     }
 
-    public function cursus()
+    public function courses()
     {
-        return $this->belongsToMany('App\Models\Cursus', 'user_cursus', 'user_id', 'cursus_id')->withPivot('from', 'to')->withTimestamps();
+        return $this->belongsToMany('App\Models\Course', 'user_course', 'user_id', 'course_id')->withPivot('from', 'to')->withTimestamps();
     }
 
     public function degrees()
@@ -132,9 +134,9 @@ class User extends ApiModel
         return $this->belongsToMany('App\Models\Degree', 'user_degree', 'user_id', 'degree_id')->withPivot('year')->withTimestamps();
     }
 
-    public function bouls()
+    public function responsibilities()
     {
-        return $this->hasMany('App\Models\Bouls', 'user_id');
+        return $this->hasMany('App\Models\Responsibility', 'user_id');
     }
 
     public function jobs()

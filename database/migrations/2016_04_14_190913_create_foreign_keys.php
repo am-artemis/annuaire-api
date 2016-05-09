@@ -36,24 +36,24 @@ class CreateForeignKeys extends Migration
                         ->onUpdate('restrict'); // idem
         });
 
-        Schema::table('resams', function(Blueprint $table) {
+        Schema::table('residences', function(Blueprint $table) {
             $table->foreign('campus_id')->references('id')->on('campuses')
                         ->onDelete('restrict')
                         ->onUpdate('restrict');
         });
         
-        Schema::table('cursus', function(Blueprint $table) {
+        Schema::table('courses', function(Blueprint $table) {
             $table->foreign('campus_id')->references('id')->on('campuses')
                         ->onDelete('restrict')
                         ->onUpdate('restrict'); // idem
         });
-        Schema::table('user_cursus', function(Blueprint $table) {
+        Schema::table('user_course', function(Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')
                         ->onDelete('cascade')
                         ->onUpdate('restrict');
         });
-        Schema::table('user_cursus', function(Blueprint $table) {
-            $table->foreign('cursus_id')->references('id')->on('cursus')
+        Schema::table('user_course', function(Blueprint $table) {
+            $table->foreign('course_id')->references('id')->on('courses')
                         ->onDelete('restrict')
                         ->onUpdate('restrict');
         });
@@ -75,12 +75,12 @@ class CreateForeignKeys extends Migration
                         ->onUpdate('restrict');
         });
 
-        Schema::table('bouls', function(Blueprint $table) {
+        Schema::table('responsibilities', function(Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')
                         ->onDelete('cascade')
                         ->onUpdate('restrict');
         });
-        Schema::table('bouls', function(Blueprint $table) {
+        Schema::table('responsibilities', function(Blueprint $table) {
             $table->foreign('campus_id')->references('id')->on('campuses')
                         ->onDelete('restrict')
                         ->onUpdate('restrict');
@@ -121,19 +121,19 @@ class CreateForeignKeys extends Migration
             $table->dropForeign('addresses_user_id_foreign');
         });
    
-        Schema::table('resams', function(Blueprint $table) {
-            $table->dropForeign('resams_campus_id_foreign');
+        Schema::table('residences', function(Blueprint $table) {
+            $table->dropForeign('residences_campus_id_foreign');
         });
 
-        Schema::table('cursus', function(Blueprint $table) {
-            $table->dropForeign('cursus_campus_id_foreign');
+        Schema::table('courses', function(Blueprint $table) {
+            $table->dropForeign('courses_campus_id_foreign');
         });
 
-        Schema::table('user_cursus', function(Blueprint $table) {
-            $table->dropForeign('user_cursus_user_id_foreign');
+        Schema::table('user_course', function(Blueprint $table) {
+            $table->dropForeign('user_course_user_id_foreign');
         });
-        Schema::table('user_cursus', function(Blueprint $table) {
-            $table->dropForeign('user_cursus_cursus_id_foreign');
+        Schema::table('user_course', function(Blueprint $table) {
+            $table->dropForeign('user_course_course_id_foreign');
         });
 
         Schema::table('user_degree', function(Blueprint $table) {
@@ -143,11 +143,11 @@ class CreateForeignKeys extends Migration
             $table->dropForeign('user_degree_degree_id_foreign');
         });
         
-        Schema::table('bouls', function(Blueprint $table) {
-            $table->dropForeign('bouls_user_id_foreign');
+        Schema::table('responsibilities', function(Blueprint $table) {
+            $table->dropForeign('responsibilities_user_id_foreign');
         });
-        Schema::table('bouls', function(Blueprint $table) {
-            $table->dropForeign('bouls_campus_id_foreign');
+        Schema::table('responsibilities', function(Blueprint $table) {
+            $table->dropForeign('responsibilities_campus_id_foreign');
         });
 
         Schema::table('jobs', function(Blueprint $table) {

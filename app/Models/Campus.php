@@ -72,9 +72,9 @@ class Campus extends ApiModel
     }
 
 /* Pas d'autre classes pour le moment
-    public function cursus()
+    public function courses()
     {
-        return $this->hasMany('App\Models\Cursus', 'campus_id');
+        return $this->hasMany('App\Models\Course', 'campus_id');
     }
 
     public function users()
@@ -85,7 +85,7 @@ class Campus extends ApiModel
 
     public function rezams()
     {
-        return $this->hasMany('App\Models\Resam', 'campus_id');
+        return $this->hasMany('App\Models\Residence', 'campus_id');
     }
 
 */

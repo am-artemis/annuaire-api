@@ -65,7 +65,7 @@ $factory->define(App\Models\Address::class, function ($faker) {
     ];
 });
 
-$factory->define(App\Models\Cursus::class, function ($faker) {
+$factory->define(App\Models\Course::class, function ($faker) {
     // Permits to link school and campus randomisation
     $has_campus = rand(0, 1);
     return [
@@ -84,7 +84,7 @@ $factory->define(App\Models\Degree::class, function ($faker) {
     ];
 });
 
-$factory->define(App\Models\Bouls::class, function ($faker) {
+$factory->define(App\Models\Responsibility::class, function ($faker) {
     $strass = ucfirst($faker->word);
     $roles = ['Zt', 'Vp', 'Respo', 'Xgnasse'];
     return [

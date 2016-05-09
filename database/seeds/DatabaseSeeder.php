@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
 
@@ -15,11 +14,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::beginTransaction();
-        Model::unguard();
 
         $this->call('CampusTableSeeder');
-        $this->call('ResamTableSeeder');
-        $this->call('CursusTableSeeder');
+        $this->call('ResidenceTableSeeder');
+        $this->call('CourseTableSeeder');
         $this->call('DegreeTableSeeder');
         $this->call('SocialTableSeeder');
 
@@ -39,26 +37,26 @@ class DatabaseSeeder extends Seeder
                 $user->addresses()->save(factory(App\Models\Address::class)->make());
             }
 
-            // Resam
-            App\Models\Resam::get(['id'])->random(3)->each(function ($resam) use ($user) {
+            // Residence
+            App\Models\Residence::get(['id'])->random(3)->each(function ($residence) use ($user) {
                 if(rand(0,1)) {
                     $pivot = [
                         'room' => rand(101, 799),
                         'from' => Carbon::now()->subDays(rand(50,1540)),
                         'to' => Carbon::now()->addDays(rand(50,1540)),
                         ];
-                    $user->resams()->attach($resam->id, $pivot);
+                    $user->residences()->attach($residence->id, $pivot);
                 }
             });
 
-            // Cursus
-            App\Models\Cursus::get(['id'])->random(3)->each(function ($cursus) use ($user) {
+            // Course
+            App\Models\Course::get(['id'])->random(3)->each(function ($course) use ($user) {
                 if(rand(0,1)) {
                     $pivot = [
                         'from' => Carbon::now()->subDays(rand(50,1540)),
                         'to' => Carbon::now()->addDays(rand(50,1540)),
                         ];
-                    $user->cursus()->attach($cursus->id, $pivot);
+                    $user->courses()->attach($course->id, $pivot);
                 }
             });
 
@@ -72,9 +70,9 @@ class DatabaseSeeder extends Seeder
                 }
             });
 
-            // Bouls
+            // Responsibility
             for ($i=rand(0,2); $i > 0 ; $i--) {
-                $user->bouls()->save(factory(App\Models\Bouls::class)->make());
+                $user->responsibilities()->save(factory(App\Models\Responsibility::class)->make());
             }
 
             // Jobs

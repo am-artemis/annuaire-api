@@ -16,7 +16,8 @@ class SearchController extends Controller
      *
      * @var array
      */
-    private static $relationships = ['campus', 'gadz', 'photos', 'addresses', 'resams', 'cursus', 'degrees', 'bouls', 'jobs', 'socials'];
+    private static $relationships = ['campus', 'gadz', 'photos', 'addresses', 'residences', 'courses',
+        'degrees', 'responsibilities', 'jobs', 'socials'];
 
     /**
      * Search users and display results

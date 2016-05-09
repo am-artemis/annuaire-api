@@ -12,8 +12,8 @@ class UserTransformer extends BaseTransformer
      *
      * @var array
      */
-    protected $fields = ['id', 'self', 'contact', 'promo', 'gadz', 'photos', 'addresses', 'resams', 'cursus',
-        'tags', 'degrees', 'bouls', 'jobs', 'socials'];
+    protected $fields = ['id', 'self', 'contact', 'promo', 'gadz', 'photos', 'addresses', 'residences', 'courses',
+        'tags', 'degrees', 'responsibilities', 'jobs', 'socials'];
 
     /**
      * List of minimal set of fields to filter before sending the response if null, all fields will be sent.
@@ -49,11 +49,11 @@ class UserTransformer extends BaseTransformer
             'gadz' => null,
             'photos' => null,
             'addresses' => null,
-            'resams' => null,
-            'cursus' => null,
+            'residences' => null,
+            'courses' => null,
             'tags' => $user->tags,
             'degrees' => null,
-            'bouls' => null,
+            'responsibilities' => null,
             'jobs' => null,
             'socials' => null,
         ];
@@ -72,20 +72,20 @@ class UserTransformer extends BaseTransformer
             $data['addresses'] = $this->collectionArray($addresses, new AddressTransformer);
         }
 
-        if ($resams = $user->resams and $resams->count()) {
-            $data['resams'] = $this->collectionArray($resams, new ResamTransformer);
+        if ($residences = $user->residences and $residences->count()) {
+            $data['residences'] = $this->collectionArray($residences, new ResidenceTransformer);
         }
 
-        if ($cursus = $user->cursus and $cursus->count()) {
-            $data['cursus'] = $this->collectionArray($cursus, new CursusTransformer);
+        if ($courses = $user->courses and $courses->count()) {
+            $data['courses'] = $this->collectionArray($courses, new CourseTransformer);
         }
 
         if ($degrees = $user->degrees and $degrees->count()) {
             $data['degrees'] = $this->collectionArray($degrees, new DegreeTransformer);
         }
 
-        if ($bouls = $user->bouls and $bouls->count()) {
-            $data['bouls'] = $this->collectionArray($bouls, new BoulsTransformer);
+        if ($responsabilities = $user->responsabilities and $responsabilities->count()) {
+            $data['responsibilities'] = $this->collectionArray($responsabilities, new ResponsibilityTransformer);
         }
 
         if ($jobs = $user->jobs and $jobs->count()) {
