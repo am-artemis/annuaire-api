@@ -8,8 +8,6 @@ var elixir = require('laravel-elixir');
 elixir.config.sourcemaps = false;
 
 elixir(function(mix) {
-    mix.sass('bootstrap.scss', 'public/css/bootstrap.css');
-    mix.sass('admin.scss', 'public/css/admin.css');
 });
 
 

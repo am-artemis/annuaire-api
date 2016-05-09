@@ -17,7 +17,7 @@ class CourseTransformer extends BaseTransformer
     public function transform(Course $course)
     {
         $data = [
-            'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('course.show', $course->id),
+            'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('courses.show', $course->id),
             'title' => $course->title,
             'description' => $course->description,
             'campus' => null,

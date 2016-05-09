@@ -2,9 +2,9 @@
 
 
 Route::singularResourceParameters();
-Route::get('/', function () {
+Route::get('/', ['as' => 'home', function () {
     return app()->version();
-});
+}]);
 
 /*
 |--------------------------------------------------------------------------

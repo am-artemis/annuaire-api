@@ -17,7 +17,7 @@ class ResponsibilityTransformer extends BaseTransformer
     public function transform(Responsibility $responsibility)
     {
         $data = [
-            'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('responsibility.show', $responsibility->id),
+            'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('responsibilities.show', $responsibility->id),
             'title' => $responsibility->title,
             'strass' => $responsibility->strass,
             'from' => is_null($responsibility->from) ? null : $responsibility->from->format('Y-m-d'),
