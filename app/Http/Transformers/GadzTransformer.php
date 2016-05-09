@@ -4,13 +4,14 @@ namespace App\Http\Transformers;
 
 use Illuminate\Http\Request;
 
-use App\Gadz;
+use App\Models\Gadz;
 
 class GadzTransformer extends BaseTransformer
 {
     /**
      * Turn this item object into a generic array
      *
+     * @param Gadz $gadz
      * @return array
      */
     public function transform(Gadz $gadz)

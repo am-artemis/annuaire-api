@@ -4,13 +4,14 @@ namespace App\Http\Transformers;
 
 use Illuminate\Http\Request;
 
-use App\Social;
+use App\Models\Social;
 
 class SocialTransformer extends BaseTransformer
 {
     /**
      * Turn this item object into a generic array
      *
+     * @param Social $social
      * @return array
      */
     public function transform(Social $social)

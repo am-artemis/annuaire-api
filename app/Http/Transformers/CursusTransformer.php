@@ -4,13 +4,14 @@ namespace App\Http\Transformers;
 
 use Illuminate\Http\Request;
 
-use App\Cursus;
+use App\Models\Cursus;
 
 class CursusTransformer extends BaseTransformer
 {
     /**
      * Turn this item object into a generic array
      *
+     * @param Cursus $cursus
      * @return array
      */
     public function transform(Cursus $cursus)

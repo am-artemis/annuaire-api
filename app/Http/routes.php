@@ -21,16 +21,16 @@ $app->get('/', function () use ($app) {
 |--------------------------------------------------------------------------
 */
 
-app('Dingo\Api\Transformer\Factory')->register('App\User', 'App\Http\Transformers\UserTransformer');
-app('Dingo\Api\Transformer\Factory')->register('App\Campus', 'App\Http\Transformers\CampusTransformer');
-app('Dingo\Api\Transformer\Factory')->register('App\Photo', 'App\Http\Transformers\PhotoTransformer');
-app('Dingo\Api\Transformer\Factory')->register('App\Address', 'App\Http\Transformers\AddressTransformer');
-app('Dingo\Api\Transformer\Factory')->register('App\Resam', 'App\Http\Transformers\ResamTransformer');
-app('Dingo\Api\Transformer\Factory')->register('App\Cursus', 'App\Http\Transformers\CursusTransformer');
-app('Dingo\Api\Transformer\Factory')->register('App\Degree', 'App\Http\Transformers\DegreeTransformer');
-app('Dingo\Api\Transformer\Factory')->register('App\Bouls', 'App\Http\Transformers\BoulsTransformer');
-app('Dingo\Api\Transformer\Factory')->register('App\Job', 'App\Http\Transformers\JobTransformer');
-app('Dingo\Api\Transformer\Factory')->register('App\Social', 'App\Http\Transformers\SocialTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Models\User', 'App\Http\Transformers\UserTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Models\Campus', 'App\Http\Transformers\CampusTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Models\Photo', 'App\Http\Transformers\PhotoTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Models\Address', 'App\Http\Transformers\AddressTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Models\Resam', 'App\Http\Transformers\ResamTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Models\Cursus', 'App\Http\Transformers\CursusTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Models\Degree', 'App\Http\Transformers\DegreeTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Models\Bouls', 'App\Http\Transformers\BoulsTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Models\Job', 'App\Http\Transformers\JobTransformer');
+app('Dingo\Api\Transformer\Factory')->register('App\Models\Social', 'App\Http\Transformers\SocialTransformer');
 
 /*
 |--------------------------------------------------------------------------
@@ -42,42 +42,20 @@ app('Dingo\Api\Transformer\Factory')->register('App\Social', 'App\Http\Transform
 */
 
 $api = app('Dingo\Api\Routing\Router');
-
-$api->version('v1', function ($api) {
+$api->version('v1', ['namespace' => 'App\Http\Controllers'], function ($api) {
     // Recherche temporaire
-    $api->get('search', ['as' => 'search', 'uses' => 'App\Http\Controllers\SearchController@index']);
-
-    $api->get('users', ['as' => 'users.index', 'uses' => 'App\Http\Controllers\UserController@index']);
-    $api->get('users/{id}', ['as' => 'users.show', 'uses' => 'App\Http\Controllers\UserController@show']);
-    $api->post('users', ['as' => 'users.store', 'uses' => 'App\Http\Controllers\UserController@store']);
-    $api->put('users/{id}', ['as' => 'users.update', 'uses' => 'App\Http\Controllers\UserController@update']);
-    $api->delete('users/{id}', ['as' => 'users.destroy', 'uses' => 'App\Http\Controllers\UserController@destroy']);
-
-    $api->get('campuses', ['as' => 'campuses.index', 'uses' => 'App\Http\Controllers\CampusController@index']);
-    $api->get('campuses/{id}', ['as' => 'campuses.show', 'uses' => 'App\Http\Controllers\CampusController@show']);
+    $api->get('search', ['as' => 'search', 'uses' => 'SearchController@index']);
     
-    $api->get('photos', ['as' => 'photos.index', 'uses' => 'App\Http\Controllers\PhotoController@index']);
-    $api->get('photos/{id}', ['as' => 'photos.show', 'uses' => 'App\Http\Controllers\PhotoController@show']);
-    
-    $api->get('addresses', ['as' => 'addresses.index', 'uses' => 'App\Http\Controllers\AddressController@index']);
-    $api->get('addresses/{id}', ['as' => 'addresses.show', 'uses' => 'App\Http\Controllers\AddressController@show']);
-    $api->delete('addresses/{id}', ['as' => 'addresses.destroy', 'uses' => 'App\Http\Controllers\AddressController@destroy']);
-    
-    $api->get('resams', ['as' => 'resams.index', 'uses' => 'App\Http\Controllers\ResamController@index']);
-    $api->get('resams/{id}', ['as' => 'resams.show', 'uses' => 'App\Http\Controllers\ResamController@show']);
-    
-    $api->get('cursus', ['as' => 'cursus.index', 'uses' => 'App\Http\Controllers\CursusController@index']);
-    $api->get('cursus/{id}', ['as' => 'cursus.show', 'uses' => 'App\Http\Controllers\CursusController@show']);
-    
-    $api->get('degrees', ['as' => 'degrees.index', 'uses' => 'App\Http\Controllers\DegreeController@index']);
-    $api->get('degrees/{id}', ['as' => 'degrees.show', 'uses' => 'App\Http\Controllers\DegreeController@show']);
-    
-    $api->get('bouls', ['as' => 'bouls.index', 'uses' => 'App\Http\Controllers\BoulsController@index']);
-    $api->get('bouls/{id}', ['as' => 'bouls.show', 'uses' => 'App\Http\Controllers\BoulsController@show']);
-    
-    $api->get('jobs', ['as' => 'jobs.index', 'uses' => 'App\Http\Controllers\JobController@index']);
-    $api->get('jobs/{id}', ['as' => 'jobs.show', 'uses' => 'App\Http\Controllers\JobController@show']);
-    
-    $api->get('socials', ['as' => 'socials.index', 'uses' => 'App\Http\Controllers\SocialController@index']);
-    $api->get('socials/{id}', ['as' => 'socials.show', 'uses' => 'App\Http\Controllers\SocialController@show']);
+    $api->resources([
+        'users' => ['UserController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
+        'campuses' => ['CampusController', ['only' => ['index', 'show']]],
+        'photos' => ['PhotoController', ['only' => ['index', 'show']]],
+        'addresses' => ['AddressController', ['only' => ['index', 'show', 'destroy']]],
+        'resams' => ['ResamController', ['only' => ['index', 'show']]],
+        'cursus' => ['CursusController', ['only' => ['index', 'show']]],
+        'degrees' => ['DegreeController', ['only' => ['index', 'show']]],
+        'bouls' => ['BoulsController', ['only' => ['index', 'show']]],
+        'jobs' => ['JobController', ['only' => ['index', 'show']]],
+        'socials' => ['SocialController', ['only' => ['index', 'show']]],
+    ]);
 });

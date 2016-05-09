@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Transformers\JobTransformer;
 
-use App\Job;
+use App\Models\Job;
 
 class JobController extends Controller
 {
@@ -19,6 +19,7 @@ class JobController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -31,19 +32,18 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    int    $id
+     * @param Job $job
      * @return Response
      */
-    public function show($id)
+    public function show(Job $job)
     {
-        $jobs = Job::with(self::$relationships)->findOrFail($id);
-
-        return $this->response->item($jobs, new JobTransformer);
+        return $this->response->item($job->load(self::$relationships), new JobTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -54,10 +54,11 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param    int    $id
+     * @param Request $request
+     * @param Job $job
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Job $job)
     {
         //
     }
@@ -65,11 +66,11 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param    int    $id
+     * @param Job $job
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Job $job)
     {
-        Job::findOrFail($id)->delete();
+        $job->delete();
     }
 }

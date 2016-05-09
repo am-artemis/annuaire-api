@@ -4,13 +4,14 @@ namespace App\Http\Transformers;
 
 use Illuminate\Http\Request;
 
-use App\Address;
+use App\Models\Address;
 
 class AddressTransformer extends BaseTransformer
 {
     /**
      * Turn this item object into a generic array
      *
+     * @param Address $address
      * @return array
      */
     public function transform(Address $address)

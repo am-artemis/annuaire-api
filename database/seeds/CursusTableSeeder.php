@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Campus;
+use App\Models\Campus;
 
 class CursusTableSeeder extends Seeder
 {
@@ -13,6 +13,6 @@ class CursusTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Cursus::class, 50)->create();
+        factory(App\Models\Cursus::class, 50)->create();
     }
 }

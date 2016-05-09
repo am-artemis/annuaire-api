@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Transformers\PhotoTransformer;
 
-use App\User;
-use App\Photo;
+use App\Models\User;
+use App\Models\Photo;
 
 class PhotoController extends Controller
 {
@@ -20,6 +20,7 @@ class PhotoController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -32,19 +33,18 @@ class PhotoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    int    $id
+     * @param Photo $photo
      * @return Response
      */
-    public function show($id)
+    public function show(Photo $photo)
     {
-        $user = Photo::with(self::$relationships)->findOrFail($id);
-
-        return $this->response->item($user, new PhotoTransformer);
+        return $this->response->item($photo->load(self::$relationships), new PhotoTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -55,10 +55,11 @@ class PhotoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param    int    $id
+     * @param Request $request
+     * @param Photo $photo
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Photo $photo)
     {
         //
     }
@@ -66,11 +67,11 @@ class PhotoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param    int    $id
+     * @param Photo $photo
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Photo $photo)
     {
-        Photo::findOrFail($id)->delete();
+        $photo->delete();
     }
 }

@@ -1,9 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 // Model and other classes or used in ApiModel Class
 
+/**
+ * App\Models\Social
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $logo
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Social whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Social whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Social whereLogo($value)
+ * @mixin \Eloquent
+ */
 class Social extends ApiModel
 {
     /**
@@ -40,14 +52,9 @@ class Social extends ApiModel
      * @var array
      */
     protected $dates = [];
-
-    /**
-     * TODO
-     *
-     * @return void
-     */
+    
     public function users()
     {
-        return $this->belongsToMany('User', 'user_social')->withPivot('url')->withTimestamps();
+        return $this->belongsToMany('App\Models\User', 'user_social')->withPivot('url')->withTimestamps();
     }
 }

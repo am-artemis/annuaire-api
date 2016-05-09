@@ -7,7 +7,7 @@ use App\Http\Transformers\UserTransformer;
 
 use Illuminate\Support\Collection;
 
-use App\User;
+use App\Models\User;
 
 class SearchController extends Controller
 {
@@ -19,8 +19,9 @@ class SearchController extends Controller
     private static $relationships = ['campus', 'gadz', 'photos', 'addresses', 'resams', 'cursus', 'degrees', 'bouls', 'jobs', 'socials'];
 
     /**
-     * Search users and dispaly results
+     * Search users and display results
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)

@@ -11,6 +11,6 @@ class DegreeTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Degree::class, 50)->create();
+        factory(App\Models\Degree::class, 50)->create();
     }
 }

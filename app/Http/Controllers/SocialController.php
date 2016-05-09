@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Transformers\SocialTransformer;
 
-use App\Social;
+use App\Models\Social;
 
 class SocialController extends Controller
 {
@@ -19,6 +19,7 @@ class SocialController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -31,19 +32,18 @@ class SocialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    int    $id
+     * @param Social $social
      * @return Response
      */
-    public function show($id)
+    public function show(Social $social)
     {
-        $social = Social::with(self::$relationships)->findOrFail($id);
-
-        return $this->response->item($social, new SocialTransformer);
+        return $this->response->item($social->load(self::$relationships), new SocialTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -54,10 +54,11 @@ class SocialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param    int    $id
+     * @param Request $request
+     * @param Social $social
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Social $social)
     {
         //
     }
@@ -65,11 +66,11 @@ class SocialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param    int    $id
+     * @param Social $social
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Social $social)
     {
-        Social::findOrFail($id)->delete();
+        $social->delete();
     }
 }

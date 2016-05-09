@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Transformers\DegreeTransformer;
 
-use App\Degree;
+use App\Models\Degree;
 
 class DegreeController extends Controller
 {
@@ -19,6 +19,7 @@ class DegreeController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -31,19 +32,19 @@ class DegreeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    int    $id
+     * @param Degree $degree
      * @return Response
      */
-    public function show($id)
+    public function show(Degree $degree)
     {
-        $degree = Degree::with(self::$relationships)->findOrFail($id);
 
-        return $this->response->item($degree, new DegreeTransformer);
+        return $this->response->item($degree->load(self::$relationships), new DegreeTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -54,10 +55,11 @@ class DegreeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param    int    $id
+     * @param Request $request
+     * @param Degree $degree
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Degree $degree)
     {
         //
     }
@@ -65,11 +67,10 @@ class DegreeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param    int    $id
-     * @return Response
+     * @param Degree $degree
      */
-    public function destroy($id)
+    public function destroy(Degree $degree)
     {
-        Degree::findOrFail($id)->delete();
+        $degree->delete();
     }
 }

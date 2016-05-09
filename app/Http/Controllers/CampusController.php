@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Transformers\CampusTransformer;
 
-use App\Campus;
+use App\Models\Campus;
 
 class CampusController extends Controller
 {
@@ -19,6 +19,7 @@ class CampusController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -30,14 +31,11 @@ class CampusController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param    int    $id
-     * @return Response
+     * @param Campus $campus
+     * @return
      */
-    public function show($id)
+    public function show(Campus $campus)
     {
-        $campus = Campus::findOrFail($id);
-
-        return $this->response->item($campus, new CampusTransformer);
+        return $this->response->item($campus->load(self::$relationships), new CampusTransformer);
     }
 }

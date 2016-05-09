@@ -23,24 +23,24 @@ class DatabaseSeeder extends Seeder
         $this->call('DegreeTableSeeder');
         $this->call('SocialTableSeeder');
 
-        factory(App\User::class, 100)->create()->each(function($user) {
+        factory(App\Models\User::class, 100)->create()->each(function($user) {
             // 4 chances sur 5 d'avoir un gadz
             if (rand(0,4)) {
-                $user->gadz()->save(factory(App\Gadz::class)->make());
+                $user->gadz()->save(factory(App\Models\Gadz::class)->make());
             }
 
             // Photos
             for ($i=rand(0,4); $i > 0 ; $i--) {
-                $user->photos()->save(factory(App\Photo::class)->make());
+                $user->photos()->save(factory(App\Models\Photo::class)->make());
             }
 
             // Addresses
             for ($i=rand(0,2); $i > 0 ; $i--) {
-                $user->addresses()->save(factory(App\Address::class)->make());
+                $user->addresses()->save(factory(App\Models\Address::class)->make());
             }
 
             // Resam
-            App\Resam::get(['id'])->random(3)->each(function ($resam) use ($user) {
+            App\Models\Resam::get(['id'])->random(3)->each(function ($resam) use ($user) {
                 if(rand(0,1)) {
                     $pivot = [
                         'room' => rand(101, 799),
@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
             });
 
             // Cursus
-            App\Cursus::get(['id'])->random(3)->each(function ($cursus) use ($user) {
+            App\Models\Cursus::get(['id'])->random(3)->each(function ($cursus) use ($user) {
                 if(rand(0,1)) {
                     $pivot = [
                         'from' => Carbon::now()->subDays(rand(50,1540)),
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
             });
 
             // Degree
-            App\Degree::get(['id'])->random(3)->each(function ($degree) use ($user) {
+            App\Models\Degree::get(['id'])->random(3)->each(function ($degree) use ($user) {
                 if(rand(0,1)) {
                     $pivot = [
                         'year' => rand(2010, 2018),
@@ -74,15 +74,15 @@ class DatabaseSeeder extends Seeder
 
             // Bouls
             for ($i=rand(0,2); $i > 0 ; $i--) {
-                $user->bouls()->save(factory(App\Bouls::class)->make());
+                $user->bouls()->save(factory(App\Models\Bouls::class)->make());
             }
 
             // Jobs
             for ($i=rand(0,2); $i > 0 ; $i--) {
-                $user->jobs()->save(factory(App\Job::class)->make());
+                $user->jobs()->save(factory(App\Models\Job::class)->make());
             }
 
-            App\Social::get(['id'])->random(3)->each(function ($social) use ($user) {
+            App\Models\Social::get(['id'])->random(3)->each(function ($social) use ($user) {
                 if(rand(0,1)) {
                     $pivot = [
                         'url' => 'test'.rand(10000,99999).'.url',

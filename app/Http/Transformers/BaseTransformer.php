@@ -59,6 +59,7 @@ class BaseTransformer extends TransformerAbstract
     /**
      * Filter an array with given fields.
      *
+     * @param $data
      * @return array
      */
     protected function filter($data)

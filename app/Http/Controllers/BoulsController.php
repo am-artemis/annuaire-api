@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Transformers\BoulsTransformer;
 
-use App\Bouls;
+use App\Models\Bouls;
 
 class BoulsController extends Controller
 {
@@ -19,6 +19,7 @@ class BoulsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -31,19 +32,18 @@ class BoulsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    int    $id
+     * @param Bouls $bouls
      * @return Response
      */
-    public function show($id)
+    public function show(Bouls $bouls)
     {
-        $bouls = Bouls::with(self::$relationships)->findOrFail($id);
-
-        return $this->response->item($bouls, new BoulsTransformer);
+        return $this->response->item($bouls->load(self::$relationships), new BoulsTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -54,10 +54,11 @@ class BoulsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param    int    $id
+     * @param Request $request
+     * @param Bouls $bouls
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Bouls $bouls)
     {
         //
     }
@@ -65,11 +66,11 @@ class BoulsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param    int    $id
+     * @param Bouls $bouls
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Bouls $bouls)
     {
-        Bouls::findOrFail($id)->delete();
+        $bouls->delete();
     }
 }

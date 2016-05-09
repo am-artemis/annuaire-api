@@ -4,13 +4,14 @@ namespace App\Http\Transformers;
 
 use Illuminate\Http\Request;
 
-use App\Photo;
+use App\Models\Photo;
 
 class PhotoTransformer extends BaseTransformer
 {
     /**
      * Turn this item object into a generic array
      *
+     * @param Photo $photo
      * @return array
      */
     public function transform(Photo $photo)

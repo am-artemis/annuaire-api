@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use App\Http\Transformers\ResamTransformer;
 
-use App\Resam;
+use App\Models\Resam;
 
 class ResamController extends Controller
 {
@@ -19,6 +20,7 @@ class ResamController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -31,19 +33,18 @@ class ResamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    int    $id
+     * @param Resam $resam
      * @return Response
      */
-    public function show($id)
+    public function show(Resam $resam)
     {
-        $resam = Resam::with(self::$relationships)->findOrFail($id);
-
-        return $this->response->item($resam, new ResamTransformer);
+        return $this->response->item($resam->load(self::$relationships), new ResamTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -54,7 +55,8 @@ class ResamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param    int    $id
+     * @param Request $request
+     * @param    int $id
      * @return Response
      */
     public function update(Request $request, $id)
@@ -65,11 +67,11 @@ class ResamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param    int    $id
+     * @param Resam $resam
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Resam $resam)
     {
-        Resam::findOrFail($id)->delete();
+        $resam->delete();
     }
 }

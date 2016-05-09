@@ -4,13 +4,14 @@ namespace App\Http\Transformers;
 
 use Illuminate\Http\Request;
 
-use App\Job;
+use App\Models\Job;
 
 class JobTransformer extends BaseTransformer
 {
     /**
      * Turn this item object into a generic array
      *
+     * @param Job $job
      * @return array
      */
     public function transform(Job $job)

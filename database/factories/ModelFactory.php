@@ -11,13 +11,13 @@
 |
 */
 
-$factory->define(App\User::class, function ($faker) {
+$factory->define(App\Models\User::class, function ($faker) {
     return [
         'firstname' => $faker->firstName,
         'lastname' => $faker->lastName,
         'year' => rand(2012, 2014),
         'birthday' => Carbon\Carbon::now()->subYears(rand(17,25))->subDays(rand(0,365)),
-        'campus_id' => App\Campus::whereNull('prefix', 'and', true)->get(['id'])->random()->id,
+        'campus_id' => App\Models\Campus::whereNull('prefix', 'and', true)->get(['id'])->random()->id,
         'gender' => array(null, 'm', 'f')[rand(0,2)],
         'mail' => $faker->email,
         'phone' => '06' . str_pad(rand(1,pow(10, 8)), 8, '0', STR_PAD_LEFT),
@@ -27,7 +27,7 @@ $factory->define(App\User::class, function ($faker) {
     ];
 });
 
-$factory->define(App\Gadz::class, function ($faker) {
+$factory->define(App\Models\Gadz::class, function ($faker) {
     $fams = $faker->randomElements([rand(1,154), rand(1,154), rand(1,154)], $count = rand(1,3));
     asort($fams);
     
@@ -41,7 +41,7 @@ $factory->define(App\Gadz::class, function ($faker) {
     ];
 });
 
-$factory->define(App\Photo::class, function ($faker) {
+$factory->define(App\Models\Photo::class, function ($faker) {
     return [
         'src' => $faker->imageUrl(400, 400),
         'type' => array('profile', 'biaude')[rand(0, 1)],
@@ -49,7 +49,7 @@ $factory->define(App\Photo::class, function ($faker) {
     ];
 });
 
-$factory->define(App\Address::class, function ($faker) {
+$factory->define(App\Models\Address::class, function ($faker) {
     return [
         'name' => $faker->sentence(5),
         'address' => $faker->streetAddress,
@@ -65,18 +65,18 @@ $factory->define(App\Address::class, function ($faker) {
     ];
 });
 
-$factory->define(App\Cursus::class, function ($faker) {
+$factory->define(App\Models\Cursus::class, function ($faker) {
     // Permits to link school and campus randomisation
     $has_campus = rand(0, 1);
     return [
         'title' => $faker->sentence(6),
         'description' => $faker->sentences(3, true),
-        'campus_id' => $has_campus ? App\Campus::all()->random()->id : null,
+        'campus_id' => $has_campus ? App\Models\Campus::all()->random()->id : null,
         'school' => $has_campus ? null : 'Ecole ' . $faker->sentence(3),
     ];
 });
 
-$factory->define(App\Degree::class, function ($faker) {
+$factory->define(App\Models\Degree::class, function ($faker) {
     return [
         'title' => $faker->sentence(rand(4,8)),
         'school' => $faker->sentence(rand(2,5)),
@@ -84,7 +84,7 @@ $factory->define(App\Degree::class, function ($faker) {
     ];
 });
 
-$factory->define(App\Bouls::class, function ($faker) {
+$factory->define(App\Models\Bouls::class, function ($faker) {
     $strass = ucfirst($faker->word);
     $roles = ['Zt', 'Vp', 'Respo', 'Xgnasse'];
     return [
@@ -92,11 +92,11 @@ $factory->define(App\Bouls::class, function ($faker) {
         'strass' => $strass,
         'from' => Carbon\Carbon::now()->subMonths(rand(17,70))->subDays(rand(0,30)),
         'to' => array(Carbon\Carbon::now()->subMonths(rand(-20,16))->subDays(rand(0,30)), null)[rand(0, 1)],
-        'campus_id' => App\Campus::all()->random()->id,
+        'campus_id' => App\Models\Campus::all()->random()->id,
     ];
 });
 
-$factory->define(App\Job::class, function ($faker) {
+$factory->define(App\Models\Job::class, function ($faker) {
     $strass = ucfirst($faker->word);
     $roles = ['Zt', 'Vp', 'Respo', 'Xgnasse'];
     return [

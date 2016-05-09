@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Transformers\CursusTransformer;
 
-use App\Cursus;
+use App\Models\Cursus;
 
 class CursusController extends Controller
 {
@@ -19,6 +19,7 @@ class CursusController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -31,19 +32,19 @@ class CursusController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    int    $id
+     * @param Cursus $cursus
      * @return Response
      */
-    public function show($id)
+    public function show(Cursus $cursus)
     {
-        $cursus = Cursus::with(self::$relationships)->findOrFail($id);
 
-        return $this->response->item($cursus, new CursusTransformer);
+        return $this->response->item($cursus->load(self::$relationships), new CursusTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -54,10 +55,11 @@ class CursusController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param    int    $id
+     * @param Request $request
+     * @param Cursus $cursus
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cursus $cursus)
     {
         //
     }
@@ -65,11 +67,11 @@ class CursusController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param    int    $id
+     * @param Cursus $cursus
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Cursus $cursus)
     {
-        Cursus::findOrFail($id)->delete();
+        $cursus->delete();
     }
 }

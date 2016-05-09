@@ -2,10 +2,8 @@
 
 namespace App\Http\Transformers;
 
-// use Illuminate\Http\Request;
 use Dingo\Api\Http\Request;
-
-use App\User;
+use App\Models\User;
 
 class UserTransformer extends BaseTransformer
 {
@@ -27,6 +25,7 @@ class UserTransformer extends BaseTransformer
     /**
      * Turn this item object into a generic array
      *
+     * @param User $user
      * @return array
      */
     public function transform(User $user)

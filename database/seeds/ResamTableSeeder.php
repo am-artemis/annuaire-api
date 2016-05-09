@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Campus;
+use App\Models\Campus;
 
 class ResamTableSeeder extends Seeder
 {

@@ -4,13 +4,14 @@ namespace App\Http\Transformers;
 
 use Illuminate\Http\Request;
 
-use App\Bouls;
+use App\Models\Bouls;
 
 class BoulsTransformer extends BaseTransformer
 {
     /**
      * Turn this item object into a generic array
      *
+     * @param Bouls $bouls
      * @return array
      */
     public function transform(Bouls $bouls)

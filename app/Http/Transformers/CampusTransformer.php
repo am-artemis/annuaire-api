@@ -4,13 +4,14 @@ namespace App\Http\Transformers;
 
 use Illuminate\Http\Request;
 
-use App\Campus;
+use App\Models\Campus;
 
 class CampusTransformer extends BaseTransformer
 {
     /**
      * Turn this item object into a generic array
      *
+     * @param Campus $campus
      * @return array
      */
     public function transform(Campus $campus)

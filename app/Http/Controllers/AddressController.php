@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Transformers\AddressTransformer;
 
-use App\Address;
+use App\Models\Address;
+use Request;
 
 class AddressController extends Controller
 {
@@ -19,6 +19,7 @@ class AddressController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -31,45 +32,42 @@ class AddressController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    int    $id
+     * @param Address $address
      * @return Response
      */
-    public function show($id)
+    public function show(Address $address)
     {
-        $address = Address::with(self::$relationships)->findOrFail($id);
-
-        return $this->response->item($address, new AddressTransformer);
+        return $this->response->item($address->load(self::$relationships), new AddressTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param    int    $id
+     * @param Request $request
+     * @param Address $address
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Address $address)
     {
         //
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param    int    $id
-     * @return Response
+     * @param Address $address
      */
-    public function destroy($id)
+    public function destroy(Address $address)
     {
-        Address::findOrFail($id)->delete();
+        $address->delete();
     }
 }

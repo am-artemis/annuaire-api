@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Transformers\UserTransformer;
 
-use App\User;
-use App\Gadz;
+use App\Models\User;
+use App\Models\Gadz;
 
 class UserController extends Controller
 {
@@ -20,6 +20,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -32,20 +33,20 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    int    $id
+     * @param User $user
      * @return Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::with(self::$relationships)->findOrFail($id);
-
-        return $this->response->item($user, new UserTransformer);
+        return $this->response->item($user->load(self::$relationships), new UserTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
+     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     public function store(Request $request)
     {
@@ -108,14 +109,13 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param    int    $id
+     * @param Request $request
+     * @param User $user
      * @return Response
+     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        // Récupère l'utilisateur
-        $user = User::findOrFail($id);
-
         // Prepare rules
         $rules = [];
 
@@ -180,11 +180,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param    int    $id
+     * @param User $user
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        User::findOrFail($id)->delete();
+        $user->delete();
     }
 }

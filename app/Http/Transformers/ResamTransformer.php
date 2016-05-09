@@ -4,13 +4,14 @@ namespace App\Http\Transformers;
 
 use Illuminate\Http\Request;
 
-use App\Resam;
+use App\Models\Resam;
 
 class ResamTransformer extends BaseTransformer
 {
     /**
      * Turn this item object into a generic array
      *
+     * @param Resam $resam
      * @return array
      */
     public function transform(Resam $resam)

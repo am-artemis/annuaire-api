@@ -4,13 +4,14 @@ namespace App\Http\Transformers;
 
 use Illuminate\Http\Request;
 
-use App\Degree;
+use App\Models\Degree;
 
 class DegreeTransformer extends BaseTransformer
 {
     /**
      * Turn this item object into a generic array
      *
+     * @param Degree $degree
      * @return array
      */
     public function transform(Degree $degree)
