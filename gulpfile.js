@@ -16,6 +16,7 @@ var exec = require('child_process').exec;
 var notify = require("gulp-notify");
 var gutil = require('gulp-util');
 var phpunitBin = /^win/.test(process.platform) ? 'phpunit ' : './vendor/bin/phpunit ';
+var phpunitPath = '';
 
 gulp.task('phpunit', function() {
     console.log('\n$ phpunit '+phpunitPath+'\n');
