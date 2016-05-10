@@ -53,6 +53,8 @@ class User extends ApiModel
      */
     protected $table = 'users';
 
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -81,6 +83,18 @@ class User extends ApiModel
      */
     protected $dates = ['created_at', 'updated_at', 'birthday'];
 
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Génération automatique d'un ID random (va avec public $incrementing = false;`)
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = str_random(6);
+            }
+        });
+    }
 
     /**
      * Return the url shape of the profile picture if exists

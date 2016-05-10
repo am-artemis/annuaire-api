@@ -4,7 +4,7 @@ namespace Tests\Models;
 use App\Models\Campus;
 use Tests\TestCase;
 
-class CampusControllerTest extends TestCase
+class CampusTransformerTest extends TestCase
 {
 
     public function setUp()
@@ -13,11 +13,13 @@ class CampusControllerTest extends TestCase
     }
 
 
-    /**
-     * TODO ZARU Ce n'est pas ce que fais le controller, il faut faire ça pour le transformer, et pas seeJson mais exactement ce qui est renvoyé.
-     */
     public function testRecupererTousLesCampus()
     {
+        /*
+         * TODO TARMAK : A refaire
+         * Ca test pas grand chose là, et c'est un hasard que ça marche.
+         * On fait à la fois controller pour le GET, et le transformer pour le json..
+         */
         $campusArray = ['name' => 'Tabagn\'s de Clun\'s', 'city' => 'Cluny', 'short' => 'Clun\'s', 'prefix' => 'cl', 'address' => 'Rue porte de Paris, 71250 Cluny', 'lat' => 46.2157467, 'lng' => 2.2088258, 'photo' => 'campus/cluns.jpg'];
         Campus::create($campusArray);
 

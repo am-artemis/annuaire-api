@@ -14,7 +14,7 @@ class CreateGadzTable extends Migration
     {
         Schema::create('gadz', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->string('user_id', 6);
             $table->string('buque', 100);
             $table->string('fams', 100);
             $table->text('famsSearch');

@@ -13,7 +13,7 @@ class CreateUserDegreeTable extends Migration
     public function up()
     {
         Schema::create('user_degree', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
+            $table->string('user_id', 6);
             $table->integer('degree_id')->unsigned();
             $table->integer('year');
             $table->timestamps();

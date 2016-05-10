@@ -18,21 +18,19 @@ class CampusController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
      * @param Request $request
-     * @return Response
+     * @return \Dingo\Api\Http\Response\
      */
     public function index(Request $request)
     {
         $campuses = Campus::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
-
         return $this->response->array($campuses, new CampusTransformer);
     }
 
     /**
      * Display the specified resource.
      * @param Campus $campus
-     * @return
+     * @return \Dingo\Api\Http\Response
      */
     public function show(Campus $campus)
     {
