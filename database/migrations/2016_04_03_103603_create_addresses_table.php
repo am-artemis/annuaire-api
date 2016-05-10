@@ -12,7 +12,7 @@ class CreateAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function(Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('name', 100);
@@ -20,12 +20,12 @@ class CreateAddressesTable extends Migration
             $table->string('zipcode', 5);
             $table->string('city', 100);
             $table->string('country', 50)->nullable();
-            $table->decimal('lat', 10,6);
-            $table->decimal('lng', 10,6);
+            $table->decimal('lat', 10, 6);
+            $table->decimal('lng', 10, 6);
             $table->string('phone', 50)->nullable();
             $table->date('from')->nullable();
             $table->date('to')->nullable();
-            $table->enum('type', array('perso', 'family'));
+            $table->enum('type', ['perso', 'family']);
             $table->timestamps();
         });
     }

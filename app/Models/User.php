@@ -85,13 +85,15 @@ class User extends ApiModel
     /**
      * Return the url shape of the profile picture if exists
      * @return string
+     * TODO TARMAK : Refaire la fonction avec un getter (attention Foo::getProfilePicSrcAttribute => $foo->profile_pic_src)
+     * TODO TARMAK "assets/link/to/default/photo.jpg" ??
      */
     public function profilePicSrc()
     {
         $photo = $this->photos()->where('type', 'profile')->orderBy('created_at', 'desc')->first();
 
         if ($photo) {
-            return $photo->src();
+            return $photo->src;
         } else {
             return url('assets/link/to/default/photo.jpg');
         }

@@ -12,12 +12,12 @@ class CreateResidencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('residences', function(Blueprint $table) {
+        Schema::create('residences', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
             $table->text('address');
-            $table->decimal('lat', 10,6);
-            $table->decimal('lng', 10,6);
+            $table->decimal('lat', 10, 6);
+            $table->decimal('lng', 10, 6);
             $table->integer('campus_id')->unsigned();
         });
     }

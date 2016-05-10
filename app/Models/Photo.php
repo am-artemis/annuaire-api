@@ -64,17 +64,19 @@ class Photo extends ApiModel
 
     /**
      * Return an url shape of src, whatever the stored one.
-     * @return string
+     * @param $value
+     * @return string this->src
      */
-    public function src()
+    public function getSrcAttribute($value)
     {
-        if (preg_match('#$http(s)?://#', $this->src)) {
-            return $this->src;
+        if (preg_match('#$http(s)?://#', $value)) {
+            return $value;
         } else {
-            return url($this->src);
+            return url($value);
         }
     }
-    
+
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');

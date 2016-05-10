@@ -12,7 +12,7 @@ class CreateGadzTable extends Migration
      */
     public function up()
     {
-        Schema::create('gadz', function(Blueprint $table) {
+        Schema::create('gadz', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('buque', 100);

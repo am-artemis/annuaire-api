@@ -12,7 +12,7 @@ class CreateSocialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('socials', function(Blueprint $table) {
+        Schema::create('socials', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 50);
             $table->text('logo');

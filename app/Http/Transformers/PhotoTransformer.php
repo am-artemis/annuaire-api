@@ -18,7 +18,7 @@ class PhotoTransformer extends BaseTransformer
     {
         $data = [
             'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('photos.show', $photo->id),
-            'src' => $photo->src(),
+            'src' => $photo->src,
             'type' => $photo->type,
             'title' => $photo->title,
             'user' => [

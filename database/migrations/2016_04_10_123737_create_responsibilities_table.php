@@ -12,7 +12,7 @@ class CreateResponsibilitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('responsibilities', function(Blueprint $table) {
+        Schema::create('responsibilities', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('title', 50);

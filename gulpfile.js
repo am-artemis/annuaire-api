@@ -7,14 +7,11 @@ var elixir = require('laravel-elixir');
 
 elixir.config.sourcemaps = false;
 
-elixir(function(mix) {
-});
 
 
 // Test launcher
 
 var gulp = require('gulp');
-var sys = require('sys');
 var exec = require('child_process').exec;
 var notify = require("gulp-notify");
 var gutil = require('gulp-util');

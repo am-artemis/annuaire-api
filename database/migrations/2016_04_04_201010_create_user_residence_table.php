@@ -12,7 +12,7 @@ class CreateUserResidenceTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_residence', function(Blueprint $table) {
+        Schema::create('user_residence', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('residence_id')->unsigned();
             $table->string('room', 10);

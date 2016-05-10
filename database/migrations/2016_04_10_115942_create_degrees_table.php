@@ -12,7 +12,7 @@ class CreateDegreesTable extends Migration
      */
     public function up()
     {
-        Schema::create('degrees', function(Blueprint $table) {
+        Schema::create('degrees', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 255)->nullable();
             $table->string('school', 255)->nullable();

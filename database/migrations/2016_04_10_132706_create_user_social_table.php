@@ -12,7 +12,7 @@ class CreateUserSocialTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_social', function(Blueprint $table) {
+        Schema::create('user_social', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('social_id')->unsigned();
             $table->text('url');
