@@ -40,7 +40,7 @@ class UserTransformer extends BaseTransformer
                 'gender' => $user->gender,
                 'mail' => $user->mail,
                 'phone' => $user->phone,
-                'photo' => $user->profilePicSrc(),
+                'photo' => $user->profile,
             ],
             'promo' => [
                 'campus' => $this->itemArray($user->campus, new CampusTransformer),

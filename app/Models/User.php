@@ -67,7 +67,7 @@ class User extends ApiModel
      *
      * @var array
      */
-    protected $hidden = ['id','auth_id', 'created_at', 'updated_at'];
+    protected $hidden = ['id', 'auth_id', 'created_at', 'updated_at'];
 
     /**
      * Tell if the model contains timestamps or if it doesn't.
@@ -97,12 +97,11 @@ class User extends ApiModel
     }
 
     /**
-     * Return the url shape of the profile picture if exists
-     * @return string
-     * TODO TARMAK : Refaire la fonction avec un getter (attention Foo::getProfilePicSrcAttribute => $foo->profile_pic_src)
-     * TODO TARMAK "assets/link/to/default/photo.jpg" ??
+     * Return the url to the user's profile photo. Return a default one if none is available
+     * @param $value
+     * @return string this->src
      */
-    public function profilePicSrc()
+    public function getProfileAttribute($value)
     {
         $photo = $this->photos()->where('type', 'profile')->orderBy('created_at', 'desc')->first();
 
