@@ -25,9 +25,9 @@ class ResidenceController extends Controller
      */
     public function index(Request $request)
     {
-        $residences = Residence::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
+        $residences = Residence::with(self::$relationships)->paginate($request->input('items', 30));
 
-        return $this->response->paginator($residences, new ResidenceTransformer);
+        return $residences;
     }
 
     /**
@@ -38,7 +38,7 @@ class ResidenceController extends Controller
      */
     public function show(Residence $residence)
     {
-        return $this->response->item($residence->load(self::$relationships), new ResidenceTransformer);
+        return $residence->load(self::$relationships);
     }
 
     /**

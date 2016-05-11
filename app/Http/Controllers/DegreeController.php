@@ -24,9 +24,9 @@ class DegreeController extends Controller
      */
     public function index(Request $request)
     {
-        $degrees = Degree::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
+        $degrees = Degree::with(self::$relationships)->paginate($request->input('items', 30));
 
-        return $this->response->paginator($degrees, new DegreeTransformer);
+        return $degrees;
     }
 
     /**
@@ -38,7 +38,7 @@ class DegreeController extends Controller
     public function show(Degree $degree)
     {
 
-        return $this->response->item($degree->load(self::$relationships), new DegreeTransformer);
+        return $degree->load(self::$relationships);
     }
 
     /**

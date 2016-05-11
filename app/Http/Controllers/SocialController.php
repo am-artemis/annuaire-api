@@ -24,9 +24,9 @@ class SocialController extends Controller
      */
     public function index(Request $request)
     {
-        $socials = Social::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
+        $socials = Social::with(self::$relationships)->paginate($request->input('items', 30));
 
-        return $this->response->paginator($socials, new SocialTransformer);
+        return $socials;
     }
 
     /**
@@ -37,7 +37,7 @@ class SocialController extends Controller
      */
     public function show(Social $social)
     {
-        return $this->response->item($social->load(self::$relationships), new SocialTransformer);
+        return $social->load(self::$relationships);
     }
 
     /**

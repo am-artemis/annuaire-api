@@ -24,9 +24,9 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
-        $jobs = Job::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
+        $jobs = Job::with(self::$relationships)->paginate($request->input('items', 30));
 
-        return $this->response->paginator($jobs, new JobTransformer);
+        return $jobs;
     }
 
     /**
@@ -37,7 +37,7 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        return $this->response->item($job->load(self::$relationships), new JobTransformer);
+        return $job->load(self::$relationships);
     }
 
     /**

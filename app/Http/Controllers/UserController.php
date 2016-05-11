@@ -26,9 +26,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
+        $users = User::with(self::$relationships)->paginate($request->input('items', 30));
 
-        return $this->response->paginator($users, new UserTransformer);
+        return $users;
     }
 
     /**
@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->response->item($user->load(self::$relationships), new UserTransformer);
+        return $user->load(self::$relationships);
     }
 
     /**

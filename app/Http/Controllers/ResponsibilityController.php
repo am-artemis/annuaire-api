@@ -24,9 +24,9 @@ class ResponsibilityController extends Controller
      */
     public function index(Request $request)
     {
-        $responsibilities = Responsibility::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
+        $responsibilities = Responsibility::with(self::$relationships)->paginate($request->input('items', 30));
 
-        return $this->response->paginator($responsibilities, new ResponsibilityTransformer);
+        return $responsibilities;
     }
 
     /**
@@ -37,7 +37,7 @@ class ResponsibilityController extends Controller
      */
     public function show(Responsibility $responsibility)
     {
-        return $this->response->item($responsibility->load(self::$relationships), new ResponsibilityTransformer);
+        return $responsibility->load(self::$relationships);
     }
 
     /**

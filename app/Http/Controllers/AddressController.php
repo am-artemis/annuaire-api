@@ -24,9 +24,9 @@ class AddressController extends Controller
      */
     public function index(Request $request)
     {
-        $addresses = Address::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
+        $addresses = Address::with(self::$relationships)->paginate($request->input('items', 30));
 
-        return $this->response->paginator($addresses, new AddressTransformer);
+        return $addresses;
     }
 
     /**
@@ -37,7 +37,7 @@ class AddressController extends Controller
      */
     public function show(Address $address)
     {
-        return $this->response->item($address->load(self::$relationships), new AddressTransformer);
+        return $address->load(self::$relationships);
     }
 
     /**

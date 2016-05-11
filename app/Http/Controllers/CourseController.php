@@ -24,9 +24,9 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        $courses = Course::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
+        $courses = Course::with(self::$relationships)->paginate($request->input('items', 30));
 
-        return $this->response->paginator($courses, new CourseTransformer);
+        return $courses;
     }
 
     /**
@@ -38,7 +38,7 @@ class CourseController extends Controller
     public function show(Course $course)
     {
 
-        return $this->response->item($course->load(self::$relationships), new CourseTransformer);
+        return $course->load(self::$relationships);
     }
 
     /**

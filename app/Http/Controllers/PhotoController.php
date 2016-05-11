@@ -25,9 +25,9 @@ class PhotoController extends Controller
      */
     public function index(Request $request)
     {
-        $users = Photo::with(self::$relationships)->paginate($request->input('items', 30))->appends($request->except('page'));
+        $users = Photo::with(self::$relationships)->paginate($request->input('items', 30));
 
-        return $this->response->paginator($users, new PhotoTransformer);
+        return $users;
     }
 
     /**
@@ -38,7 +38,7 @@ class PhotoController extends Controller
      */
     public function show(Photo $photo)
     {
-        return $this->response->item($photo->load(self::$relationships), new PhotoTransformer);
+        return $photo->load(self::$relationships);
     }
 
     /**
