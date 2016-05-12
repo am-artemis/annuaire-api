@@ -1,34 +1,28 @@
 <?php
 namespace Tests\Models;
 
-use App\Models\Campus;
 use Tests\TestCase;
+
+use App\Models\Campus;
+use App\Http\Transformers\CampusTransformer;
+
+use League\Fractal\Resource\Item;
 
 class CampusTransformerTest extends TestCase
 {
-
     public function setUp()
     {
         parent::setUp();
     }
 
-
-    public function testRecupererTousLesCampus()
+    public function testTransformer()
     {
-        /*
-         * TODO TARMAK : A refaire
-         * Ca test pas grand chose là, et c'est un hasard que ça marche.
-         * On fait à la fois controller pour le GET, et le transformer pour le json..
-         */
-        $campusArray = ['name' => 'Tabagn\'s de Clun\'s', 'city' => 'Cluny', 'short' => 'Clun\'s', 'prefix' => 'cl', 'address' => 'Rue porte de Paris, 71250 Cluny', 'lat' => 46.2157467, 'lng' => 2.2088258, 'photo' => 'campus/cluns.jpg'];
-        Campus::create($campusArray);
+        $campus = factory(Campus::class)->make();
 
-        $this->json('GET', 'campuses');
+        $transformed = new Item($campus, new CampusTransformer);
 
-        $this->assertResponseOk();
-        $this->assertCount(1, $this->jsonResponse('data'));
-        $this->seeJson($campusArray);
+        $array = $this->serialize($transformed);
+
+        $this->assertTrue(is_array($array));
     }
-
-
 }

@@ -106,3 +106,18 @@ $factory->define(App\Models\Job::class, function ($faker) {
         'to' => [Carbon\Carbon::now()->subMonths(rand(-20, 16))->subDays(rand(0, 30)), null][rand(0, 1)],
     ];
 });
+
+$factory->define(App\Models\Campus::class, function ($faker) {
+    $city = ucfirst($faker->word);
+    return [
+        'name' => ['Tabagn\'s', 'KIN', 'Jardin', 'Boquette', 'Institut', 'Campus'][rand(0, 5)] . ' de ' . $city,
+        'city' => $city,
+        'short' => preg_replace('#(?<=[bcdfghjklmnpqrstvwxz])[aeiouy]+[nmts]{0,1}$#', '$1\'s', $city),
+        'prefix' => substr(strtolower($city), 0, 2),
+        'address' => 'Rue Jenesaisquoi, ' . rand(10000, 99999) . ' ' . $city,
+        'lat' => $faker->latitude(-90, 90),
+        'lng' => $faker->longitude(-180, 180),
+        'photo' => 'campus/' . strtolower($city) . '.jpg',
+    ];
+});
+    

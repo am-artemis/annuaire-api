@@ -10,6 +10,9 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
 
+use League\Fractal\Manager;
+use League\Fractal\Serializer\DataArraySerializer;
+
 class TestCase extends LaravelTestCase
 {
     use DatabaseMigrations;
@@ -80,5 +83,19 @@ class TestCase extends LaravelTestCase
         } else {
             return $response;
         }
+    }
+
+    /**
+     * Return the response json as an array or a specific inside this response
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    protected function serialize($resource)
+    {
+        $manager = new Manager();
+        $manager->setSerializer(new DataArraySerializer());
+
+        return $manager->createData($resource)->toArray();
     }
 }
