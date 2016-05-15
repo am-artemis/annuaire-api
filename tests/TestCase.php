@@ -11,7 +11,9 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
 
 use League\Fractal\Manager;
+use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\DataArraySerializer;
+
 
 class TestCase extends LaravelTestCase
 {
@@ -91,10 +93,13 @@ class TestCase extends LaravelTestCase
      * @param  string  $key
      * @return mixed
      */
-    protected function serialize($resource)
+    public static function transformItem($data = null, $transformer = null, $resourceKey = null)
     {
+        // Set up tools to tranform
         $manager = new Manager();
         $manager->setSerializer(new DataArraySerializer());
+
+        $resource = new Item($data, $transformer, $resourceKey);
 
         return $manager->createData($resource)->toArray();
     }

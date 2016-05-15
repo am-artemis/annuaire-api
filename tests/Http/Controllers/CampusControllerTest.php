@@ -23,9 +23,18 @@ class CampusControllerTest extends TestCase
         $this->assertResponseOk();
         $this->assertCount($nb, $this->jsonResponse('data'));
 
-        foreach ($campuses as $campus) {
-            $this->seeJson($campus->jsonSerialize());
-        }
+        $expectedJsonStruture = [
+            'data' => [
+                ['self', 'id', 'name', 'city', 'short', 'prep', 'prefix', 'address', 'pos', 'photo']
+            ],
+            'meta' => [
+                "pagination" => [
+                    "total", "count", "per_page", "current_page", "total_pages", "links"
+                ],
+            ],
+        ];
+
+        $this->seeJsonStructure($expectedJsonStruture);
     }
 
     public function testShow()
@@ -35,6 +44,11 @@ class CampusControllerTest extends TestCase
         $this->json('GET', implode('/', ['campuses', $campus->id]));
 
         $this->assertResponseOk();
-        $this->seeJson($campus->jsonSerialize());
+
+        $expectedJsonStruture = [
+            'data' => ['self', 'id', 'name', 'city', 'short', 'prep', 'prefix', 'address', 'pos', 'photo']
+        ];
+
+        $this->seeJsonStructure($expectedJsonStruture);
     }
 }
