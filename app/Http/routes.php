@@ -40,7 +40,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers'], function ($api) {
     $api->resources([
         'users' => ['UserController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
         'campuses' => ['CampusController', ['only' => ['index', 'show']]],
-        'photos' => ['PhotoController', ['only' => ['index', 'show']]],
+        'photos' => ['PhotoController', ['only' => ['index', 'show', 'destroy']]],
         'addresses' => ['AddressController', ['only' => ['index', 'show', 'destroy']]],
         'residences' => ['ResidenceController', ['only' => ['index', 'show']]],
         'courses' => ['CourseController', ['only' => ['index', 'show']]],
