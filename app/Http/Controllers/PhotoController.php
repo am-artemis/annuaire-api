@@ -73,5 +73,7 @@ class PhotoController extends Controller
     public function destroy(Photo $photo)
     {
         $photo->delete();
+
+        return $this->response->accepted('Resource was deleted.');
     }
 }
