@@ -38,7 +38,7 @@ class UserTransformer extends BaseTransformer
                 'lastname' => $user->lastname,
                 'birthday' => $user->birthday->format('Y-m-d'),
                 'gender' => $user->gender,
-                'mail' => $user->mail,
+                'email' => $user->email,
                 'phone' => $user->phone,
                 'photo' => $user->profile,
             ],

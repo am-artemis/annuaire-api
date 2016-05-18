@@ -71,22 +71,22 @@ class Campus extends ApiModel
         return $this->hasMany('App\Models\User', 'campus_id');
     }
 
-/* Pas d'autre classes pour le moment
-    public function courses()
-    {
-        return $this->hasMany('App\Models\Course', 'campus_id');
-    }
-
-    public function users()
-    {
-        // return $this->hasManyThrough('App\Models\User', 'App\Models\Gadz');
-        return $this->belongsToMany('App\Models\User', 'gadz', 'campus_id', 'user_id');
-    }
-
-    public function rezams()
-    {
-        return $this->hasMany('App\Models\Residence', 'campus_id');
-    }
-
-*/
+    /* Pas d'autre classes pour le moment
+        public function courses()
+        {
+            return $this->hasMany('App\Models\Course', 'campus_id');
+        }
+    
+        public function users()
+        {
+            // return $this->hasManyThrough('App\Models\User', 'App\Models\Gadz');
+            return $this->belongsToMany('App\Models\User', 'gadz', 'campus_id', 'user_id');
+        }
+    
+        public function rezams()
+        {
+            return $this->hasMany('App\Models\Residence', 'campus_id');
+        }
+    
+    */
 }

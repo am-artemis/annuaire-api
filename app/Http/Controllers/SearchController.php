@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Transformers\UserTransformer;
 
 use Illuminate\Support\Collection;
 
@@ -23,10 +22,14 @@ class SearchController extends Controller
      * Search users and display results
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|Collection|static
      */
     public function index(Request $request)
     {
+        if (!$request->has('q')) {
+            return $this->response->noContent();
+        }
+
         $q = $request->input('q');
 
         // Temporaire, renvoi tous les users
@@ -35,7 +38,7 @@ class SearchController extends Controller
         }
 
         // relations dans lesquelles chercher
-        $where = ['firstname', 'lastname', 'mail', 'phone', 'gadz.buque', 'gadz.fams', 'gadz.famsSearch', 'campus.city','year'];
+        $where = ['firstname', 'lastname', 'email', 'phone', 'gadz.buque', 'gadz.fams', 'gadz.famsSearch', 'campus.city','year'];
         
         $users = new Collection();
 
@@ -51,7 +54,7 @@ class SearchController extends Controller
                         $query->where($w, 'like', "%$term%");
                     });
                 } else {
-                    $query->orwhere($w, 'like', "%$term%");
+                    $query->orWhere($w, 'like', "%$term%");
                 }
             }
 

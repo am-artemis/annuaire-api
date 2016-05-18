@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+
 // Extends are done in ApiModel such as Illuminate\Database\Eloquent\Model
 
 /**
@@ -14,7 +17,7 @@ namespace App\Models;
  * @property integer $year
  * @property integer $campus_id
  * @property string $gender
- * @property string $mail
+ * @property string $email
  * @property string $phone
  * @property string $tags
  * @property \Carbon\Carbon $created_at
@@ -36,46 +39,44 @@ namespace App\Models;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereYear($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCampusId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereGender($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereMail($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePhone($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereTags($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Responsibility[] $responsibilities
+ * @property-read mixed $profile
  */
-class User extends ApiModel
+class User extends ApiModel implements AuthenticatableContract
 {
-    /**
-     * The table name used for the model.
-     *
-     * @var array
-     */
-    protected $table = 'users';
+    use Authenticatable;
 
     public $incrementing = false;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['firstname', 'lastname', 'year', 'gender', 'mail', 'phone', 'campus_id', 'birthday', 'tags'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['id', 'auth_id', 'created_at', 'updated_at'];
-
     /**
      * Tell if the model contains timestamps or if it doesn't.
      *
      * @var array
      */
     public $timestamps = true;
-
+    /**
+     * The table name used for the model.
+     *
+     * @var array
+     */
+    protected $table = 'users';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['firstname', 'lastname', 'year', 'gender', 'email', 'phone', 'campus_id', 'birthday', 'tags'];
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['id', 'auth_id', 'created_at', 'updated_at'];
     /**
      * List of other dates to convert into Carbon objects.
      *
@@ -98,7 +99,9 @@ class User extends ApiModel
 
     /**
      * Return the url to the user's profile photo. Return a default one if none is available
+     *
      * @param $value
+     *
      * @return string this->src
      */
     public function getProfileAttribute($value)
@@ -112,20 +115,19 @@ class User extends ApiModel
         }
     }
 
+    public function photos()
+    {
+        return $this->hasMany('App\Models\Photo', 'user_id');
+    }
+
     public function campus()
     {
         return $this->belongsTo('App\Models\Campus', 'campus_id');
     }
 
-
     public function gadz()
     {
         return $this->hasOne('App\Models\Gadz', 'user_id');
-    }
-
-    public function photos()
-    {
-        return $this->hasMany('App\Models\Photo', 'user_id');
     }
 
     public function addresses()

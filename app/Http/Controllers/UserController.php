@@ -22,6 +22,7 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -35,6 +36,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param User $user
+     *
      * @return Response
      */
     public function show(User $user)
@@ -46,6 +48,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     *
      * @return Response
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
@@ -61,20 +64,20 @@ class UserController extends Controller
         $rules = [
             // Contact
             'contact.firstname' => 'required|alpha',
-            'contact.lastname' => 'required|alpha',
-            'contact.gender' => 'in:m,f,null',
-            'contact.mail' => 'required|email',
-            'contact.phone' => 'required|string|regex:#^0[1-9][0-9]{8}$#',
+            'contact.lastname'  => 'required|alpha',
+            'contact.gender'    => 'in:m,f,null',
+            'contact.email'     => 'required|email',
+            'contact.phone'     => 'required|string|regex:#^0[1-9][0-9]{8}$#',
 
             // Promo
-            'promo.campus.id' => 'exists:campuses,id',
-            'promo.year' => 'required|regex:#^20[0-9]{2}$#',
+            'promo.campus.id'   => 'exists:campuses,id',
+            'promo.year'        => 'required|regex:#^20[0-9]{2}$#',
         ];
 
         if ($request->has('gadz')) {
             $gadz_rules = [
-                'gadz.buque' => 'required|alpha',
-                'gadz.fams' => 'required',
+                'gadz.buque'      => 'required|alpha',
+                'gadz.fams'       => 'required',
                 'gadz.famsSearch' => 'required|regex:#^[0-9]{1,3}(,[0-9]{1,3})*$#',
             ];
             $rules = array_merge($rules, $gadz_rules);
@@ -112,6 +115,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param User $user
+     *
      * @return Response
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
@@ -125,10 +129,10 @@ class UserController extends Controller
         if ($request->has('contact')) {
             $rules = array_merge($rules, [
                 'contact.firstname' => 'required|alpha',
-                'contact.lastname' => 'required|alpha',
-                'contact.gender' => 'in:m,f,null',
-                'contact.mail' => 'required|email',
-                'contact.phone' => 'required|string|regex:#^0[1-9][0-9]{8}$#',
+                'contact.lastname'  => 'required|alpha',
+                'contact.gender'    => 'in:m,f,null',
+                'contact.email'     => 'required|email',
+                'contact.phone'     => 'required|string|regex:#^0[1-9][0-9]{8}$#',
             ]);
 
             $user_data = $request->input('contact');
@@ -139,7 +143,7 @@ class UserController extends Controller
         if ($request->has('promo')) {
             $rules = array_merge($rules, [
                 'promo.campus.id' => 'exists:campuses,id',
-                'promo.year' => 'required|regex:#^20[0-9]{2}$#',
+                'promo.year'      => 'required|regex:#^20[0-9]{2}$#',
             ]);
 
             $user_data['campus_id'] = $request->input('promo.campus.id');
@@ -148,8 +152,8 @@ class UserController extends Controller
 
         if ($request->has('gadz')) {
             $rules = array_merge($rules, [
-                'gadz.buque' => 'required|alpha',
-                'gadz.fams' => 'required',
+                'gadz.buque'      => 'required|alpha',
+                'gadz.fams'       => 'required',
                 'gadz.famsSearch' => 'required|regex:#^[0-9]{1,3}(,[0-9]{1,3})*$#',
             ]);
         }
@@ -182,6 +186,7 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param User $user
+     *
      * @return Response
      */
     public function destroy(User $user)

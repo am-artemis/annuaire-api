@@ -88,7 +88,7 @@ class TestCase extends LaravelTestCase
     /**
      * Return the response json as an array or a specific inside this response
      *
-     * @param  string  $key
+     * @param string $resource
      * @return mixed
      */
     protected function serialize($resource)

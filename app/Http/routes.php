@@ -1,5 +1,5 @@
 <?php
-
+use Dingo\Api\Routing\Router;
 
 Route::singularResourceParameters();
 Route::get('/', ['as' => 'home', function () {
@@ -32,21 +32,25 @@ app('Dingo\Api\Transformer\Factory')->register('App\Models\Social', 'App\Http\Tr
 |
 */
 
-$api = app('Dingo\Api\Routing\Router');
-$api->version('v1', ['namespace' => 'App\Http\Controllers'], function ($api) {
-    // Recherche temporaire
-    $api->get('search', ['as' => 'search', 'uses' => 'SearchController@index']);
-    
-    $api->resources([
-        'users' => ['UserController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
-        'campuses' => ['CampusController', ['only' => ['index', 'show']]],
-        'photos' => ['PhotoController', ['only' => ['index', 'show']]],
-        'addresses' => ['AddressController', ['only' => ['index', 'show', 'destroy']]],
-        'residences' => ['ResidenceController', ['only' => ['index', 'show']]],
-        'courses' => ['CourseController', ['only' => ['index', 'show']]],
-        'degrees' => ['DegreeController', ['only' => ['index', 'show']]],
-        'responsibilities' => ['ResponsibilityController', ['only' => ['index', 'show']]],
-        'jobs' => ['JobController', ['only' => ['index', 'show']]],
-        'socials' => ['SocialController', ['only' => ['index', 'show']]],
-    ]);
+$api = app(Router::class);
+$api->version('v1', ['namespace' => 'App\Http\Controllers'], function (Router $api) {
+
+    $api->resources(['auth' => ['AuthController', ['only' => ['store']]]]);
+
+    $api->group(['middleware' => 'api.auth'], function (Router $api) {
+
+        $api->resources([
+            'search'           => ['SearchController', ['only' => ['index']]],
+            'users'            => ['UserController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
+            'campuses'         => ['CampusController', ['only' => ['index', 'show']]],
+            'photos'           => ['PhotoController', ['only' => ['index', 'show']]],
+            'addresses'        => ['AddressController', ['only' => ['index', 'show', 'destroy']]],
+            'residences'       => ['ResidenceController', ['only' => ['index', 'show']]],
+            'courses'          => ['CourseController', ['only' => ['index', 'show']]],
+            'degrees'          => ['DegreeController', ['only' => ['index', 'show']]],
+            'responsibilities' => ['ResponsibilityController', ['only' => ['index', 'show']]],
+            'jobs'             => ['JobController', ['only' => ['index', 'show']]],
+            'socials'          => ['SocialController', ['only' => ['index', 'show']]],
+        ]);
+    });
 });

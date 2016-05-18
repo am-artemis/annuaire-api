@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Transformers\AddressTransformer;
-
 use App\Models\Address;
 use Request;
 

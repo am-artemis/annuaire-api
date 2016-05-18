@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('year');
             $table->integer('campus_id')->unsigned();
             $table->enum('gender', ['m', 'f'])->nullable();
-            $table->string('mail', 100)->unique();
+            $table->string('email', 100)->unique();
             $table->string('phone', 50);
             $table->text('tags')->nullable();
             $table->timestamps();

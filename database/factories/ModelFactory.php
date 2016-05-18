@@ -19,7 +19,7 @@ $factory->define(App\Models\User::class, function ($faker) {
         'birthday' => Carbon\Carbon::now()->subYears(rand(17, 25))->subDays(rand(0, 365)),
         'campus_id' => App\Models\Campus::whereNull('prefix', 'and', true)->get(['id'])->random()->id,
         'gender' => [null, 'm', 'f'][rand(0, 2)],
-        'mail' => $faker->email,
+        'email' => $faker->email,
         'phone' => '06'.str_pad(rand(1, pow(10, 8)), 8, '0', STR_PAD_LEFT),
         'tags' => rand(0, 4) ? implode(',', $faker->words(rand(2, 7))) : null,
         'created_at' => Carbon\Carbon::now(),
