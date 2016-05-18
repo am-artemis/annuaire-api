@@ -48,7 +48,7 @@ $factory->define(App\Models\Photo::class, function ($faker) {
         'title' => $faker->sentence(rand(4, 8), true),
     ];
 });
-
+    
 $factory->define(App\Models\Address::class, function ($faker) {
     return [
         'name' => $faker->sentence(5),
