@@ -18,7 +18,7 @@ class CampusControllerTest extends TestCase
 
         $campuses = factory(Campus::class, $nb)->create();
 
-        $this->json('GET', 'campuses');
+        $this->jsonWithJWT('GET', 'campuses');
 
         $this->assertResponseOk();
         $this->assertCount($nb, $this->jsonResponse('data'));
@@ -41,7 +41,7 @@ class CampusControllerTest extends TestCase
     {
         $campus = factory(Campus::class)->create();
 
-        $this->json('GET', implode('/', ['campuses', $campus->id]));
+        $this->jsonWithJWT('GET', implode('/', ['campuses', $campus->id]));
 
         $this->assertResponseOk();
 

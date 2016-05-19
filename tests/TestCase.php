@@ -13,6 +13,7 @@ use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\DataArraySerializer;
+use Tymon\JWTAuth\JWTAuth;
 
 
 class TestCase extends LaravelTestCase
@@ -85,6 +86,44 @@ class TestCase extends LaravelTestCase
         } else {
             return $response;
         }
+    }
+
+    /**
+     * Visit the given URI with a JSON request with the JWT of the authenticated user
+     *
+     * @param  string $method
+     * @param  string $uri
+     * @param  array  $data
+     * @param  array  $headers
+     *
+     * @return $this
+     */
+    protected function jsonWithJWT($method, $uri, $data = [], $headers = [])
+    {
+        $this->user = $this->user ?: factory(User::class)->create();
+        $auth = $this->app->make(JWTAuth::class);
+        $token = $auth->fromUser($this->user);
+
+        return $this->json($method, $uri, $data, $headers + ['Authorization' => 'Bearer ' . $token]);
+    }
+
+    /**
+     * Asserts that a response contains a valid JWT
+     *
+     * @return void
+     */
+    protected function assertResponseContainsValidToken()
+    {
+        $auth = $this->app->make(JWTAuth::class);
+        try {
+            $this->seeJsonStructure(['token']);
+            $token = $this->decodeResponseJson()['token'];
+        } catch (\Exception $e) {
+            $this->seeHeader('Authorization');
+            $token = trim(str_ireplace('bearer', '', $this->response->headers->get('Authorization')));
+        }
+
+        $this->assertInstanceOf(User::class, $auth->toUser($token));
     }
 
     /**

@@ -29,7 +29,7 @@ class PhotoControllerTest extends TestCase
             $photo->user()->associate($user)->save();
         });
 
-        $this->json('GET', 'photos');
+        $this->jsonWithJWT('GET', 'photos');
 
         $this->assertResponseOk();
         $this->assertCount($nb, $this->jsonResponse('data'));
@@ -54,7 +54,7 @@ class PhotoControllerTest extends TestCase
         $photo = factory(Photo::class)->make();
         $photo->user()->associate($user)->save();
 
-        $this->json('GET', implode('/', ['photos', $photo->id]));
+        $this->jsonWithJWT('GET', implode('/', ['photos', $photo->id]));
 
         $this->assertResponseOk();
 
@@ -71,8 +71,7 @@ class PhotoControllerTest extends TestCase
         $photo = factory(Photo::class)->make();
         $photo->user()->associate($user)->save();
 
-        $this->delete(implode('/', ['photos', $photo->id]));
-
+        $this->jsonWithJWT('DELETE', implode('/', ['photos', $photo->id]));
         $this->assertResponseStatus(202);
 
         $this->assertTrue(is_null(Photo::find($photo->id)));
