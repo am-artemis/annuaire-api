@@ -35,9 +35,10 @@ app('Dingo\Api\Transformer\Factory')->register('App\Models\Social', 'App\Http\Tr
 $api = app(Router::class);
 $api->version('v1', ['namespace' => 'App\Http\Controllers'], function (Router $api) {
 
-    $api->resources(['auth' => ['AuthController', ['only' => ['store']]]]);
+    $api->put('/auth', ['as' => 'auth.update', 'uses' => 'AuthController@update']);
+    $api->post('/auth', ['as' => 'auth.store', 'uses' => 'AuthController@store']);
 
-    $api->group(['middleware' => 'api.auth'], function (Router $api) {
+    $api->group(['middleware' => 'jwt.auth'], function (Router $api) {
 
         $api->resources([
             'search'           => ['SearchController', ['only' => ['index']]],

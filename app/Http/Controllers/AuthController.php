@@ -20,6 +20,7 @@ class AuthController extends Controller
     public function __construct(JWTAuth $auth)
     {
         $this->auth = $auth;
+        $this->middleware('jwt.refresh', ['only' => ['update']]);
     }
 
     public function store(AuthStoreRequest $request)
@@ -40,7 +41,7 @@ class AuthController extends Controller
         return response()->json(compact('user', 'token'));
     }
 
-    public function refresh()
+    public function update()
     {
         return response(null, 204);
     }
