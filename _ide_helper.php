@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.31 on 2016-05-18.
+ * Generated for Laravel 5.2.34 on 2016-05-28.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1339,7 +1339,7 @@ namespace {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\User|null 
          * @static 
          */
         public static function user(){
@@ -1443,7 +1443,7 @@ namespace {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \App\User 
+         * @return \App\Models\User 
          * @static 
          */
         public static function loginUsingId($id, $remember = false){
@@ -1548,7 +1548,7 @@ namespace {
         /**
          * Return the currently cached user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\User|null 
          * @static 
          */
         public static function getUser(){
@@ -1559,11 +1559,11 @@ namespace {
          * Set the current user.
          *
          * @param \Illuminate\Contracts\Auth\Authenticatable $user
-         * @return void 
+         * @return $this 
          * @static 
          */
         public static function setUser($user){
-            \Illuminate\Auth\SessionGuard::setUser($user);
+            return \Illuminate\Auth\SessionGuard::setUser($user);
         }
         
         /**
@@ -1590,7 +1590,7 @@ namespace {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \App\User 
+         * @return \App\Models\User 
          * @static 
          */
         public static function getLastAttempted(){
@@ -1645,6 +1645,17 @@ namespace {
          */
         public static function guest(){
             return \Illuminate\Auth\SessionGuard::guest();
+        }
+        
+        /**
+         * Determine if the current user is authenticated.
+         *
+         * @return \App\Models\User 
+         * @throws \Illuminate\Auth\AuthenticationException
+         * @static 
+         */
+        public static function authenticate(){
+            return \Illuminate\Auth\SessionGuard::authenticate();
         }
         
     }
@@ -2777,6 +2788,20 @@ namespace {
         }
         
         /**
+         * Run a select statement against the database and returns a generator.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param bool $useReadPdo
+         * @return \Generator 
+         * @static 
+         */
+        public static function cursor($query, $bindings = array(), $useReadPdo = true){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::cursor($query, $bindings, $useReadPdo);
+        }
+        
+        /**
          * Run an insert statement against the database.
          *
          * @param string $query
@@ -2882,6 +2907,7 @@ namespace {
          * Start a new database transaction.
          *
          * @return void 
+         * @throws Exception
          * @static 
          */
         public static function beginTransaction(){
@@ -3402,6 +3428,16 @@ namespace {
         }
         
         /**
+         * Get an array of global scopes that were removed from the query.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function removedScopes(){
+            return \Illuminate\Database\Eloquent\Builder::removedScopes();
+        }
+        
+        /**
          * Find a model by its primary key.
          *
          * @param mixed $id
@@ -3530,6 +3566,16 @@ namespace {
         }
         
         /**
+         * Get a generator for the given query.
+         *
+         * @return \Generator 
+         * @static 
+         */
+        public static function cursor(){
+            return \Illuminate\Database\Eloquent\Builder::cursor();
+        }
+        
+        /**
          * Chunk the results of the query.
          *
          * @param int $count
@@ -3612,11 +3658,12 @@ namespace {
          * @param int $perPage
          * @param array $columns
          * @param string $pageName
+         * @param int|null $page
          * @return \Illuminate\Contracts\Pagination\Paginator 
          * @static 
          */
-        public static function simplePaginate($perPage = null, $columns = array(), $pageName = 'page'){
-            return \Illuminate\Database\Eloquent\Builder::simplePaginate($perPage, $columns, $pageName);
+        public static function simplePaginate($perPage = null, $columns = array(), $pageName = 'page', $page = null){
+            return \Illuminate\Database\Eloquent\Builder::simplePaginate($perPage, $columns, $pageName, $page);
         }
         
         /**
@@ -3650,6 +3697,18 @@ namespace {
          */
         public static function eagerLoadRelations($models){
             return \Illuminate\Database\Eloquent\Builder::eagerLoadRelations($models);
+        }
+        
+        /**
+         * Apply the callback's query changes if the given "value" is true.
+         *
+         * @param bool $value
+         * @param \Closure $callback
+         * @return $this 
+         * @static 
+         */
+        public static function when($value, $callback){
+            return \Illuminate\Database\Eloquent\Builder::when($value, $callback);
         }
         
         /**
@@ -3758,6 +3817,17 @@ namespace {
          */
         public static function orWhereHas($relation, $callback, $operator = '>=', $count = 1){
             return \Illuminate\Database\Eloquent\Builder::orWhereHas($relation, $callback, $operator, $count);
+        }
+        
+        /**
+         * Add subselect queries to count the relations.
+         *
+         * @param mixed $relations
+         * @return $this 
+         * @static 
+         */
+        public static function withCount($relations){
+            return \Illuminate\Database\Eloquent\Builder::withCount($relations);
         }
         
         /**
@@ -4036,15 +4106,30 @@ namespace {
         }
         
         /**
-         * Apply the callback's query changes if the given "value" is true.
+         * Add a "where" clause comparing two columns to the query.
          *
-         * @param bool $value
-         * @param \Closure $callback
-         * @return \Illuminate\Database\Query\Builder 
+         * @param string|array $first
+         * @param string|null $operator
+         * @param string|null $second
+         * @param string|null $boolean
+         * @return \Illuminate\Database\Query\Builder|static 
          * @static 
          */
-        public static function when($value, $callback){
-            return \Illuminate\Database\Query\Builder::when($value, $callback);
+        public static function whereColumn($first, $operator = null, $second = null, $boolean = 'and'){
+            return \Illuminate\Database\Query\Builder::whereColumn($first, $operator, $second, $boolean);
+        }
+        
+        /**
+         * Add an "or where" clause comparing two columns to the query.
+         *
+         * @param string|array $first
+         * @param string|null $operator
+         * @param string|null $second
+         * @return \Illuminate\Database\Query\Builder|static 
+         * @static 
+         */
+        public static function orWhereColumn($first, $operator = null, $second = null){
+            return \Illuminate\Database\Query\Builder::orWhereColumn($first, $operator, $second);
         }
         
         /**
@@ -4492,6 +4577,17 @@ namespace {
          */
         public static function oldest($column = 'created_at'){
             return \Illuminate\Database\Query\Builder::oldest($column);
+        }
+        
+        /**
+         * Put the query's results in random order.
+         *
+         * @param string $seed
+         * @return $this 
+         * @static 
+         */
+        public static function inRandomOrder($seed = ''){
+            return \Illuminate\Database\Query\Builder::inRandomOrder($seed);
         }
         
         /**
@@ -5375,11 +5471,12 @@ namespace {
          * Get all of the files from the given directory (recursive).
          *
          * @param string $directory
+         * @param bool $hidden
          * @return array 
          * @static 
          */
-        public static function allFiles($directory){
-            return \Illuminate\Filesystem\Filesystem::allFiles($directory);
+        public static function allFiles($directory, $hidden = false){
+            return \Illuminate\Filesystem\Filesystem::allFiles($directory, $hidden);
         }
         
         /**
@@ -6525,11 +6622,10 @@ namespace {
          * @param mixed $data
          * @param string $queue
          * @return mixed 
-         * @throws \Exception|\Throwable
          * @static 
          */
         public static function push($job, $data = '', $queue = null){
-            return \Illuminate\Queue\SyncQueue::push($job, $data, $queue);
+            return \Illuminate\Queue\DatabaseQueue::push($job, $data, $queue);
         }
         
         /**
@@ -6542,7 +6638,7 @@ namespace {
          * @static 
          */
         public static function pushRaw($payload, $queue = null, $options = array()){
-            return \Illuminate\Queue\SyncQueue::pushRaw($payload, $queue, $options);
+            return \Illuminate\Queue\DatabaseQueue::pushRaw($payload, $queue, $options);
         }
         
         /**
@@ -6552,11 +6648,37 @@ namespace {
          * @param string $job
          * @param mixed $data
          * @param string $queue
-         * @return mixed 
+         * @return void 
          * @static 
          */
         public static function later($delay, $job, $data = '', $queue = null){
-            return \Illuminate\Queue\SyncQueue::later($delay, $job, $data, $queue);
+            \Illuminate\Queue\DatabaseQueue::later($delay, $job, $data, $queue);
+        }
+        
+        /**
+         * Push an array of jobs onto the queue.
+         *
+         * @param array $jobs
+         * @param mixed $data
+         * @param string $queue
+         * @return mixed 
+         * @static 
+         */
+        public static function bulk($jobs, $data = '', $queue = null){
+            return \Illuminate\Queue\DatabaseQueue::bulk($jobs, $data, $queue);
+        }
+        
+        /**
+         * Release a reserved job back onto the queue.
+         *
+         * @param string $queue
+         * @param \StdClass $job
+         * @param int $delay
+         * @return mixed 
+         * @static 
+         */
+        public static function release($queue, $job, $delay){
+            return \Illuminate\Queue\DatabaseQueue::release($queue, $job, $delay);
         }
         
         /**
@@ -6567,7 +6689,50 @@ namespace {
          * @static 
          */
         public static function pop($queue = null){
-            return \Illuminate\Queue\SyncQueue::pop($queue);
+            return \Illuminate\Queue\DatabaseQueue::pop($queue);
+        }
+        
+        /**
+         * Delete a reserved job from the queue.
+         *
+         * @param string $queue
+         * @param string $id
+         * @return void 
+         * @static 
+         */
+        public static function deleteReserved($queue, $id){
+            \Illuminate\Queue\DatabaseQueue::deleteReserved($queue, $id);
+        }
+        
+        /**
+         * Get the underlying database instance.
+         *
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function getDatabase(){
+            return \Illuminate\Queue\DatabaseQueue::getDatabase();
+        }
+        
+        /**
+         * Get the expiration time in seconds.
+         *
+         * @return int|null 
+         * @static 
+         */
+        public static function getExpire(){
+            return \Illuminate\Queue\DatabaseQueue::getExpire();
+        }
+        
+        /**
+         * Set the expiration time in seconds.
+         *
+         * @param int|null $seconds
+         * @return void 
+         * @static 
+         */
+        public static function setExpire($seconds){
+            \Illuminate\Queue\DatabaseQueue::setExpire($seconds);
         }
         
         /**
@@ -6581,7 +6746,7 @@ namespace {
          */
         public static function pushOn($queue, $job, $data = ''){
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::pushOn($queue, $job, $data);
+            return \Illuminate\Queue\DatabaseQueue::pushOn($queue, $job, $data);
         }
         
         /**
@@ -6596,21 +6761,7 @@ namespace {
          */
         public static function laterOn($queue, $delay, $job, $data = ''){
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::laterOn($queue, $delay, $job, $data);
-        }
-        
-        /**
-         * Push an array of jobs onto the queue.
-         *
-         * @param array $jobs
-         * @param mixed $data
-         * @param string $queue
-         * @return mixed 
-         * @static 
-         */
-        public static function bulk($jobs, $data = '', $queue = null){
-            //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::bulk($jobs, $data, $queue);
+            return \Illuminate\Queue\DatabaseQueue::laterOn($queue, $delay, $job, $data);
         }
         
         /**
@@ -6622,7 +6773,7 @@ namespace {
          */
         public static function setContainer($container){
             //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\SyncQueue::setContainer($container);
+            \Illuminate\Queue\DatabaseQueue::setContainer($container);
         }
         
         /**
@@ -6634,7 +6785,7 @@ namespace {
          */
         public static function setEncrypter($crypt){
             //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\SyncQueue::setEncrypter($crypt);
+            \Illuminate\Queue\DatabaseQueue::setEncrypter($crypt);
         }
         
     }
@@ -9346,6 +9497,28 @@ namespace {
         }
         
         /**
+         * Enable foreign key constraints.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function enableForeignKeyConstraints(){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::enableForeignKeyConstraints();
+        }
+        
+        /**
+         * Disable foreign key constraints.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function disableForeignKeyConstraints(){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::disableForeignKeyConstraints();
+        }
+        
+        /**
          * Get the database connection instance.
          *
          * @return \Illuminate\Database\Connection 
@@ -11171,6 +11344,233 @@ namespace {
          */
         public static function setRefreshFlow($refreshFlow = true){
             return \Tymon\JWTAuth\PayloadFactory::setRefreshFlow($refreshFlow);
+        }
+        
+    }
+
+
+    class Cloudder extends \JD\Cloudder\Facades\Cloudder{
+        
+        /**
+         * Get cloudinary class.
+         *
+         * @return \Cloudinary 
+         * @static 
+         */
+        public static function getCloudinary(){
+            return \JD\Cloudder\CloudinaryWrapper::getCloudinary();
+        }
+        
+        /**
+         * Get cloudinary uploader.
+         *
+         * @return \Cloudinary\Uploader 
+         * @static 
+         */
+        public static function getUploader(){
+            return \JD\Cloudder\CloudinaryWrapper::getUploader();
+        }
+        
+        /**
+         * Get cloudinary api
+         *
+         * @return \Cloudinary\Api 
+         * @static 
+         */
+        public static function getApi(){
+            return \JD\Cloudder\CloudinaryWrapper::getApi();
+        }
+        
+        /**
+         * Upload image to cloud.
+         *
+         * @param mixed $source
+         * @param string $publicId
+         * @param array $uploadOptions
+         * @param array $tags
+         * @return \JD\Cloudder\CloudinaryWrapper 
+         * @static 
+         */
+        public static function upload($source, $publicId = null, $uploadOptions = array(), $tags = array()){
+            return \JD\Cloudder\CloudinaryWrapper::upload($source, $publicId, $uploadOptions, $tags);
+        }
+        
+        /**
+         * Upload video to cloud.
+         *
+         * @param mixed $source
+         * @param string $publicId
+         * @param array $uploadOptions
+         * @param array $tags
+         * @return \JD\Cloudder\CloudinaryWrapper 
+         * @static 
+         */
+        public static function uploadVideo($source, $publicId = null, $uploadOptions = array(), $tags = array()){
+            return \JD\Cloudder\CloudinaryWrapper::uploadVideo($source, $publicId, $uploadOptions, $tags);
+        }
+        
+        /**
+         * Uploaded result.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getResult(){
+            return \JD\Cloudder\CloudinaryWrapper::getResult();
+        }
+        
+        /**
+         * Uploaded public ID.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getPublicId(){
+            return \JD\Cloudder\CloudinaryWrapper::getPublicId();
+        }
+        
+        /**
+         * Display resource through https.
+         *
+         * @param string $publicId
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function show($publicId, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::show($publicId, $options);
+        }
+        
+        /**
+         * Display resource through https.
+         *
+         * @param string $publicId
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function secureShow($publicId, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::secureShow($publicId, $options);
+        }
+        
+        /**
+         * Display private image
+         *
+         * @param string $publicId
+         * @param string $format
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function showPrivateUrl($publicId, $format, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::showPrivateUrl($publicId, $format, $options);
+        }
+        
+        /**
+         * Rename public ID.
+         *
+         * @param string $publicId
+         * @param string $toPublicId
+         * @param array $options
+         * @return array 
+         * @static 
+         */
+        public static function rename($publicId, $toPublicId, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::rename($publicId, $toPublicId, $options);
+        }
+        
+        /**
+         * Destroy image from Cloudinary
+         *
+         * @param string $publicId
+         * @param array $options
+         * @return array 
+         * @static 
+         */
+        public static function destroyImage($publicId, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::destroyImage($publicId, $options);
+        }
+        
+        /**
+         * Destroy images from Cloudinary
+         *
+         * @param array $publicIds
+         * @param array $options
+         * @return null 
+         * @static 
+         */
+        public static function destroyImages($publicIds, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::destroyImages($publicIds, $options);
+        }
+        
+        /**
+         * Alias of destroyImage.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function delete($publicId, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::delete($publicId, $options);
+        }
+        
+        /**
+         * Add tag to images.
+         *
+         * @param string $tag
+         * @param array $publicIds
+         * @param array $options
+         * @static 
+         */
+        public static function addTag($tag, $publicIds = array(), $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::addTag($tag, $publicIds, $options);
+        }
+        
+        /**
+         * Remove tag from images.
+         *
+         * @param string $tag
+         * @param array $publicIds
+         * @param array $options
+         * @static 
+         */
+        public static function removeTag($tag, $publicIds = array(), $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::removeTag($tag, $publicIds, $options);
+        }
+        
+        /**
+         * Replace image's tag.
+         *
+         * @param string $tag
+         * @param array $publicIds
+         * @param array $options
+         * @static 
+         */
+        public static function replaceTag($tag, $publicIds = array(), $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::replaceTag($tag, $publicIds, $options);
+        }
+        
+        /**
+         * Create a zip file containing images matching options.
+         *
+         * @param array $options
+         * @param string $archiveName
+         * @param string $mode
+         * @static 
+         */
+        public static function createArchive($options = array(), $nameArchive = null, $mode = 'create'){
+            return \JD\Cloudder\CloudinaryWrapper::createArchive($options, $nameArchive, $mode);
+        }
+        
+        /**
+         * Download a zip file containing images matching options.
+         *
+         * @param array $options
+         * @param string $archiveName
+         * @param string $mode
+         * @static 
+         */
+        public static function downloadArchiveUrl($options = array(), $nameArchive = null){
+            return \JD\Cloudder\CloudinaryWrapper::downloadArchiveUrl($options, $nameArchive);
         }
         
     }

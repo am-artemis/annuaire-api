@@ -38,13 +38,14 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers'], function (Router $a
     $api->put('/auth', ['as' => 'auth.update', 'uses' => 'AuthController@update']);
     $api->post('/auth', ['as' => 'auth.store', 'uses' => 'AuthController@store']);
 
-    $api->group(['middleware' => 'jwt.auth'], function (Router $api) {
+    //$api->group(['middleware' => 'jwt.auth'], function (Router $api) {
+    $api->group([], function (Router $api) {
 
         $api->resources([
             'search'           => ['SearchController', ['only' => ['index']]],
             'users'            => ['UserController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
             'campuses'         => ['CampusController', ['only' => ['index', 'show']]],
-            'photos'           => ['PhotoController', ['only' => ['index', 'show', 'destroy']]],
+            'photos'           => ['PhotoController', ['only' => ['index', 'show', 'store', 'destroy']]],
             'addresses'        => ['AddressController', ['only' => ['index', 'show', 'destroy']]],
             'residences'       => ['ResidenceController', ['only' => ['index', 'show']]],
             'courses'          => ['CourseController', ['only' => ['index', 'show']]],
