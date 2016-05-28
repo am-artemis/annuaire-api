@@ -23,7 +23,7 @@ class CampusControllerTest extends TestCase
         $this->assertResponseOk();
         $this->assertCount($nb, $this->jsonResponse('data'));
 
-        $expectedJsonStruture = [
+        $expectedJsonStructure = [
             'data' => [
                 ['self', 'id', 'name', 'city', 'short', 'prep', 'prefix', 'address', 'pos', 'photo']
             ],
@@ -34,7 +34,7 @@ class CampusControllerTest extends TestCase
             ],
         ];
 
-        $this->seeJsonStructure($expectedJsonStruture);
+        $this->seeJsonStructure($expectedJsonStructure);
     }
 
     public function testShow()
@@ -45,10 +45,10 @@ class CampusControllerTest extends TestCase
 
         $this->assertResponseOk();
 
-        $expectedJsonStruture = [
+        $expectedJsonStructure = [
             'data' => ['self', 'id', 'name', 'city', 'short', 'prep', 'prefix', 'address', 'pos', 'photo']
         ];
 
-        $this->seeJsonStructure($expectedJsonStruture);
+        $this->seeJsonStructure($expectedJsonStructure);
     }
 }

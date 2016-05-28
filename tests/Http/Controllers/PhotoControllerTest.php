@@ -34,7 +34,7 @@ class PhotoControllerTest extends TestCase
         $this->assertResponseOk();
         $this->assertCount($nb, $this->jsonResponse('data'));
 
-        $expectedJsonStruture = [
+        $expectedJsonStructure = [
             'data' => [
                 ['self', 'src', 'type', 'title', 'user']
             ],
@@ -45,7 +45,7 @@ class PhotoControllerTest extends TestCase
             ],
         ];
 
-        $this->seeJsonStructure($expectedJsonStruture);
+        $this->seeJsonStructure($expectedJsonStructure);
     }
 
     public function testShow()
@@ -58,11 +58,11 @@ class PhotoControllerTest extends TestCase
 
         $this->assertResponseOk();
 
-        $expectedJsonStruture = [
+        $expectedJsonStructure = [
             'data' => ['self', 'src', 'type', 'title', 'user']
         ];
 
-        $this->seeJsonStructure($expectedJsonStruture);
+        $this->seeJsonStructure($expectedJsonStructure);
     }
 
 //    public function testAjouterUnePhotoValide()
@@ -84,11 +84,11 @@ class PhotoControllerTest extends TestCase
 //
 //        $this->assertResponseOk();
 //
-//        $expectedJsonStruture = [
+//        $expectedJsonStructure = [
 //            'data' => ['self', 'src', 'type', 'title', 'user']
 //        ];
 //
-//        $this->seeJsonStructure($expectedJsonStruture);
+//        $this->seeJsonStructure($expectedJsonStructure);
 //    }
 
     public function testDestroy()
