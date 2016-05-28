@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
-use Request;
+use Dingo\Api\Contract\Http\Request;
 
 class AddressController extends Controller
 {
@@ -18,6 +18,7 @@ class AddressController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -31,6 +32,7 @@ class AddressController extends Controller
      * Display the specified resource.
      *
      * @param Address $address
+     *
      * @return Response
      */
     public function show(Address $address)
@@ -42,10 +44,17 @@ class AddressController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function store(Request $request)
     {
+        $addressArray = $request->only(['user_id', 'name', 'address', 'zipcode', 'city',
+            'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
+
+        $address = Address::forceCreate($addressArray);
+
+        return $address;
     }
 
     /**
@@ -53,15 +62,22 @@ class AddressController extends Controller
      *
      * @param Request $request
      * @param Address $address
+     *
      * @return Response
      */
     public function update(Request $request, Address $address)
     {
-        //
+        $addressArray = $request->only(['name', 'address', 'zipcode', 'city',
+            'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
+
+        $address->update($addressArray);
+
+        return $address;
     }
 
     /**
      * Remove the specified resource from storage.
+     *
      * @param Address $address
      */
     public function destroy(Address $address)
