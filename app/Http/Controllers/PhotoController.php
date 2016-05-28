@@ -87,7 +87,9 @@ class PhotoController extends Controller
      */
     public function update(Request $request, Photo $photo)
     {
-        //
+        $photo->update($request->only(['title', 'type']));
+
+        return $photo;
     }
 
     /**
