@@ -62,6 +62,7 @@ class PhotoController extends Controller
             'title'   => $request->input('title'),
             'type'    => $request->input('type'),
             'user_id' => $request->input('user_id'),
+            'src'     => '',
         ];
         $photo = Photo::forceCreate($photoArray);
 

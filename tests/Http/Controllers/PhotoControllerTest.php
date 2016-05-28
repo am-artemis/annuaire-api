@@ -65,6 +65,32 @@ class PhotoControllerTest extends TestCase
         $this->seeJsonStructure($expectedJsonStruture);
     }
 
+//    public function testAjouterUnePhotoValide()
+//    {
+//        $base64image = null;
+//        include('PhotoControllerTestRessources.php');
+//        $this->user = factory(User::class)->create();
+//
+//        $photoArray = [
+//            'title' => 'Titre de la photo',
+//            'type' => 'profile',
+//            'user_id' => $this->user->id,
+//            'photo' => $base64image,
+//        ];
+//
+//        $this->jsonWithJWT('POST', 'photos', $photoArray);
+//
+//        var_dump($this->response->content());
+//
+//        $this->assertResponseOk();
+//
+//        $expectedJsonStruture = [
+//            'data' => ['self', 'src', 'type', 'title', 'user']
+//        ];
+//
+//        $this->seeJsonStructure($expectedJsonStruture);
+//    }
+
     public function testDestroy()
     {
         $user = $this->user;
