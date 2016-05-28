@@ -54,6 +54,8 @@ class PhotoController extends Controller
      */
     public function store(Request $request, CloudinaryWrapper $cloudder)
     {
+        $tags = ['env_' . env('APP_ENV')];
+
         DB::beginTransaction();
 
         $photoArray = [
@@ -63,9 +65,10 @@ class PhotoController extends Controller
         ];
         $photo = Photo::forceCreate($photoArray);
 
-        $result = $cloudder->upload($request->get('photo'))->getResult();
+        $result = $cloudder->upload($request->get('photo'), null, [], $tags)->getResult();
 
         $photo->src = $result['secure_url'];
+        $photo->cloudinary_id = $result['public_id'];
         $photo->save();
 
         DB::commit();
