@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AuthStoreRequest;
 use App\Models\User;
+use Config;
+use Dingo\Api\Http\Request;
 use Socialite;
 use Response;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -22,7 +23,7 @@ class AuthController extends Controller
     public function __construct(JWTAuth $auth)
     {
         $this->auth = $auth;
-        $this->middleware('jwt.refresh', ['only' => ['update']]);
+        $this->middleware('jwt.refresh', ['only' => ['refresh']]);
     }
 
     /**
@@ -32,6 +33,7 @@ class AuthController extends Controller
      */
     public function redirectToProvider()
     {
+        Config::set('services.google.redirect', route('auth.callback'));
         return Socialite::driver('google')->stateless()->redirect();
     }
 
@@ -42,6 +44,7 @@ class AuthController extends Controller
      */
     public function handleProviderCallback()
     {
+        Config::set('services.google.redirect', route('auth.callback'));
         $providerUser = Socialite::driver('google')->stateless()->user();
         return $this->store($providerUser->email);
     }
@@ -62,7 +65,7 @@ class AuthController extends Controller
         return response()->json(compact('user', 'token'));
     }
 
-    public function update()
+    public function refresh()
     {
         return response(null, 204);
     }
