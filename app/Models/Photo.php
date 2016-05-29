@@ -12,6 +12,7 @@ namespace App\Models;
  * @property string $src
  * @property string $type
  * @property string $title
+ * @property string $cloudinary_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\Models\User $user
@@ -45,7 +46,7 @@ class Photo extends ApiModel
      *
      * @var array
      */
-    protected $hidden = ['id', 'user_id'];
+    protected $hidden = ['id', 'user_id', 'cloudinary_id'];
 
     /**
      * Tell if the model contains timestamps or if it doesn't.

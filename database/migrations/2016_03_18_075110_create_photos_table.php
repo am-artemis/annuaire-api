@@ -18,6 +18,7 @@ class CreatePhotosTable extends Migration
             $table->text('src');
             $table->string('type', 20);
             $table->string('title', 255);
+            $table->string('cloudinary_id')->nullable();
             $table->timestamps();
         });
     }

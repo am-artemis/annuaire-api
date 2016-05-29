@@ -7,6 +7,9 @@ use App\Http\Transformers\PhotoTransformer;
 
 use App\Models\User;
 use App\Models\Photo;
+use Cloudder;
+use Illuminate\Support\Facades\DB;
+use JD\Cloudder\CloudinaryWrapper;
 
 class PhotoController extends Controller
 {
@@ -21,6 +24,7 @@ class PhotoController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -34,6 +38,7 @@ class PhotoController extends Controller
      * Display the specified resource.
      *
      * @param Photo $photo
+     *
      * @return Response
      */
     public function show(Photo $photo)
@@ -45,11 +50,31 @@ class PhotoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @param CloudinaryWrapper $cloudder
      */
-    public function store(Request $request)
+    public function store(Request $request, CloudinaryWrapper $cloudder)
     {
-        //
+        $tags = ['env_' . env('APP_ENV')];
+
+        DB::beginTransaction();
+
+        $photoArray = [
+            'title'   => $request->input('title'),
+            'type'    => $request->input('type'),
+            'user_id' => $request->input('user_id'),
+            'src'     => '',
+        ];
+        $photo = Photo::forceCreate($photoArray);
+
+        $result = $cloudder->upload($request->get('photo'), null, [], $tags)->getResult();
+
+        $photo->src = $result['secure_url'];
+        $photo->cloudinary_id = $result['public_id'];
+        $photo->save();
+
+        DB::commit();
+
+        return $photo;
     }
 
     /**
@@ -57,17 +82,21 @@ class PhotoController extends Controller
      *
      * @param Request $request
      * @param Photo $photo
+     *
      * @return Response
      */
     public function update(Request $request, Photo $photo)
     {
-        //
+        $photo->update($request->only(['title', 'type']));
+
+        return $photo;
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Photo $photo
+     *
      * @return Response
      */
     public function destroy(Photo $photo)

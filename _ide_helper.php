@@ -11381,5 +11381,232 @@ namespace {
     }
 
 
+    class Cloudder extends \JD\Cloudder\Facades\Cloudder{
+        
+        /**
+         * Get cloudinary class.
+         *
+         * @return \Cloudinary 
+         * @static 
+         */
+        public static function getCloudinary(){
+            return \JD\Cloudder\CloudinaryWrapper::getCloudinary();
+        }
+        
+        /**
+         * Get cloudinary uploader.
+         *
+         * @return \Cloudinary\Uploader 
+         * @static 
+         */
+        public static function getUploader(){
+            return \JD\Cloudder\CloudinaryWrapper::getUploader();
+        }
+        
+        /**
+         * Get cloudinary api
+         *
+         * @return \Cloudinary\Api 
+         * @static 
+         */
+        public static function getApi(){
+            return \JD\Cloudder\CloudinaryWrapper::getApi();
+        }
+        
+        /**
+         * Upload image to cloud.
+         *
+         * @param mixed $source
+         * @param string $publicId
+         * @param array $uploadOptions
+         * @param array $tags
+         * @return \JD\Cloudder\CloudinaryWrapper 
+         * @static 
+         */
+        public static function upload($source, $publicId = null, $uploadOptions = array(), $tags = array()){
+            return \JD\Cloudder\CloudinaryWrapper::upload($source, $publicId, $uploadOptions, $tags);
+        }
+        
+        /**
+         * Upload video to cloud.
+         *
+         * @param mixed $source
+         * @param string $publicId
+         * @param array $uploadOptions
+         * @param array $tags
+         * @return \JD\Cloudder\CloudinaryWrapper 
+         * @static 
+         */
+        public static function uploadVideo($source, $publicId = null, $uploadOptions = array(), $tags = array()){
+            return \JD\Cloudder\CloudinaryWrapper::uploadVideo($source, $publicId, $uploadOptions, $tags);
+        }
+        
+        /**
+         * Uploaded result.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getResult(){
+            return \JD\Cloudder\CloudinaryWrapper::getResult();
+        }
+        
+        /**
+         * Uploaded public ID.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getPublicId(){
+            return \JD\Cloudder\CloudinaryWrapper::getPublicId();
+        }
+        
+        /**
+         * Display resource through https.
+         *
+         * @param string $publicId
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function show($publicId, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::show($publicId, $options);
+        }
+        
+        /**
+         * Display resource through https.
+         *
+         * @param string $publicId
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function secureShow($publicId, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::secureShow($publicId, $options);
+        }
+        
+        /**
+         * Display private image
+         *
+         * @param string $publicId
+         * @param string $format
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function showPrivateUrl($publicId, $format, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::showPrivateUrl($publicId, $format, $options);
+        }
+        
+        /**
+         * Rename public ID.
+         *
+         * @param string $publicId
+         * @param string $toPublicId
+         * @param array $options
+         * @return array 
+         * @static 
+         */
+        public static function rename($publicId, $toPublicId, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::rename($publicId, $toPublicId, $options);
+        }
+        
+        /**
+         * Destroy image from Cloudinary
+         *
+         * @param string $publicId
+         * @param array $options
+         * @return array 
+         * @static 
+         */
+        public static function destroyImage($publicId, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::destroyImage($publicId, $options);
+        }
+        
+        /**
+         * Destroy images from Cloudinary
+         *
+         * @param array $publicIds
+         * @param array $options
+         * @return null 
+         * @static 
+         */
+        public static function destroyImages($publicIds, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::destroyImages($publicIds, $options);
+        }
+        
+        /**
+         * Alias of destroyImage.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function delete($publicId, $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::delete($publicId, $options);
+        }
+        
+        /**
+         * Add tag to images.
+         *
+         * @param string $tag
+         * @param array $publicIds
+         * @param array $options
+         * @static 
+         */
+        public static function addTag($tag, $publicIds = array(), $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::addTag($tag, $publicIds, $options);
+        }
+        
+        /**
+         * Remove tag from images.
+         *
+         * @param string $tag
+         * @param array $publicIds
+         * @param array $options
+         * @static 
+         */
+        public static function removeTag($tag, $publicIds = array(), $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::removeTag($tag, $publicIds, $options);
+        }
+        
+        /**
+         * Replace image's tag.
+         *
+         * @param string $tag
+         * @param array $publicIds
+         * @param array $options
+         * @static 
+         */
+        public static function replaceTag($tag, $publicIds = array(), $options = array()){
+            return \JD\Cloudder\CloudinaryWrapper::replaceTag($tag, $publicIds, $options);
+        }
+        
+        /**
+         * Create a zip file containing images matching options.
+         *
+         * @param array $options
+         * @param string $archiveName
+         * @param string $mode
+         * @static 
+         */
+        public static function createArchive($options = array(), $nameArchive = null, $mode = 'create'){
+            return \JD\Cloudder\CloudinaryWrapper::createArchive($options, $nameArchive, $mode);
+        }
+        
+        /**
+         * Download a zip file containing images matching options.
+         *
+         * @param array $options
+         * @param string $archiveName
+         * @param string $mode
+         * @static 
+         */
+        public static function downloadArchiveUrl($options = array(), $nameArchive = null){
+            return \JD\Cloudder\CloudinaryWrapper::downloadArchiveUrl($options, $nameArchive);
+        }
+        
+    }
+
+
 }
 

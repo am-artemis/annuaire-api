@@ -12,12 +12,21 @@
 */
 
 $factory->define(App\Models\User::class, function ($faker) {
+    $campuses = App\Models\Campus::get(['id']);
+
+    // Create a mock campus if there's none already 
+    if ($campuses->count() > 0) {
+        $campus = $campuses->random();
+    } else {
+        $campus = factory(App\Models\Campus::class)->create();
+    }
+
     return [
         'firstname' => $faker->firstName,
         'lastname' => $faker->lastName,
         'year' => rand(2012, 2014),
         'birthday' => Carbon\Carbon::now()->subYears(rand(17, 25))->subDays(rand(0, 365)),
-        'campus_id' => App\Models\Campus::whereNull('prefix', 'and', true)->get(['id'])->random()->id,
+        'campus_id' => $campus->id,
         'gender' => [null, 'm', 'f'][rand(0, 2)],
         'email' => $faker->email,
         'phone' => '06'.str_pad(rand(1, pow(10, 8)), 8, '0', STR_PAD_LEFT),

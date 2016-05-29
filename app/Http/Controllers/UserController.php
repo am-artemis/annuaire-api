@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Transformers\UserTransformer;
 
@@ -96,7 +97,7 @@ class UserController extends Controller
         $user_data['year'] = $request->input('promo.year');
 
         // Crée les objets et les sauvegarde en base
-        app('db')->beginTransaction();
+        DB::beginTransaction();
 
         $user = new User($user_data);
         $user->save();
@@ -104,7 +105,7 @@ class UserController extends Controller
         $gadz = new Gadz($request->input('gadz'));
         $user->gadz()->save($gadz);
 
-        app('db')->commit();
+        DB::commit();
 
         // Retourne le nouvel user
         return $user;
@@ -166,7 +167,7 @@ class UserController extends Controller
         }
 
         // Crée les objets et les sauvegarde en base
-        app('db')->beginTransaction();
+        DB::beginTransaction();
 
         if ($request->has('contact') or $request->has('promo')) {
             $user->update($user_data);
@@ -176,7 +177,7 @@ class UserController extends Controller
             $user->gadz->update($request->input('gadz'));
         }
 
-        app('db')->commit();
+        DB::commit();
 
         // Retourne le nouvel user
         return $user;

@@ -160,6 +160,7 @@ return [
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        JD\Cloudder\CloudderServiceProvider::class,
 
     ],
 
@@ -209,6 +210,7 @@ return [
         'JWTAuth'    => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Socialite'  => Laravel\Socialite\Facades\Socialite::class,
+        'Cloudder'   => JD\Cloudder\Facades\Cloudder::class,
     ],
 
 ];

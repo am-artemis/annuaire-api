@@ -34,7 +34,7 @@ class PhotoControllerTest extends TestCase
         $this->assertResponseOk();
         $this->assertCount($nb, $this->jsonResponse('data'));
 
-        $expectedJsonStruture = [
+        $expectedJsonStructure = [
             'data' => [
                 ['self', 'src', 'type', 'title', 'user']
             ],
@@ -45,7 +45,7 @@ class PhotoControllerTest extends TestCase
             ],
         ];
 
-        $this->seeJsonStructure($expectedJsonStruture);
+        $this->seeJsonStructure($expectedJsonStructure);
     }
 
     public function testShow()
@@ -58,12 +58,38 @@ class PhotoControllerTest extends TestCase
 
         $this->assertResponseOk();
 
-        $expectedJsonStruture = [
+        $expectedJsonStructure = [
             'data' => ['self', 'src', 'type', 'title', 'user']
         ];
 
-        $this->seeJsonStructure($expectedJsonStruture);
+        $this->seeJsonStructure($expectedJsonStructure);
     }
+
+//    public function testAjouterUnePhotoValide()
+//    {
+//        $base64image = null;
+//        include('PhotoControllerTestRessources.php');
+//        $this->user = factory(User::class)->create();
+//
+//        $photoArray = [
+//            'title' => 'Titre de la photo',
+//            'type' => 'profile',
+//            'user_id' => $this->user->id,
+//            'photo' => $base64image,
+//        ];
+//
+//        $this->jsonWithJWT('POST', 'photos', $photoArray);
+//
+//        var_dump($this->response->content());
+//
+//        $this->assertResponseOk();
+//
+//        $expectedJsonStructure = [
+//            'data' => ['self', 'src', 'type', 'title', 'user']
+//        ];
+//
+//        $this->seeJsonStructure($expectedJsonStructure);
+//    }
 
     public function testDestroy()
     {

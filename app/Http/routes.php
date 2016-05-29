@@ -39,14 +39,15 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers'], function (Router $a
     $api->put('/auth', ['as' => 'auth.refresh', 'uses' => 'AuthController@refresh']);
     $api->any('/auth/callback', ['as' => 'auth.callback', 'uses' => 'AuthController@handleProviderCallback']);
 
-    $api->group(['middleware' => 'jwt.auth'], function (Router $api) {
+    //$api->group(['middleware' => 'jwt.auth'], function (Router $api) {
+    $api->group([], function (Router $api) {
 
         $api->resources([
             'search'           => ['SearchController', ['only' => ['index']]],
             'users'            => ['UserController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
             'campuses'         => ['CampusController', ['only' => ['index', 'show']]],
-            'photos'           => ['PhotoController', ['only' => ['index', 'show', 'destroy']]],
-            'addresses'        => ['AddressController', ['only' => ['index', 'show', 'destroy']]],
+            'photos'           => ['PhotoController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
+            'addresses'        => ['AddressController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
             'residences'       => ['ResidenceController', ['only' => ['index', 'show']]],
             'courses'          => ['CourseController', ['only' => ['index', 'show']]],
             'degrees'          => ['DegreeController', ['only' => ['index', 'show']]],
