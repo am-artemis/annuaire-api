@@ -59,7 +59,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers'], function (Router $a
         // Nested resources
         $api->resources([
             'users.residences' => ['UserResidenceController', ['only' => ['index', 'show', 'store', 'destroy']]],
-            'users.courses' => ['UserCourseController', ['only' => ['index', 'show', 'store', 'destroy']]],
+            'users.courses'    => ['UserCourseController', ['only' => ['index', 'show', 'store', 'destroy']]],
+            'users.socials'    => ['UserSocialController', ['only' => ['index', 'show', 'store', 'destroy']]],
         ]);
     });
 });
