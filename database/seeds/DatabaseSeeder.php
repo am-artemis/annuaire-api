@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call('DegreeTableSeeder');
         $this->call('SocialTableSeeder');
 
-        factory(App\Models\User::class, 100)->create()->each(function ($user) {
+        $this->call('CustomUserSeeder');
+
+        factory(App\Models\User::class, 30)->create()->each(function ($user) {
             // 4 chances sur 5 d'avoir un gadz
             if (rand(0, 4)) {
                 $user->gadz()->save(factory(App\Models\Gadz::class)->make());
