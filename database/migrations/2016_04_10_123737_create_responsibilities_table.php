@@ -14,12 +14,14 @@ class CreateResponsibilitiesTable extends Migration
     {
         Schema::create('responsibilities', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('user_id', 6);
             $table->string('title', 50);
             $table->string('strass', 50);
             $table->integer('campus_id')->unsigned();
             $table->date('from');
             $table->date('to')->nullable();
+
             $table->timestamps();
         });
     }

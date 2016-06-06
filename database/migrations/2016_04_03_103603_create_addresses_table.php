@@ -14,6 +14,7 @@ class CreateAddressesTable extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('user_id', 6);
             $table->string('name', 100);
             $table->text('address');
@@ -26,6 +27,7 @@ class CreateAddressesTable extends Migration
             $table->date('from')->nullable();
             $table->date('to')->nullable();
             $table->enum('type', ['perso', 'family']);
+
             $table->timestamps();
         });
     }

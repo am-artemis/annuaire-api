@@ -14,6 +14,7 @@ class CreateCampusesTable extends Migration
     {
         Schema::create('campuses', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('name', 40);
             $table->string('city', 20);
             $table->string('short', 20);

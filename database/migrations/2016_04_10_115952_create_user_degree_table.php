@@ -15,6 +15,8 @@ class CreateUserDegreeTable extends Migration
         Schema::create('user_degree', function (Blueprint $table) {
             $table->string('user_id', 6);
             $table->integer('degree_id')->unsigned();
+            $table->primary(['user_id', 'degree_id']);
+
             $table->integer('year');
             $table->timestamps();
         });

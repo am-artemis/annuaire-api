@@ -14,11 +14,13 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('user_id', 6);
             $table->text('src');
             $table->string('type', 20);
             $table->string('title', 255);
             $table->string('cloudinary_id')->nullable();
+
             $table->timestamps();
         });
     }
