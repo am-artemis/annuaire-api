@@ -14,6 +14,7 @@ class CreateResidencesTable extends Migration
     {
         Schema::create('residences', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('name', 100);
             $table->text('address');
             $table->decimal('lat', 10, 6);

@@ -68,6 +68,6 @@ class Residence extends ApiModel
     public function users()
     {
         return $this->belongsToMany('App\Models\User', 'user_residence', 'residence_id', 'user_id')
-            ->withPivot('room', 'from', 'to')->withTimestamps();
+            ->withPivot('id', 'room', 'from', 'to')->withTimestamps();
     }
 }

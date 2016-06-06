@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Residence;
+use Illuminate\Support\Facades\DB;
 
 
 class UserResidenceController extends Controller
@@ -37,9 +38,10 @@ class UserResidenceController extends Controller
      *
      * @return Response
      */
-    public function show(User $user, $residence_id)
+    public function show(User $user, $user_residence_id)
     {
-        $residence = $user->residences()->find($residence_id);
+        // On utilise l'id du pivot pour retrouver la bonne relation
+        $residence = $user->residences()->where('user_residence.id', $user_residence_id)->get();
 
         return $residence->load(self::$relationships);
     }
@@ -99,9 +101,10 @@ class UserResidenceController extends Controller
      *
      * @return Response
      */
-    public function destroy(Request $request, User $user, $residence_id)
+    public function destroy($user_id, $user_residence_id)
     {
-        $user->residences()->detach($residence_id);
+        // On utilise l'id du pivot pour retrouver la bonne relation
+        DB::table('user_residence')->where('user_id', $user_id)->delete($user_residence_id);
 
         return $this->response->noContent();
     }

@@ -138,7 +138,7 @@ class User extends ApiModel implements AuthenticatableContract
     public function residences()
     {
         return $this->belongsToMany('App\Models\Residence', 'user_residence', 'user_id', 'residence_id')
-            ->withPivot('room', 'from', 'to')->withTimestamps();
+            ->withPivot('id', 'room', 'from', 'to')->withTimestamps();
     }
 
     public function courses()
