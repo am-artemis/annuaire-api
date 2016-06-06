@@ -67,6 +67,7 @@ class Course extends ApiModel
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User', 'user_course', 'course_id', 'user_id')->withPivot('from', 'to')->withTimestamps();
+        return $this->belongsToMany('App\Models\User', 'user_course', 'course_id', 'user_id')
+            ->withPivot('id', 'from', 'to')->withTimestamps();
     }
 }

@@ -143,12 +143,14 @@ class User extends ApiModel implements AuthenticatableContract
 
     public function courses()
     {
-        return $this->belongsToMany('App\Models\Course', 'user_course', 'user_id', 'course_id')->withPivot('from', 'to')->withTimestamps();
+        return $this->belongsToMany('App\Models\Course', 'user_course', 'user_id', 'course_id')
+            ->withPivot('id', 'from', 'to')->withTimestamps();
     }
 
     public function degrees()
     {
-        return $this->belongsToMany('App\Models\Degree', 'user_degree', 'user_id', 'degree_id')->withPivot('year')->withTimestamps();
+        return $this->belongsToMany('App\Models\Degree', 'user_degree', 'user_id', 'degree_id')
+            ->withPivot('year')->withTimestamps();
     }
 
     public function responsibilities()
@@ -163,6 +165,7 @@ class User extends ApiModel implements AuthenticatableContract
 
     public function socials()
     {
-        return $this->belongsToMany('App\Models\Social', 'user_social', 'user_id', 'social_id')->withPivot('url')->withTimestamps();
+        return $this->belongsToMany('App\Models\Social', 'user_social', 'user_id', 'social_id')
+            ->withPivot('url')->withTimestamps();
     }
 }
