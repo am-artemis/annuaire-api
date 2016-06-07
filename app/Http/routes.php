@@ -42,25 +42,33 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers'], function (Router $a
     //$api->group(['middleware' => 'jwt.auth'], function (Router $api) {
     $api->group([], function (Router $api) {
 
+        // Ressources statiques
+        $api->resources([
+            'campuses'         => ['CampusController', ['only' => ['index', 'show']]],
+            'residences'       => ['ResidenceController', ['only' => ['index', 'show']]],
+            'socials'          => ['SocialController', ['only' => ['index', 'show']]],
+        ]);
+
+        // Ressources dynamiques
         $api->resources([
             'search'           => ['SearchController', ['only' => ['index']]],
             'users'            => ['UserController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
-            'campuses'         => ['CampusController', ['only' => ['index', 'show']]],
             'photos'           => ['PhotoController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
             'addresses'        => ['AddressController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
-            'residences'       => ['ResidenceController', ['only' => ['index', 'show']]],
             'courses'          => ['CourseController', ['only' => ['index', 'show']]],
             'degrees'          => ['DegreeController', ['only' => ['index', 'show']]],
             'responsibilities' => ['ResponsibilityController', ['only' => ['index', 'show']]],
             'jobs'             => ['JobController', ['only' => ['index', 'show']]],
-            'socials'          => ['SocialController', ['only' => ['index', 'show']]],
         ]);
 
-        // Nested resources
+        // Resources nestées
         $api->resources([
+            'users.socials'    => ['UserSocialController', ['only' => ['index', 'show', 'store', 'destroy']]],
+            'users.photos'     => ['UserPhotoController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
+            'users.addresses'  => ['UserAddressController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
             'users.residences' => ['UserResidenceController', ['only' => ['index', 'show', 'store', 'destroy']]],
             'users.courses'    => ['UserCourseController', ['only' => ['index', 'show', 'store', 'destroy']]],
-            'users.socials'    => ['UserSocialController', ['only' => ['index', 'show', 'store', 'destroy']]],
+            'campuses.users'   => ['CampusUserController', ['only' => ['index']]],
         ]);
     });
 });

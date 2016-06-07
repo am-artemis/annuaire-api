@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Transformers\PhotoTransformer;
-
 use App\Models\User;
 use App\Models\Photo;
 use Cloudder;
+
 use Illuminate\Support\Facades\DB;
 use JD\Cloudder\CloudinaryWrapper;
 
-class PhotoController extends Controller
+
+class UserPhotoController extends Controller
 {
     /**
      * List of relationships to load.
@@ -27,11 +27,11 @@ class PhotoController extends Controller
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(User $user)
     {
-        $users = Photo::with(self::$relationships)->paginate($request->input('items', 30));
+        $photos = $user->photos()->with(self::$relationships)->get();
 
-        return $users;
+        return $photos;
     }
 
     /**
@@ -41,9 +41,9 @@ class PhotoController extends Controller
      *
      * @return Response
      */
-    public function show(Photo $photo)
+    public function show(User $user, $photo_id)
     {
-        return $photo->load(self::$relationships);
+        return $user->photos()->find($photo_id)->load(self::$relationships);
     }
 
     /**
@@ -52,7 +52,7 @@ class PhotoController extends Controller
      * @param Request $request
      * @param CloudinaryWrapper $cloudder
      */
-    public function store(Request $request, CloudinaryWrapper $cloudder)
+    public function store(Request $request, CloudinaryWrapper $cloudder, User $user)
     {
         // Tag la photo avec l'environnement
         $tags = ['env_' . env('APP_ENV')];
@@ -62,20 +62,20 @@ class PhotoController extends Controller
         $photoArray = [
             'title'   => $request->input('title'),
             'type'    => $request->input('type'),
-            'user_id' => $request->input('user_id'),
             'src'     => '',
         ];
-        $photo = Photo::forceCreate($photoArray);
+        $photo = new Photo($photoArray);
 
         $result = $cloudder->upload($request->get('photo'), null, [], $tags)->getResult();
 
         $photo->src = $result['secure_url'];
         $photo->cloudinary_id = $result['public_id'];
-        $photo->save();
+
+        $user->photos()->save($photo);
 
         DB::commit();
 
-        return $photo;
+        return $this->response->created(null, $user->photos);
     }
 
     /**
@@ -90,7 +90,7 @@ class PhotoController extends Controller
     {
         $photo->update($request->only(['title', 'type']));
 
-        return $photo;
+        return $this->response->accepted(null, $photo);
     }
 
     /**
@@ -104,6 +104,6 @@ class PhotoController extends Controller
     {
         $photo->delete();
 
-        return $this->response->accepted('Resource was deleted.');
+        return $this->response->noContent();
     }
 }
