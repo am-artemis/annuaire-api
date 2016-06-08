@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Address;
 use Dingo\Api\Contract\Http\Request;
+use App\Http\Requests\AddressStoreRequest;
 
 class UserAddressController extends Controller
 {
@@ -24,9 +25,7 @@ class UserAddressController extends Controller
      */
     public function index(User $user)
     {
-        $addresses = $user->addresses()->with(self::$relationships)->get();
-
-        return $addresses;
+        return $user->addresses;
     }
 
     /**
@@ -38,7 +37,7 @@ class UserAddressController extends Controller
      */
     public function show(User $user, $address_id)
     {
-        return $user->addresses()->find($address_id)->load(self::$relationships);
+        return $user->addresses()->find($address_id);
     }
 
     /**
@@ -48,8 +47,9 @@ class UserAddressController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request, User $user)
+    public function store(AddressStoreRequest $request, User $user)
     {
+
         $addressArray = $request->only(['name', 'address', 'zipcode', 'city',
             'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
 
@@ -68,11 +68,12 @@ class UserAddressController extends Controller
      *
      * @return Response
      */
-    public function update(Request $request, $user_id, Address $address)
+    public function update(AddressStoreRequest $request, $user_id, Address $address)
     {   
-        if ($address->user_id != $user_id) {
+         if ($address->user_id != $user_id) {
             return $this->response->errorBadRequest();
         }
+
         $addressArray = $request->only(['name', 'address', 'zipcode', 'city',
             'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
 

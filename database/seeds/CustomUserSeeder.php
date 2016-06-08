@@ -15,7 +15,7 @@ class CustomUserSeeder extends Seeder
         $data = [
             [
                 'user' => [
-                    'id' => '000001',
+                    'id' => 'zaru',
                     'firstname' => 'Mathieu',
                     'lastname' => 'TUDISCO',
                     'birthday' => '1991-05-08',
@@ -67,7 +67,7 @@ class CustomUserSeeder extends Seeder
             ],
             [
                 'user' => [
-                    'id' => '000002',
+                    'id' => 'tarmak',
                     'firstname' => 'Corentin',
                     'lastname' => 'GITTON',
                     'birthday' => '1993-05-28',

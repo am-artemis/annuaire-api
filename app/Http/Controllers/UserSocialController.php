@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Residence;
-
+use Illuminate\Http\Request;
 
 class UserSocialController extends Controller
 {
@@ -25,9 +24,7 @@ class UserSocialController extends Controller
      */
     public function index(User $user)
     {
-        $socials = $user->socials()->with(self::$relationships)->get();
-
-        return $socials;
+        return $user->socials;
     }
 
     /**
@@ -39,9 +36,7 @@ class UserSocialController extends Controller
      */
     public function show(User $user, $social_id)
     {
-        $social = $user->socials()->find($social_id);
-
-        return $social->load(self::$relationships);
+        return $user->socials()->find($social_id);
     }
 
     /**
@@ -78,26 +73,13 @@ class UserSocialController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param    int $id
-     *
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param Residence $residence
      *
      * @return Response
      */
-    public function destroy(Request $request, User $user, $social_id)
+    public function destroy(User $user, $social_id)
     {
         $user->socials()->detach($social_id);
 

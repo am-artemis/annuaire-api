@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Transformers\CourseTransformer;
-
 use App\Models\Course;
+use Illuminate\Http\Request;
+use Illuminate\Http\CourseStoreRequest;
+use Illuminate\Http\CourseUpdateRequest;
 
 class CourseController extends Controller
 {
@@ -24,9 +24,7 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        $courses = Course::with(self::$relationships)->paginate($request->input('items', 30));
-
-        return $courses;
+        return Course::with(self::$relationships)->paginate($request->input('items', 30));
     }
 
     /**
@@ -37,7 +35,6 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-
         return $course->load(self::$relationships);
     }
 
@@ -47,9 +44,13 @@ class CourseController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CourseStoreRequest $request)
     {
-        //
+        $courseArray = $request->only(['title', 'description', 'campus_id', 'school']);
+
+        $course = Course::forceCreate($courseArray);
+
+        return $this->response->created(null, $course);
     }
 
     /**
@@ -59,9 +60,13 @@ class CourseController extends Controller
      * @param Course $course
      * @return Response
      */
-    public function update(Request $request, Course $course)
+    public function update(CourseUpdateRequest $request, Course $course)
     {
-        //
+        $courseArray = $request->only(['title', 'description', 'campus_id', 'school']);
+
+        $course->update($courseArray);
+
+        return $this->response->accepted(null, $course);
     }
 
     /**
@@ -73,5 +78,7 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $course->delete();
+
+        return $this->response->noContent();
     }
 }

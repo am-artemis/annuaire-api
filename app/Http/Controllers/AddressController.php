@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddressStoreRequest;
-use App\Http\Requests\AddressUpdateRequest;
 use App\Models\Address;
 use Dingo\Api\Contract\Http\Request;
+use App\Http\Requests\AddressStoreRequest;
 
 class AddressController extends Controller
 {
@@ -25,9 +24,7 @@ class AddressController extends Controller
      */
     public function index(Request $request)
     {
-        $addresses = Address::with(self::$relationships)->paginate($request->input('items', 30));
-
-        return $addresses;
+        return Address::paginate($request->input('items', 30));
     }
 
     /**
@@ -39,7 +36,7 @@ class AddressController extends Controller
      */
     public function show(Address $address)
     {
-        return $address->load(self::$relationships);
+        return $address;
     }
 
     /**
@@ -51,12 +48,17 @@ class AddressController extends Controller
      */
     public function store(AddressStoreRequest $request)
     {
+        // Check la présence d'un user_id
+        if (!$request->has('user_id')) {
+            return $this->response->errorBadRequest();
+        }
+
         $addressArray = $request->only(['user_id', 'name', 'address', 'zipcode', 'city',
             'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
 
         $address = Address::forceCreate($addressArray);
 
-        return $address;
+        return $this->response->created(null, $address);
     }
 
     /**
@@ -74,7 +76,7 @@ class AddressController extends Controller
 
         $address->update($addressArray);
 
-        return $address;
+        return $this->response->accepted(null, $address);
     }
 
     /**
@@ -85,5 +87,7 @@ class AddressController extends Controller
     public function destroy(Address $address)
     {
         $address->delete();
+
+        return $this->response->noContent();
     }
 }

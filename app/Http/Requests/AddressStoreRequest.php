@@ -22,7 +22,7 @@ class AddressStoreRequest extends Request
     public function rules()
     {
         return [
-            'user_id' => 'required|alpha_num|exists:users,id',
+            'user_id' => 'alpha_num|exists:users,id',
             'name'    => 'required|string|min:3',
             'address' => 'required|string|min:3',
             'zipcode' => 'required|numeric',
@@ -31,8 +31,8 @@ class AddressStoreRequest extends Request
             'lat'     => 'numeric',
             'lng'     => 'numeric',
             'phone'   => 'regex:/^[-+ .0-9]+$/',
-            'from'    => 'required|string',
-            'to'      => '',
+            'from'    => 'required|date',
+            'to'      => 'date',
             'type'    => 'required|in:perso,family',
         ];
     }

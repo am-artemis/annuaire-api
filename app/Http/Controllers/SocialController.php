@@ -7,9 +7,15 @@ use App\Models\Social;
 class SocialController extends Controller
 {
     /**
+     * List of relationships to load.
+     *
+     * @var array
+     */
+    private static $relationships = [];
+
+    /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Response
      */
     public function index()

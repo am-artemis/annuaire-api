@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Transformers\DegreeTransformer;
-
 use App\Models\Degree;
+use Illuminate\Http\Request;
 
 class DegreeController extends Controller
 {
@@ -24,9 +22,7 @@ class DegreeController extends Controller
      */
     public function index(Request $request)
     {
-        $degrees = Degree::with(self::$relationships)->paginate($request->input('items', 30));
-
-        return $degrees;
+        return Degree::paginate($request->input('items', 30));
     }
 
     /**
@@ -37,8 +33,7 @@ class DegreeController extends Controller
      */
     public function show(Degree $degree)
     {
-
-        return $degree->load(self::$relationships);
+        return $degree;
     }
 
     /**
@@ -49,7 +44,18 @@ class DegreeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $degreeArray = $request->only(['title', 'school', 'am']);
+
+        if ($request->has('am') && $degreeArray['am'] == true) {
+            $degreeArray['am'] = 1;
+            $degreeArray['school'] = null;
+        } else {
+            $degreeArray['am'] = 0;
+        }
+
+        $degree = Degree::forceCreate($degreeArray);
+
+        return $this->response->created(null, $degree);
     }
 
     /**
@@ -61,7 +67,18 @@ class DegreeController extends Controller
      */
     public function update(Request $request, Degree $degree)
     {
-        //
+        $degreeArray = $request->only(['title', 'school', 'am']);
+
+        if ($request->has('am') && $degreeArray['am'] == true) {
+            $degreeArray['am'] = 1;
+            $degreeArray['school'] = null;
+        } else {
+            $degreeArray['am'] = 0;
+        }
+
+        $degree->update($degreeArray);
+
+        return $this->response->accepted(null, $degree);
     }
 
     /**
@@ -72,5 +89,7 @@ class DegreeController extends Controller
     public function destroy(Degree $degree)
     {
         $degree->delete();
+
+        return $this->response->noContent();
     }
 }

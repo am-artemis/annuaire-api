@@ -43,14 +43,14 @@ class Responsibility extends ApiModel
      *
      * @var array
      */
-    protected $fillable = ['title', 'strass', 'from', 'to'];
+    protected $fillable = ['campus_id', 'title', 'strass', 'from', 'to'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['id', 'user_id', 'campus_id', 'created_at', 'updated_at'];
+    protected $hidden = ['id', 'user_id', 'created_at', 'updated_at'];
 
     /**
      * Tell if the model contains timestamps or if it doesn't.

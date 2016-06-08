@@ -47,16 +47,16 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers'], function (Router $a
             'campuses'         => ['CampusController', ['only' => ['index', 'show']]],
             'residences'       => ['ResidenceController', ['only' => ['index', 'show']]],
             'socials'          => ['SocialController', ['only' => ['index', 'show']]],
+            'search'           => ['SearchController', ['only' => ['index']]],
         ]);
 
         // Ressources dynamiques
         $api->resources([
-            'search'           => ['SearchController', ['only' => ['index']]],
             'users'            => ['UserController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
             'photos'           => ['PhotoController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
             'addresses'        => ['AddressController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
-            'courses'          => ['CourseController', ['only' => ['index', 'show']]],
-            'degrees'          => ['DegreeController', ['only' => ['index', 'show']]],
+            'courses'          => ['CourseController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
+            'degrees'          => ['DegreeController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
             'responsibilities' => ['ResponsibilityController', ['only' => ['index', 'show']]],
             'jobs'             => ['JobController', ['only' => ['index', 'show']]],
         ]);

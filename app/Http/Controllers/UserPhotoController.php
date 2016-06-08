@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Photo;
-use Cloudder;
-
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use JD\Cloudder\CloudinaryWrapper;
+use Illuminate\Http\PhotoStoreRequest;
+use Illuminate\Support\Facades\DB;
 
 
 class UserPhotoController extends Controller
@@ -29,9 +28,7 @@ class UserPhotoController extends Controller
      */
     public function index(User $user)
     {
-        $photos = $user->photos()->with(self::$relationships)->get();
-
-        return $photos;
+        return $user->photos;;
     }
 
     /**
@@ -43,7 +40,7 @@ class UserPhotoController extends Controller
      */
     public function show(User $user, $photo_id)
     {
-        return $user->photos()->find($photo_id)->load(self::$relationships);
+        return $user->photos()->find($photo_id);
     }
 
     /**
@@ -52,7 +49,7 @@ class UserPhotoController extends Controller
      * @param Request $request
      * @param CloudinaryWrapper $cloudder
      */
-    public function store(Request $request, CloudinaryWrapper $cloudder, User $user)
+    public function store(PhotoStoreRequest $request, CloudinaryWrapper $cloudder, User $user)
     {
         // Tag la photo avec l'environnement
         $tags = ['env_' . env('APP_ENV')];
@@ -86,7 +83,7 @@ class UserPhotoController extends Controller
      *
      * @return Response
      */
-    public function update(Request $request, Photo $photo)
+    public function update(PhotoStoreRequest $request, Photo $photo)
     {
         $photo->update($request->only(['title', 'type']));
 

@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Transformers\PhotoTransformer;
-
-use App\Models\User;
 use App\Models\Photo;
-use Cloudder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use JD\Cloudder\CloudinaryWrapper;
+use Illuminate\Http\PhotoStoreRequest;
+use Illuminate\Support\Facades\DB;
+
 
 class PhotoController extends Controller
 {
@@ -29,9 +27,7 @@ class PhotoController extends Controller
      */
     public function index(Request $request)
     {
-        $users = Photo::with(self::$relationships)->paginate($request->input('items', 30));
-
-        return $users;
+        return Photo::paginate($request->input('items', 30));
     }
 
     /**
@@ -43,7 +39,7 @@ class PhotoController extends Controller
      */
     public function show(Photo $photo)
     {
-        return $photo->load(self::$relationships);
+        return $photo;
     }
 
     /**
@@ -52,7 +48,7 @@ class PhotoController extends Controller
      * @param Request $request
      * @param CloudinaryWrapper $cloudder
      */
-    public function store(Request $request, CloudinaryWrapper $cloudder)
+    public function store(PhotoStoreRequest $request, CloudinaryWrapper $cloudder)
     {
         // Tag la photo avec l'environnement
         $tags = ['env_' . env('APP_ENV')];
@@ -69,13 +65,13 @@ class PhotoController extends Controller
 
         $result = $cloudder->upload($request->get('photo'), null, [], $tags)->getResult();
 
-        $photo->src = $result['secure_url'];
+        $photo->src           = $result['secure_url'];
         $photo->cloudinary_id = $result['public_id'];
         $photo->save();
 
         DB::commit();
 
-        return $photo;
+        return $this->response->created(null, $photo);
     }
 
     /**
@@ -86,11 +82,11 @@ class PhotoController extends Controller
      *
      * @return Response
      */
-    public function update(Request $request, Photo $photo)
+    public function update(PhotoStoreRequest $request, Photo $photo)
     {
         $photo->update($request->only(['title', 'type']));
 
-        return $photo;
+        return $this->response->accepted(null, $photo);
     }
 
     /**
@@ -104,6 +100,6 @@ class PhotoController extends Controller
     {
         $photo->delete();
 
-        return $this->response->accepted('Resource was deleted.');
+        return $this->response->noContent();
     }
 }
