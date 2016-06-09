@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Address;
 use Dingo\Api\Contract\Http\Request;
-use App\Http\Requests\AddressStoreRequest;
+use App\Http\Requests\UserAddressStoreRequest;
+use App\Http\Requests\UserAddressUpdateRequest;
 
 class UserAddressController extends Controller
 {
@@ -47,7 +48,7 @@ class UserAddressController extends Controller
      *
      * @return Response
      */
-    public function store(AddressStoreRequest $request, User $user)
+    public function store(UserAddressStoreRequest $request, User $user)
     {
 
         $addressArray = $request->only(['name', 'address', 'zipcode', 'city',
@@ -68,7 +69,7 @@ class UserAddressController extends Controller
      *
      * @return Response
      */
-    public function update(AddressStoreRequest $request, $user_id, Address $address)
+    public function update(UserAddressUpdateRequest $request, $user_id, Address $address)
     {   
          if ($address->user_id != $user_id) {
             return $this->response->errorBadRequest();

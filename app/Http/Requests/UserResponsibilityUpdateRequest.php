@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class ResponsibilityStoreRequest extends Request
+class UserResponsibilityUpdateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,10 @@ class ResponsibilityStoreRequest extends Request
     public function rules()
     {
         return [
-            'user_id'   => 'required|integer|exists:users,id',
-            'campus_id' => 'required|integer|exists:campuses,id',
-            'title'     => 'required|string|min:3',
-            'strass'    => 'required|string|min:3',
-            'from'      => 'required|date',
-            'to'        => 'required|date',
+            'title'  => 'string|min:3',
+            'strass' => 'string|min:3',
+            'from'   => 'date',
+            'to'     => 'date',
         ];
     }
 }

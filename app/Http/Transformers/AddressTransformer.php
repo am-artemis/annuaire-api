@@ -17,7 +17,8 @@ class AddressTransformer extends BaseTransformer
     public function transform(Address $address)
     {
         return [
-            'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('addresses.show', $address->id),
+            'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')
+                ->route('users.addresses.show', [$address->user->id, $address->id]),
             'name' => $address->name,
             'address' => $address->address,
             'zipcode' => (int) $address->zipcode,

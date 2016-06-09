@@ -63,12 +63,13 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers'], function (Router $a
 
         // Resources nestées
         $api->resources([
-            'users.socials'    => ['UserSocialController', ['only' => ['index', 'show', 'store', 'destroy']]],
-            'users.photos'     => ['UserPhotoController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
-            'users.addresses'  => ['UserAddressController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
-            'users.residences' => ['UserResidenceController', ['only' => ['index', 'show', 'store', 'destroy']]],
-            'users.courses'    => ['UserCourseController', ['only' => ['index', 'show', 'store', 'destroy']]],
-            'campuses.users'   => ['CampusUserController', ['only' => ['index']]],
+            'users.socials'          => ['UserSocialController', ['only' => ['index', 'show', 'store', 'destroy']]],
+            'users.photos'           => ['UserPhotoController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
+            'users.addresses'        => ['UserAddressController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
+            'users.residences'       => ['UserResidenceController', ['only' => ['index', 'show', 'store', 'destroy']]],
+            'users.courses'          => ['UserCourseController', ['only' => ['index', 'show', 'store', 'destroy']]],
+            'users.responsibilities' => ['UserResponsibilityController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
+            'campuses.users'         => ['CampusUserController', ['only' => ['index']]],
         ]);
     });
 });

@@ -46,7 +46,7 @@ class ResponsibilityController extends Controller
      */
     public function store(ResponsibilityStoreRequest $request)
     {
-        $responsibilityArray = $request->only(['campus_id', 'title', 'strass', 'from', 'to']);
+        $responsibilityArray = $request->only(['user_id', 'campus_id', 'title', 'strass', 'from', 'to']);
 
         $responsibility = Responsibility::forceCreate($responsibilityArray);
 
