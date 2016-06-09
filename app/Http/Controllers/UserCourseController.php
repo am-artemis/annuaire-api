@@ -26,9 +26,7 @@ class UserCourseController extends Controller
      */
     public function index(User $user)
     {
-        $courses = $user->courses()->with(self::$relationships)->get();
-
-        return $courses;
+        return $user->courses()->with(self::$relationships)->get();
     }
 
     /**
@@ -74,7 +72,6 @@ class UserCourseController extends Controller
                 'from' => $course['from'],
                 'to'   => $course['to'],
             ];
-            $user->courses()->detach($course['id']);
             $user->courses()->attach($course['id'], $pivot);
         }
 
