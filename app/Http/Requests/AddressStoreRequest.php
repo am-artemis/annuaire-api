@@ -22,7 +22,7 @@ class AddressStoreRequest extends Request
     public function rules()
     {
         return [
-            'user_id' => 'alpha_num|exists:users,id',
+            'user_id' => 'required|alpha_num|exists:users,id',
             'name'    => 'required|string|min:3',
             'address' => 'required|string|min:3',
             'zipcode' => 'required|numeric',

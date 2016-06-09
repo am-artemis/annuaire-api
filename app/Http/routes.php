@@ -58,7 +58,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers'], function (Router $a
             'courses'          => ['CourseController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
             'degrees'          => ['DegreeController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]],
             'responsibilities' => ['ResponsibilityController', ['only' => ['index', 'show']]],
-            'jobs'             => ['JobController', ['only' => ['index', 'show']]],
+            'jobs'             => ['JobController', ['only' => ['index', 'show', 'store', 'update', 'destroy    ']]],
         ]);
 
         // Resources nestées

@@ -22,7 +22,7 @@ class CourseStoreRequest extends Request
     public function rules()
     {
         return [
-            'campus_id'   => 'integer|exists:campuses,id',
+            'campus_id'   => 'required|integer|exists:campuses,id',
             'title'       => 'required|string|min:3',
             'description' => 'required|string|min:3',
             'school'      => 'required|string|min:3',

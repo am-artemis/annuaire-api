@@ -21,11 +21,10 @@ class CourseUpdateRequest extends Request
      */
     public function rules()
     {
-        return [
-            'campus_id'   => 'integer|exists:campuses,id',
-            'title'       => 'required|string|min:3',
-            'description' => 'required|string|min:3',
-            'school'      => 'required|string|min:3',
-        ];
+        $rules = (new CourseStoreRequest())->rules();
+
+        unset($rules['campus_id']);
+        
+        return $rules;
     }
 }

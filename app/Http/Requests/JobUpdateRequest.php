@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class PhotoStoreRequest extends Request
+class JobUpdateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +21,10 @@ class PhotoStoreRequest extends Request
      */
     public function rules()
     {
-        return [
-            'user_id' => 'required|alpha_num|exists:users,id',
-            'title'   => 'required|string|min:3',
-            'type'    => 'required|in:profile,biaude',
-            'photo'   => 'string',
-        ];
+        $rules = (new JobStoreRequest())->rules();
+
+        unset($rules['user_id']);
+        
+        return $rules;
     }
 }
