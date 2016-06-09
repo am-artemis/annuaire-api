@@ -21,11 +21,14 @@ class UserResponsibilityUpdateRequest extends Request
      */
     public function rules()
     {
-        return [
-            'title'  => 'string|min:3',
-            'strass' => 'string|min:3',
-            'from'   => 'date',
-            'to'     => 'date',
-        ];
+        $rules = (new ResponsibilityStoreRequest())->rules();
+
+        unset($rules['user_id']);
+
+        foreach ($rules as &$rule) {
+            $rule = str_replace('required|', '', $rule)
+        }
+        
+        return $rules;
     }
 }
