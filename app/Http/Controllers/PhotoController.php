@@ -84,7 +84,7 @@ class PhotoController extends Controller
      */
     public function update(PhotoStoreRequest $request, Photo $photo)
     {
-        $photo->update($request->only(['title', 'type']));
+        $photo->update($request->intersect(['title', 'type']));
 
         return $this->response->accepted(null, $photo);
     }

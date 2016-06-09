@@ -44,7 +44,7 @@ class DegreeController extends Controller
      */
     public function store(Request $request)
     {
-        $degreeArray = $request->only(['title', 'school', 'am']);
+        $degreeArray = $request->intersect(['title', 'school', 'am']);
 
         if ($request->has('am') && $degreeArray['am'] == true) {
             $degreeArray['am'] = 1;
@@ -67,7 +67,7 @@ class DegreeController extends Controller
      */
     public function update(Request $request, Degree $degree)
     {
-        $degreeArray = $request->only(['title', 'school', 'am']);
+        $degreeArray = $request->intersect(['title', 'school', 'am']);
 
         if ($request->has('am') && $degreeArray['am'] == true) {
             $degreeArray['am'] = 1;

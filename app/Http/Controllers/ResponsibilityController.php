@@ -46,7 +46,7 @@ class ResponsibilityController extends Controller
      */
     public function store(ResponsibilityStoreRequest $request)
     {
-        $responsibilityArray = $request->only(['user_id', 'campus_id', 'title', 'strass', 'from', 'to']);
+        $responsibilityArray = $request->intersect(['user_id', 'campus_id', 'title', 'strass', 'from', 'to']);
 
         $responsibility = Responsibility::forceCreate($responsibilityArray);
 
@@ -62,7 +62,7 @@ class ResponsibilityController extends Controller
      */
     public function update(ResponsibilityUpdateRequest $request, Responsibility $responsibility)
     {
-        $responsibilityArray = $request->only(['campus_id', 'title', 'strass', 'from', 'to']);
+        $responsibilityArray = $request->intersect(['campus_id', 'title', 'strass', 'from', 'to']);
 
         $responsibility->update($responsibilityArray);
 

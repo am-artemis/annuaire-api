@@ -51,7 +51,7 @@ class UserAddressController extends Controller
     public function store(UserAddressStoreRequest $request, User $user)
     {
 
-        $addressArray = $request->only(['name', 'address', 'zipcode', 'city',
+        $addressArray = $request->intersect(['name', 'address', 'zipcode', 'city',
             'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
 
         $address = new Address($addressArray);
@@ -75,7 +75,7 @@ class UserAddressController extends Controller
             return $this->response->errorBadRequest();
         }
 
-        $addressArray = $request->only(['name', 'address', 'zipcode', 'city',
+        $addressArray = $request->intersect(['name', 'address', 'zipcode', 'city',
             'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
 
         $address->update($addressArray);

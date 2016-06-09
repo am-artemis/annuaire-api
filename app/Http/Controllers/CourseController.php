@@ -46,7 +46,7 @@ class CourseController extends Controller
      */
     public function store(CourseStoreRequest $request)
     {
-        $courseArray = $request->only(['title', 'description', 'campus_id', 'school']);
+        $courseArray = $request->intersect(['title', 'description', 'campus_id', 'school']);
 
         $course = Course::forceCreate($courseArray);
 
@@ -62,7 +62,7 @@ class CourseController extends Controller
      */
     public function update(CourseUpdateRequest $request, Course $course)
     {
-        $courseArray = $request->only(['title', 'description', 'campus_id', 'school']);
+        $courseArray = $request->intersect(['title', 'description', 'campus_id', 'school']);
 
         $course->update($courseArray);
 

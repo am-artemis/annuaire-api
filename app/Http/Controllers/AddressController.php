@@ -49,7 +49,7 @@ class AddressController extends Controller
      */
     public function store(AddressStoreRequest $request)
     {
-        $addressArray = $request->only(['user_id', 'name', 'address', 'zipcode', 'city',
+        $addressArray = $request->intersect(['user_id', 'name', 'address', 'zipcode', 'city',
             'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
 
         $address = Address::forceCreate($addressArray);
@@ -67,7 +67,7 @@ class AddressController extends Controller
      */
     public function update(AddressUpdateRequest $request, Address $address)
     {
-        $addressArray = $request->only(['name', 'address', 'zipcode', 'city',
+        $addressArray = $request->intersect(['name', 'address', 'zipcode', 'city',
             'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
 
         $address->update($addressArray);

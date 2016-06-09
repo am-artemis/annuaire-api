@@ -51,7 +51,7 @@ class UserSocialController extends Controller
         $fields = ['id', 'url'];
         // Regarde si on nous envoie un objet unique ou une collection
         if ($request->has('id')) {
-            $collection = [$request->only($fields)];
+            $collection = [$request->intersect($fields)];
         } else {
             $collection = [];
             foreach ($request->all() as $item) {

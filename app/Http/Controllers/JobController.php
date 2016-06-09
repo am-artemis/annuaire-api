@@ -48,7 +48,7 @@ class JobController extends Controller
      */
     public function store(JobStoreRequest $request)
     {
-        $jobArray = $request->only(['user_id', 'title', 'description', 'from', 'to']);
+        $jobArray = $request->intersect(['user_id', 'title', 'description', 'from', 'to']);
 
         $job = Job::forceCreate($jobArray);
 
@@ -64,7 +64,7 @@ class JobController extends Controller
      */
     public function update(JobUpdateRequest $request, Job $job)
     {
-        $jobArray = $request->only(['title', 'description', 'from', 'to']);
+        $jobArray = $request->intersect(['title', 'description', 'from', 'to']);
 
         $job->update($jobArray);
 
