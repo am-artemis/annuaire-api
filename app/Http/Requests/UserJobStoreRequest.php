@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class UserResponsibilityUpdateRequest extends Request
+class UserJobStoreRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,13 +21,9 @@ class UserResponsibilityUpdateRequest extends Request
      */
     public function rules()
     {
-        $rules = (new ResponsibilityStoreRequest())->rules();
+        $rules = (new JobStoreRequest())->rules();
 
         unset($rules['user_id']);
-
-        foreach ($rules as &$rule) {
-            $rule = str_replace('required|', '', $rule);
-        }
         
         return $rules;
     }

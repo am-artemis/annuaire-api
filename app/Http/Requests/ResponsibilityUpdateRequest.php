@@ -26,7 +26,7 @@ class ResponsibilityUpdateRequest extends Request
         unset($rules['user_id']);
 
         foreach ($rules as &$rule) {
-            $rule = str_replace('required|', '', $rule)
+            $rule = str_replace('required|', '', $rule);
         }
         
         return $rules;

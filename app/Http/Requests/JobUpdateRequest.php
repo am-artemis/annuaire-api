@@ -24,6 +24,10 @@ class JobUpdateRequest extends Request
         $rules = (new JobStoreRequest())->rules();
 
         unset($rules['user_id']);
+
+        foreach ($rules as &$rule) {
+            $rule = str_replace('required|', '', $rule);
+        }
         
         return $rules;
     }
