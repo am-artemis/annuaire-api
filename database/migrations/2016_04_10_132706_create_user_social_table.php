@@ -15,6 +15,8 @@ class CreateUserSocialTable extends Migration
         Schema::create('user_social', function (Blueprint $table) {
             $table->string('user_id', 6);
             $table->integer('social_id')->unsigned();
+            $table->primary(['user_id', 'social_id']);
+
             $table->text('url');
             $table->timestamps();
         });

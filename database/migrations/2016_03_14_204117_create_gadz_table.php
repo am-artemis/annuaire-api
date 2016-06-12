@@ -13,12 +13,14 @@ class CreateGadzTable extends Migration
     public function up()
     {
         Schema::create('gadz', function (Blueprint $table) {
-            $table->increments('id');
             $table->string('user_id', 6);
+            $table->primary('user_id');
+
             $table->string('buque', 100);
             $table->string('fams', 100);
             $table->text('famsSearch');
             $table->integer('proms');
+
             $table->timestamps();
         });
     }

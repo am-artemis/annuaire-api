@@ -13,11 +13,14 @@ class CreateUserResidenceTable extends Migration
     public function up()
     {
         Schema::create('user_residence', function (Blueprint $table) {
+            $table->increments('id');
+
             $table->string('user_id', 6);
             $table->integer('residence_id')->unsigned();
             $table->string('room', 10);
             $table->date('from');
             $table->date('to');
+
             $table->timestamps();
         });
     }

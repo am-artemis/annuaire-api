@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 100)->unique();
             $table->string('phone', 50);
             $table->text('tags')->nullable();
+            
             $table->timestamps();
         });
     }
