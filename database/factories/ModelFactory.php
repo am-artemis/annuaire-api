@@ -1,32 +1,12 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| Here you may define all of your model factories. Model factories give
-| you a convenient way to create models for testing and seeding your
-| database. Just tell the factory how a default model should look.
-|
-*/
-
 $factory->define(App\Models\User::class, function ($faker) {
-    $campuses = App\Models\Campus::get(['id']);
-
-    // Create a mock campus if there's none already 
-    if ($campuses->count() > 0) {
-        $campus = $campuses->random();
-    } else {
-        $campus = factory(App\Models\Campus::class)->create();
-    }
-
     return [
         'firstname' => $faker->firstName,
         'lastname' => $faker->lastName,
-        'year' => rand(2012, 2014),
+        'year' => $year = rand(2012, 2016),
         'birthday' => Carbon\Carbon::now()->subYears(rand(17, 25))->subDays(rand(0, 365)),
-        'campus_id' => $campus->id,
+        'campus_id' => App\Models\Campus::all()->random()->id,
         'gender' => [null, 'm', 'f'][rand(0, 2)],
         'email' => $faker->email,
         'phone' => '06'.str_pad(rand(1, pow(10, 8)), 8, '0', STR_PAD_LEFT),
@@ -44,7 +24,7 @@ $factory->define(App\Models\Gadz::class, function ($faker) {
         'buque' => ucfirst($faker->word),
         'fams' => implode('-', $fams),
         'famsSearch' => implode(',', $fams),
-        'proms' => rand(212, 215),
+        'proms' => rand(212, 216),
         'created_at' => Carbon\Carbon::now(),
         'updated_at' => Carbon\Carbon::now(),
     ];
@@ -106,8 +86,6 @@ $factory->define(App\Models\Responsibility::class, function ($faker) {
 });
 
 $factory->define(App\Models\Job::class, function ($faker) {
-    $strass = ucfirst($faker->word);
-    $roles = ['Zt', 'Vp', 'Respo', 'Xgnasse'];
     return [
         'title' => $faker->sentence(rand(4, 8)),
         'description' => $faker->sentences(3, true),
@@ -115,18 +93,3 @@ $factory->define(App\Models\Job::class, function ($faker) {
         'to' => [Carbon\Carbon::now()->subMonths(rand(-20, 16))->subDays(rand(0, 30)), null][rand(0, 1)],
     ];
 });
-
-$factory->define(App\Models\Campus::class, function ($faker) {
-    $city = ucfirst($faker->word);
-    return [
-        'name' => ['Tabagn\'s', 'KIN', 'Jardin', 'Boquette', 'Institut', 'Campus'][rand(0, 5)] . ' de ' . $city,
-        'city' => $city,
-        'short' => preg_replace('#(?<=[bcdfghjklmnpqrstvwxz])[aeiouy]+[nmts]{0,1}$#', '$1\'s', $city),
-        'prefix' => substr(strtolower($city), 0, 2),
-        'address' => 'Rue Jenesaisquoi, ' . rand(10000, 99999) . ' ' . $city,
-        'lat' => $faker->latitude(-90, 90),
-        'lng' => $faker->longitude(-180, 180),
-        'photo' => 'campus/' . strtolower($city) . '.jpg',
-    ];
-});
-    

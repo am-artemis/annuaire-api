@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\AlgoliaService;
 use Illuminate\Database\Seeder;
 
 use Carbon\Carbon;
@@ -15,7 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         DB::beginTransaction();
 
-        $this->call('CampusTableSeeder');
         $this->call('ResidenceTableSeeder');
         $this->call('CourseTableSeeder');
         $this->call('DegreeTableSeeder');
@@ -26,16 +26,16 @@ class DatabaseSeeder extends Seeder
         factory(App\Models\User::class, 30)->create()->each(function ($user) {
             // 4 chances sur 5 d'avoir un gadz
             if (rand(0, 4)) {
-                $user->gadz()->save(factory(App\Models\Gadz::class)->make());
+                $user->gadz()->save(factory(App\Models\Gadz::class)->make(['proms' => $user->year - 200]));
             }
 
             // Photos
-            for ($i=rand(0, 4); $i > 0; $i--) {
+            for ($i = rand(0, 4); $i > 0; $i--) {
                 $user->photos()->save(factory(App\Models\Photo::class)->make());
             }
 
             // Addresses
-            for ($i=rand(0, 2); $i > 0; $i--) {
+            for ($i = rand(0, 2); $i > 0; $i--) {
                 $user->addresses()->save(factory(App\Models\Address::class)->make());
             }
 
@@ -45,8 +45,8 @@ class DatabaseSeeder extends Seeder
                     $pivot = [
                         'room' => rand(101, 799),
                         'from' => Carbon::now()->subDays(rand(50, 1540)),
-                        'to' => Carbon::now()->addDays(rand(50, 1540)),
-                        ];
+                        'to'   => Carbon::now()->addDays(rand(50, 1540)),
+                    ];
                     $user->residences()->attach($residence->id, $pivot);
                 }
             });
@@ -56,8 +56,8 @@ class DatabaseSeeder extends Seeder
                 if (rand(0, 1)) {
                     $pivot = [
                         'from' => Carbon::now()->subDays(rand(50, 1540)),
-                        'to' => Carbon::now()->addDays(rand(50, 1540)),
-                        ];
+                        'to'   => Carbon::now()->addDays(rand(50, 1540)),
+                    ];
                     $user->courses()->attach($course->id, $pivot);
                 }
             });
@@ -67,26 +67,26 @@ class DatabaseSeeder extends Seeder
                 if (rand(0, 1)) {
                     $pivot = [
                         'year' => rand(2010, 2018),
-                        ];
+                    ];
                     $user->degrees()->attach($degree->id, $pivot);
                 }
             });
 
             // Responsibility
-            for ($i=rand(0, 2); $i > 0; $i--) {
+            for ($i = rand(0, 2); $i > 0; $i--) {
                 $user->responsibilities()->save(factory(App\Models\Responsibility::class)->make());
             }
 
             // Jobs
-            for ($i=rand(0, 2); $i > 0; $i--) {
+            for ($i = rand(0, 2); $i > 0; $i--) {
                 $user->jobs()->save(factory(App\Models\Job::class)->make());
             }
 
             App\Models\Social::get(['id'])->random(3)->each(function ($social) use ($user) {
                 if (rand(0, 1)) {
                     $pivot = [
-                        'url' => 'test'.rand(10000, 99999).'.url',
-                        ];
+                        'url' => 'test' . rand(10000, 99999) . '.url',
+                    ];
                     $user->socials()->attach($social->id, $pivot);
                 }
             });
@@ -94,5 +94,10 @@ class DatabaseSeeder extends Seeder
 
         // DB::rollBack();
         DB::commit();
+        dump('Seed done on database');
+        dump('Populating Algolia...');
+        $algolia = app()->make(AlgoliaService::class);
+        $algolia->reIndexUsers();
+
     }
 }

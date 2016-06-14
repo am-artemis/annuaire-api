@@ -1,15 +1,16 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CampusTableSeeder extends Seeder
+class PopulateCampuses extends Migration
 {
     /**
-     * Run the database seeds.
+     * Run the migrations.
      *
      * @return void
      */
-    public function run()
+    public function up()
     {
         DB::table('campuses')->insert([
             ['name' => 'Tabagn\'s de Clun\'s', 'city' => 'Cluny', 'short' => 'Clun\'s', 'prefix' => 'cl', 'address' => 'Rue porte de Paris, 71250 Cluny', 'lat' => 46.2157467, 'lng' => 2.2088258, 'photo' => 'campus/cluns.jpg'],
@@ -26,5 +27,15 @@ class CampusTableSeeder extends Seeder
             ['name' => 'Tabagn\'s de Châlon\'s', 'city' => 'Châlons-en-Champagne', 'short' => 'Châlon\'s', 'prefix' => 'ch', 'address' => 'Rue Saint-Dominique, 51000 Châlons-en-Champagne', 'lat' => 48.8952055, 'lng' => 3.3583826, 'photo' => 'campus/chalons.jpg'],
             ['name' => 'Tabagn\'s de Bordel\'s', 'city' => 'Bordeaux', 'short' => 'Bordel\'s', 'prefix' => 'bo', 'address' => 'Esplanade des Arts et Métiers, 33400 Talence', 'lat' => 44.8204421, 'lng' => -0.5869131, 'photo' => 'campus/talence.jpg'],
         ]);
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        DB::table('campuses')->truncate();
     }
 }

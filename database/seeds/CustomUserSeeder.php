@@ -21,17 +21,17 @@ class CustomUserSeeder extends Seeder
                     'birthday' => '1991-05-08',
                     'gender' => 'm',
                     'email' => 'mathieu.tudisco@gadz.org',
-                    'phone' => '0600000001',
+                    'phone' => '0625690445',
                     'year' => 2012,
                     'campus_id' => 1,
+                    'tags' => 'zaru, charue, iwa',
                 ],
                 'gadz' => [
                     'buque' => 'Iwazaru',
                     'fams' => '134μ169',
-                    'famsSearch' => '134,169',
+                    'famsSearch' => '134, 169',
                     'proms' => 212,
                 ],
-                'tags' => 'zaru, charue',
                 'residences' => [
                     [
                         'id' => 1,
@@ -64,6 +64,20 @@ class CustomUserSeeder extends Seeder
                         'to' => '2016-04-31',
                     ],
                 ],
+                'degree' => [
+                    [
+                        'title' => 'Ingénieur',
+                        'school' => 'Arts et Métiers',
+                        'am' => true,
+                        'year' => 2016,
+                    ],
+                    [
+                        'title' => 'DUT GMP',
+                        'school' => 'IUT GMP AIX',
+                        'am' => false,
+                        'year' => 2012,
+                    ],
+                ],
             ],
             [
                 'user' => [
@@ -76,6 +90,7 @@ class CustomUserSeeder extends Seeder
                     'phone' => '0600000002',
                     'year' => 2013,
                     'campus_id' => 1,
+                    'tags' => null,
                 ],
                 'gadz' => [
                     'buque' => 'Tarmak',
@@ -83,7 +98,6 @@ class CustomUserSeeder extends Seeder
                     'famsSearch' => '89,154',
                     'proms' => 213,
                 ],
-                'tags' => 'tarmac',
                 'residences' => [
                     [
                         'id' => 1,
@@ -110,6 +124,7 @@ class CustomUserSeeder extends Seeder
                         'to' => '2016-04-31',
                     ],
                 ],
+                'degree' => []
             ],
         ];
 
@@ -122,6 +137,10 @@ class CustomUserSeeder extends Seeder
                 $id = $res_data['id'];
                 unset($res_data['id']);
                 $user->residences()->attach($id, $res_data);
+            }
+            foreach ($user_data['degree'] as $deg_data) {
+                $deg = \App\Models\Degree::create(array_except($deg_data,'year'));
+                $user->degrees()->attach($deg->id, array_only($deg_data, 'year'));
             }
 
             factory(App\Models\Photo::class, 3)->make()->each(function ($photo) use ($user) {
