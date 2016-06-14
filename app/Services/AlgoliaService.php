@@ -2,14 +2,18 @@
 
 namespace App\Services;
 
-use App;
-use App\Models\ApiModel;
 use App\Models\User;
+use Vinkla\Algolia\AlgoliaManager;
 
 class AlgoliaService
 {
+    /** @var \AlgoliaSearch\Client $algolia*/
+    public $algolia;
 
-    public static $settings = [
+    /** @var \AlgoliaSearch\Index $index*/
+    public $index;
+
+    public $settings = [
         'attributesToIndex' => [
             'lastname',
             'buque',
@@ -31,32 +35,49 @@ class AlgoliaService
             'desc(rank.year)',
             'asc(lastname)'
         ],
+        'attributeForDistinct' => [
+            'user_id'
+        ],
         'allowTyposOnNumericTokens' => false,
     ];
+
+    public function __construct(AlgoliaManager $algolia)
+    {
+        $this->algolia = $algolia;
+        $this->index = $this->algolia->initIndex(config('algolia.index'));
+
+    }
+
     /**
      * @param User $user
      */
-    public static function pushUser(User $user)
+    public function addUser(User $user)
     {
-        /** @var \AlgoliaSearch\Laravel\ModelHelper $modelHelper */
-        $modelHelper = App::make('\AlgoliaSearch\Laravel\ModelHelper');
+        $this->index->addObjects($this->userToObjects($user));
+    }
 
-        $indices = $modelHelper->getIndices($user);
+    /**
+     * @param User $user
+     */
+    public function deleteUser(User $user)
+    {
+        $this->index->deleteByQuery(
+            $user->id,
+            [
+                'restrictSearchableAttributes' => 'user_id',
+                'typoTolerance'                => false,
+                'queryType'                    => 'prefixNone',
+            ]
+        );
+    }
 
-        /** @var \AlgoliaSearch\Index $index */
-        foreach ($indices as $index) {
-            if ($modelHelper->indexOnly($user, $index->indexName)) {
-                $index->deleteByQuery(
-                    $user->id,
-                    [
-                        'restrictSearchableAttributes' => 'user_id',
-                        'typoTolerance'                => false,
-                        'queryType'                    => 'prefixNone',
-                    ]
-                );
-                $index->addObjects(static::userToObjects($user));
-            }
-        }
+    /**
+     * @param User $user
+     */
+    public function updateUser(User $user)
+    {
+        $this->deleteUser($user);
+        $this->addUser($user);
     }
 
     /**
@@ -66,7 +87,7 @@ class AlgoliaService
      *
      * @return array
      */
-    public static function userToObjects(User $user)
+    public function userToObjects(User $user)
     {
         $obj_user = [
             'user_id'   => $user->id,
@@ -128,39 +149,33 @@ class AlgoliaService
     /**
      * Re index all users
      *
-     * @param bool $erase
+     * @param bool $refresh
      */
-    public static function reIndexUsers($erase = true)
+    public function reIndexUsers($refresh = true)
     {
-        /** @var \AlgoliaSearch\Laravel\ModelHelper $modelHelper */
-        $modelHelper = App::make('\AlgoliaSearch\Laravel\ModelHelper');
-        $user = new User;
-        $indices = $modelHelper->getIndices($user);
-        $indicesTmp = $erase ? $modelHelper->getIndicesTmp($user) : $indices;
+        $indexTmp = $refresh ? $this->algolia->initIndex($this->index->indexName.'_tmp') : $this->index;
 
-        User::chunk(100, function ($users) use ($indicesTmp, $modelHelper, $erase) {
-            /** @var \AlgoliaSearch\Index $index */
-            foreach ($indicesTmp as $index) {
-                $records = [];
+        User::chunk(100, function ($users) use ($indexTmp, $refresh) {
+            $records = [];
 
-                foreach ($users as $user) {
-                    if ($modelHelper->indexOnly($user, $index->indexName)) {
-                        $records = array_merge($records, static::userToObjects($user));
-                    }
-                }
-
-                $index->addObjects($records);
+            foreach ($users as $user) {
+                $records = array_merge($records, static::userToObjects($user));
             }
 
+            $indexTmp->addObjects($records);
         });
 
-        if ($erase) {
-            for ($i = 0; $i < count($indices); $i++) {
-                $modelHelper->algolia->moveIndex($indicesTmp[$i]->indexName, $indices[$i]->indexName);
-                if (count(array_keys(static::$settings)) > 0) {
-                    $indices[$i]->setSettings(static::$settings);
-                }
-            }
+        if ($refresh) {
+            $this->algolia->moveIndex($indexTmp->indexName, $this->index->indexName);
+            $this->index->setSettings($this->settings);
         }
+    }
+
+    public function searchUsers($query, $parameters = [])
+    {
+        $user = new User();
+        $result = $this->index->search($query, $parameters);
+
+        return $result;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AlgoliaService;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Collection;
@@ -36,9 +37,15 @@ class SearchController extends Controller
 
 
 
-    public function algolia($q)
+    public function algolia(AlgoliaService $algolia, $q)
     {
-        return User::search($q);
+        $parameters['attributesToRetrieve'] = 'user_id';
+        $results = $algolia->searchUsers($q, $parameters);
+        $users_id = [];
+        foreach ($results['hits'] as $elt) {
+            array_push($users_id, $elt['user_id']);
+        }
+        return User::findMany($users_id);
     }
 
     public function standard($q)

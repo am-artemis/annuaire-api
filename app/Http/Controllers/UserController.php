@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+use App\Services\AlgoliaService;
 use Illuminate\Http\Request;
-use App\Http\Transformers\UserTransformer;
 
+use DB;
 use App\Models\User;
 use App\Models\Gadz;
 
@@ -19,13 +19,13 @@ class UserController extends Controller
     private static $relationships = ['campus', 'gadz', 'photos', 'addresses', 'residences', 'courses',
         'degrees', 'responsibilities', 'jobs', 'socials'];
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
+    protected $algolia;
+
+    public function __construct(AlgoliaService $algolia)
+    {
+        $this->algolia = $algolia;
+    }
+
     public function index(Request $request)
     {
         $users = User::with(self::$relationships)->paginate($request->input('items', 30));
@@ -33,26 +33,13 @@ class UserController extends Controller
         return $users;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param User $user
-     *
-     * @return Response
-     */
+
     public function show(User $user)
     {
         return $user->load(self::$relationships);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     */
+
     public function store(Request $request)
     {
         $fields = array_keys($request->all());
@@ -106,6 +93,8 @@ class UserController extends Controller
         $user->gadz()->save($gadz);
 
         DB::commit();
+
+        $this->algolia->addUser($user);
 
         // Retourne le nouvel user
         return $user;
@@ -177,22 +166,19 @@ class UserController extends Controller
             $user->update($user_data);
         }
 
-
         DB::commit();
+
+        $this->algolia->updateUser($user);
 
         // Retourne le nouvel user
         return $user;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param User $user
-     *
-     * @return Response
-     */
+
     public function destroy(User $user)
     {
         $user->delete();
+        $this->algolia->deleteUser($user);
+
     }
 }

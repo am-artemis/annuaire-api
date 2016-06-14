@@ -51,9 +51,6 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 class User extends ApiModel implements AuthenticatableContract
 {
     use Authenticatable;
-//    use AlgoliaEloquentTrait;
-
-    public $indices;
 
     public $incrementing = false;
     public $timestamps = true;
@@ -62,17 +59,6 @@ class User extends ApiModel implements AuthenticatableContract
     protected $hidden = ['id', 'auth_id', 'created_at', 'updated_at'];
     protected $dates = ['created_at', 'updated_at', 'birthday'];
 
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->indices = config('algolia.indices');
-    }
-
-    public static function reIndex($erase = true)
-    {
-        AlgoliaService::reIndexUsers($erase);
-    }
 
     protected static function boot()
     {
@@ -83,10 +69,6 @@ class User extends ApiModel implements AuthenticatableContract
             if (empty($model->id)) {
                 $model->id = str_random(6);
             }
-        });
-
-        static::saved(function (User $user) {
-            AlgoliaService::pushUser($user);
         });
     }
 

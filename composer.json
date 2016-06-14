@@ -9,7 +9,7 @@
         "barryvdh/laravel-cors": "^0.8.0",
         "tymon/jwt-auth": "^0.5.9",
         "jrm2k6/cloudder": "0.2.*",
-        "algolia/algoliasearch-laravel": "^1.1"
+        "vinkla/algolia": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "1.5.*",

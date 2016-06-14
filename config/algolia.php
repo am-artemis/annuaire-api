@@ -49,6 +49,6 @@ return [
 
     ],
 
-    'indices' => explode(',', env('ALGOLIA_INDICES'))
+    'index' => env('ALGOLIA_INDEX')
 
 ];

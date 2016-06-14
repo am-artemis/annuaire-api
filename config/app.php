@@ -161,7 +161,7 @@ return [
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         JD\Cloudder\CloudderServiceProvider::class,
-        AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
+        Vinkla\Algolia\AlgoliaServiceProvider::class,
 
     ],
 
@@ -212,6 +212,8 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Socialite'  => Laravel\Socialite\Facades\Socialite::class,
         'Cloudder'   => JD\Cloudder\Facades\Cloudder::class,
+        'Algolia'    => Vinkla\Algolia\Facades\Algolia::class,
+
     ],
 
 ];
