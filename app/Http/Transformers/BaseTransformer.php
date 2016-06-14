@@ -23,6 +23,11 @@ class BaseTransformer extends TransformerAbstract
      */
     protected $fields_minimal = null;
 
+
+    public function setFieldsMinimal($array)
+    {
+        $this->fields_minimal = $array;
+    }
     /**
      * Get filter set to apply
      *

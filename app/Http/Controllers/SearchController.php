@@ -18,20 +18,31 @@ class SearchController extends Controller
     private static $relationships = ['campus', 'gadz', 'photos', 'addresses', 'residences', 'courses',
         'degrees', 'responsibilities', 'jobs', 'socials'];
 
-    /**
-     * Search users and display results
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|Collection|static
-     */
+
+
+
     public function index(Request $request)
     {
         if (!$request->has('q')) {
             return $this->response->noContent();
         }
 
+
         $q = $request->input('q');
 
+        echo $q;
+        return $this->algolia($q);
+    }
+
+
+
+    public function algolia($q)
+    {
+        return User::search($q);
+    }
+
+    public function standard($q)
+    {
         // Temporaire, renvoi tous les users
         if ($q == "***") {
             return User::all();

@@ -41,7 +41,9 @@ class CourseTransformer extends BaseTransformer
                 'to' => $course->pivot->to,
             ];
 
-            $data['self'] = app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('users.courses.show', [$course->pivot->user_id, $course->pivot->id]);
+            $data['self'] = app('Dingo\Api\Routing\UrlGenerator')
+                ->version('v1')
+                ->route('users.courses.show', [$course->pivot->user_id, $course->pivot->id]);
 
             $data = array_merge($data, $pivot);
         }

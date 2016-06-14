@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
+use App\Services\AlgoliaService;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-
-// Extends are done in ApiModel such as Illuminate\Database\Eloquent\Model
 
 /**
  * App\Models\User
@@ -47,43 +46,33 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Responsibility[] $responsibilities
  * @property-read mixed $profile
+ * @property-read mixed $profile_photo
  */
 class User extends ApiModel implements AuthenticatableContract
 {
     use Authenticatable;
+//    use AlgoliaEloquentTrait;
+
+    public $indices;
 
     public $incrementing = false;
-    /**
-     * Tell if the model contains timestamps or if it doesn't.
-     *
-     * @var array
-     */
     public $timestamps = true;
-    /**
-     * The table name used for the model.
-     *
-     * @var array
-     */
     protected $table = 'users';
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['firstname', 'lastname', 'year', 'gender', 'email', 'phone', 'campus_id', 'birthday', 'tags'];
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
     protected $hidden = ['id', 'auth_id', 'created_at', 'updated_at'];
-    /**
-     * List of other dates to convert into Carbon objects.
-     *
-     * @var array
-     */
     protected $dates = ['created_at', 'updated_at', 'birthday'];
 
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->indices = config('algolia.indices');
+    }
+
+    public static function reIndex($erase = true)
+    {
+        AlgoliaService::reIndexUsers($erase);
+    }
 
     protected static function boot()
     {
@@ -95,7 +84,12 @@ class User extends ApiModel implements AuthenticatableContract
                 $model->id = str_random(6);
             }
         });
+
+        static::saved(function (User $user) {
+            AlgoliaService::pushUser($user);
+        });
     }
+
 
     /**
      * Return the url to the user's profile photo. Return a default one if none is available
@@ -104,7 +98,7 @@ class User extends ApiModel implements AuthenticatableContract
      *
      * @return string this->src
      */
-    public function getProfileAttribute($value)
+    public function getProfilePhotoAttribute($value)
     {
         $photo = $this->photos()->where('type', 'profile')->orderBy('created_at', 'desc')->first();
 

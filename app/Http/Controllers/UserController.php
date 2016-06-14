@@ -169,13 +169,14 @@ class UserController extends Controller
         // Crée les objets et les sauvegarde en base
         DB::beginTransaction();
 
+        if ($request->has('gadz')) {
+            $user->gadz->update($request->input('gadz'));
+        }
+
         if ($request->has('contact') or $request->has('promo')) {
             $user->update($user_data);
         }
 
-        if ($request->has('gadz')) {
-            $user->gadz->update($request->input('gadz'));
-        }
 
         DB::commit();
 

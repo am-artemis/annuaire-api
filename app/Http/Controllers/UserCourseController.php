@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Course;
 use Illuminate\Support\Facades\DB;
 
-
 class UserCourseController extends Controller
 {
     /**

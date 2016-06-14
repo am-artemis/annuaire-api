@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Residence;
 use Illuminate\Support\Facades\DB;
 
-
 class UserResidenceController extends Controller
 {
     /**

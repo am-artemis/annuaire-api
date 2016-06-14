@@ -35,7 +35,9 @@ class ResidenceTransformer extends BaseTransformer
                 'to' => $residence->pivot->to,
             ];
 
-            $data['self'] = app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('users.residences.show', [$residence->pivot->user_id, $residence->pivot->id]);
+            $data['self'] = app('Dingo\Api\Routing\UrlGenerator')
+                ->version('v1')
+                ->route('users.residences.show', [$residence->pivot->user_id, $residence->pivot->id]);
 
             $data = array_merge($data, $pivot);
         }
