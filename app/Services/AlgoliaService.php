@@ -35,9 +35,7 @@ class AlgoliaService
             'desc(rank.year)',
             'asc(lastname)'
         ],
-        'attributeForDistinct' => [
-            'user_id'
-        ],
+        'attributeForDistinct' => 'user_id',
         'allowTyposOnNumericTokens' => false,
     ];
 
