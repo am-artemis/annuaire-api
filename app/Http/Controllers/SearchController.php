@@ -19,8 +19,12 @@ class SearchController extends Controller
     private static $relationships = ['campus', 'gadz', 'photos', 'addresses', 'residences', 'courses',
         'degrees', 'responsibilities', 'jobs', 'socials'];
 
+    protected $algolia;
 
-
+    public function __construct(AlgoliaService $algolia)
+    {
+        $this->algolia = $algolia;
+    }
 
     public function index(Request $request)
     {
@@ -28,19 +32,17 @@ class SearchController extends Controller
             return $this->response->noContent();
         }
 
-
         $q = $request->input('q');
 
-        echo $q;
         return $this->algolia($q);
     }
 
 
 
-    public function algolia(AlgoliaService $algolia, $q)
+    public function algolia($q)
     {
         $parameters['attributesToRetrieve'] = 'user_id';
-        $results = $algolia->searchUsers($q, $parameters);
+        $results = $this->algolia->searchUsers($q, $parameters);
         $users_id = [];
         foreach ($results['hits'] as $elt) {
             array_push($users_id, $elt['user_id']);
