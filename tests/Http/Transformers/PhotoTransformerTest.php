@@ -14,8 +14,6 @@ class PhotoTransformerTest extends TestCase
     {
         parent::setUp();
 
-        // Create a Campus for user factory
-        factory(Campus::class)->create();
         $this->user = factory(User::class)->create();
     }
 
@@ -45,6 +43,6 @@ class PhotoTransformerTest extends TestCase
         $transformed = self::transformItem($photo, new PhotoTransformer);
 
         $this->assertTrue(is_array($transformed));
-        $this->assertTrue($transformed == $expectedTransformed);
+        $this->assertEquals($expectedTransformed, $transformed);
     }
 }

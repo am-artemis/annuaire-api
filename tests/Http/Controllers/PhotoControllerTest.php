@@ -14,8 +14,6 @@ class PhotoControllerTest extends TestCase
         parent::setUp();
 
         // Create a Campus for user factory
-        factory(Campus::class)->create();
-
         $this->user = factory(User::class)->create();
     }
 

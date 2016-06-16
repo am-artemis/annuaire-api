@@ -26,10 +26,11 @@ class CampusTransformerTest extends TestCase
             'photo' => 'campus/cluns.jpg'
         ];
 
+        $campus = Campus::create($campusArray);
         $expectedTransformed = [
             'data' => [
-                'self' => 'http://api.annuaire.artemis.am/campuses/1',
-                'id' => 1,
+                'self' => 'http://api.annuaire.artemis.am/campuses/'.$campus->id,
+                'id' => $campus->id,
                 'name' => 'Tabagn\'s de Clun\'s',
                 'city' => 'Cluny',
                 'short' => 'Clun\'s',
@@ -44,10 +45,9 @@ class CampusTransformerTest extends TestCase
             ]
         ];
 
-        $campus = Campus::create($campusArray);
         $transformed = self::transformItem($campus, new CampusTransformer);
 
         $this->assertTrue(is_array($transformed));
-        $this->assertTrue($transformed == $expectedTransformed);
+        $this->assertEquals($expectedTransformed, $transformed);
     }
 }

@@ -14,14 +14,10 @@ class CampusControllerTest extends TestCase
 
     public function testIndex()
     {
-        $nb = 10;
-
-        $campuses = factory(Campus::class, $nb)->create();
-
         $this->jsonWithJWT('GET', 'campuses');
 
         $this->assertResponseOk();
-        $this->assertCount($nb, $this->jsonResponse('data'));
+        $this->assertCount(Campus::count(), $this->jsonResponse('data'));
 
         $expectedJsonStructure = [
             'data' => [
@@ -39,7 +35,7 @@ class CampusControllerTest extends TestCase
 
     public function testShow()
     {
-        $campus = factory(Campus::class)->create();
+        $campus = Campus::first();
 
         $this->jsonWithJWT('GET', implode('/', ['campuses', $campus->id]));
 

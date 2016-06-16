@@ -15,7 +15,6 @@ class PhotoTest extends TestCase
      */
     public function testSrc()
     {
-        $this->seed();
         $user = factory(User::class)->create();
         $photo = $user->photos()->create(['src'=> '', 'type' =>'profile', 'title' => 'essai']);
         $photo->src = 'essai';
