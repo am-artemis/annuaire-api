@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call('CustomUserSeeder');
 
-        factory(App\Models\User::class, 30)->create()->each(function ($user) {
+        factory(App\Models\User::class, 132)->create()->each(function ($user) {
             // 4 chances sur 5 d'avoir un gadz
             if (rand(0, 4)) {
                 $user->gadz()->save(factory(App\Models\Gadz::class)->make(['proms' => $user->year - 200]));
