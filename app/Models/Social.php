@@ -18,41 +18,13 @@ namespace App\Models;
  */
 class Social extends ApiModel
 {
-    /**
-     * The table name used for the model.
-     *
-     * @var array
-     */
-    protected $table = 'socials';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'logo'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['id'];
-
-    /**
-     * Tell if the model contains timestamps or if it doesn't.
-     *
-     * @var array
-     */
     public $timestamps = false;
-
-    /**
-     * List of other dates to convert into Carbon objects.
-     *
-     * @var array
-     */
+    protected $table = 'socials';
+    protected $fillable = ['name', 'logo'];
+    protected $hidden = ['id'];
     protected $dates = [];
-    
+
     public function users()
     {
         return $this->belongsToMany('App\Models\User', 'user_social')->withPivot('url')->withTimestamps();

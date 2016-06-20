@@ -27,54 +27,17 @@ namespace App\Models;
  */
 class Photo extends ApiModel
 {
-    /**
-     * The table name used for the model.
-     *
-     * @var array
-     */
-    protected $table = 'photos';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['src', 'type', 'title'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['id', 'user_id', 'cloudinary_id'];
-
-    /**
-     * Tell if the model contains timestamps or if it doesn't.
-     *
-     * @var array
-     */
+    const PROFILE_DEFAULT = 'link/to/default';
     public $timestamps = true;
-
-    /**
-     * List of other dates to convert into Carbon objects.
-     *
-     * @var array
-     */
+    protected $table = 'photos';
+    protected $fillable = ['src', 'type', 'title'];
+    protected $hidden = ['id', 'user_id', 'cloudinary_id'];
     protected $dates = ['created_at', 'updated_at'];
 
-
-    /**
-     * Return an url shape of src, whatever the stored one.
-     * @param $value
-     * @return string this->src
-     */
     public function getSrcAttribute($value)
     {
-        if (preg_match('#$http(s)?://#', $value)) {
-            return $value;
-        } else {
-            return url($value);
-        }
+        return url($value);
     }
 
 

@@ -87,7 +87,7 @@ class User extends ApiModel implements AuthenticatableContract
         if ($photo) {
             return $photo->src;
         } else {
-            return url('assets/link/to/default/photo.jpg');
+            return url(Photo::PROFILE_DEFAULT);
         }
     }
 

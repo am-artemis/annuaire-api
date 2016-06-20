@@ -24,39 +24,11 @@ namespace App\Models;
  */
 class Degree extends ApiModel
 {
-    /**
-     * The table name used for the model.
-     *
-     * @var array
-     */
-    protected $table = 'degrees';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['title', 'school', 'am'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['id'];
-
-    /**
-     * Tell if the model contains timestamps or if it doesn't.
-     *
-     * @var array
-     */
     public $timestamps = true;
-
-    /**
-     * List of other dates to convert into Carbon objects.
-     *
-     * @var array
-     */
+    protected $table = 'degrees';
+    protected $fillable = ['title', 'school', 'am'];
+    protected $hidden = ['id'];
     protected $dates = ['created_at', 'updated_at'];
 
 

@@ -8,20 +8,22 @@ use Tests\TestCase;
 
 class PhotoTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testSrc()
+
+    public function testSrcDansLeCasdUnLien()
     {
         $user = factory(User::class)->create();
-        $photo = $user->photos()->create(['src'=> '', 'type' =>'profile', 'title' => 'essai']);
-        $photo->src = 'essai';
-        $this->assertEquals(url('essai'), $photo->src);
-        $photo->src = 'http://essai';
+        $photo = $user->photos()->create(['src'=> 'http://essai', 'type' =>'profile', 'title' => 'essai']);
         $this->assertEquals('http://essai', $photo->src);
-        $photo->src = 'https://essai';
-        $this->assertEquals('https://essai', $photo->src);
+
+        $photo2 = $user->photos()->create(['src'=> 'https://essai', 'type' =>'profile', 'title' => 'essai']);
+        $this->assertEquals('https://essai', $photo2->src);
+
+    }
+
+    public function testSrcDansLeCasdUnPath()
+    {
+        $user = factory(User::class)->create();
+        $photo = $user->photos()->create(['src'=> 'essai', 'type' =>'profile', 'title' => 'essai']);
+        $this->assertEquals(url('essai'), $photo->src);
     }
 }

@@ -95,14 +95,6 @@ class AlgoliaService
             'email'     => explode('@', $user->email)[0],
             'phone'     => $user->phone,
             'year'      => (string)$user->year,
-//            'addresses'        => null,
-//            'residences'       => null,
-//            'courses'          => null,
-//            'tags'             => $user->tags,
-//            'degrees'          => null,
-//            'responsibilities' => null,
-//            'jobs'             => null,
-//            'socials'          => null,
         ];
 
 
@@ -157,7 +149,7 @@ class AlgoliaService
             $records = [];
 
             foreach ($users as $user) {
-                $records = array_merge($records, static::userToObjects($user));
+                $records = array_merge($records, $this->userToObjects($user));
             }
 
             $indexTmp->addObjects($records);

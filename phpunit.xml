@@ -26,5 +26,7 @@
         <env name="MAIL_DRIVER" value="log"/>
         <env name="DB_CONNECTION" value="testing"/>
         <env name="JWT_BLACKLIST_ENABLED" value="false"/>
+        <env name="ALGOLIA_INDEX" value="annuaire_test"/>
+        <env name="ALGOLIA_ID" value="XXXXXXX"/>
     </php>
 </phpunit>

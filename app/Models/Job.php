@@ -28,39 +28,11 @@ namespace App\Models;
  */
 class Job extends ApiModel
 {
-    /**
-     * The table name used for the model.
-     *
-     * @var array
-     */
-    protected $table = 'jobs';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['title', 'description', 'from', 'to'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['id', 'user_id'];
-
-    /**
-     * Tell if the model contains timestamps or if it doesn't.
-     *
-     * @var array
-     */
     public $timestamps = true;
-
-    /**
-     * List of other dates to convert into Carbon objects.
-     *
-     * @var array
-     */
+    protected $table = 'jobs';
+    protected $fillable = ['title', 'description', 'from', 'to'];
+    protected $hidden = ['id', 'user_id'];
     protected $dates = ['from', 'to', 'created_at', 'updated_at'];
 
 

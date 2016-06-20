@@ -30,42 +30,14 @@ namespace App\Models;
  */
 class Campus extends ApiModel
 {
-    /**
-     * The table name used for the model.
-     *
-     * @var array
-     */
-    protected $table = 'campuses';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'city', 'short', 'prefix', 'address', 'lat', 'lng', 'photo'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['id', 'pivot', 'created_at', 'updated_at'];
-
-    /**
-     * Tell if the model contains timestamps or if it doesn't.
-     *
-     * @var array
-     */
     public $timestamps = false;
-
-    /**
-     * List of other dates to convert into Carbon objects.
-     *
-     * @var array
-     */
+    protected $table = 'campuses';
+    protected $fillable = ['name', 'city', 'short', 'prefix', 'address', 'lat', 'lng', 'photo'];
+    protected $hidden = ['id', 'pivot', 'created_at', 'updated_at'];
     protected $dates = [];
 
-  
+
     public function users()
     {
         return $this->hasMany('App\Models\User', 'campus_id');

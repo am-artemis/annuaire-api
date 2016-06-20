@@ -25,46 +25,18 @@ namespace App\Models;
  */
 class Residence extends ApiModel
 {
-    /**
-     * The table name used for the model.
-     *
-     * @var array
-     */
-    protected $table = 'residences';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'address', 'lat', 'lng', 'campus_id'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['id'];
-
-    /**
-     * Tell if the model contains timestamps or if it doesn't.
-     *
-     * @var array
-     */
     public $timestamps = false;
-
-    /**
-     * List of other dates to convert into Carbon objects.
-     *
-     * @var array
-     */
+    protected $table = 'residences';
+    protected $fillable = ['name', 'address', 'lat', 'lng', 'campus_id'];
+    protected $hidden = ['id'];
     protected $dates = [];
-    
+
     public function campus()
     {
         return $this->belongsTo('App\Models\Campus', 'campus_id');
     }
-    
+
     public function users()
     {
         return $this->belongsToMany('App\Models\User', 'user_residence', 'residence_id', 'user_id')

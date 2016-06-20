@@ -31,39 +31,11 @@ namespace App\Models;
  */
 class Responsibility extends ApiModel
 {
-    /**
-     * The table name used for the model.
-     *
-     * @var array
-     */
-    protected $table = 'responsibilities';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['title', 'strass', 'from', 'to'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['id', 'user_id', 'campus_id', 'created_at', 'updated_at'];
-
-    /**
-     * Tell if the model contains timestamps or if it doesn't.
-     *
-     * @var array
-     */
     public $timestamps = true;
-
-    /**
-     * List of other dates to convert into Carbon objects.
-     *
-     * @var array
-     */
+    protected $table = 'responsibilities';
+    protected $fillable = ['title', 'strass', 'from', 'to'];
+    protected $hidden = ['id', 'user_id', 'campus_id', 'created_at', 'updated_at'];
     protected $dates = ['from', 'to', 'created_at', 'updated_at'];
 
 
@@ -72,7 +44,7 @@ class Responsibility extends ApiModel
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
-    
+
     public function campus()
     {
         return $this->belongsTo('App\Models\Campus', 'campus_id');
