@@ -61,7 +61,7 @@ class CustomUserSeeder extends Seeder
                         'id' => 3,
                         'room' => '703',
                         'from' => '2015-01-20',
-                        'to' => '2016-04-31',
+                        'to' => '2016-04-30',
                     ],
                 ],
                 'degree' => [
