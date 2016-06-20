@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /usr/share/nginx/html/app/Http</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/nv.d3.min.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="../js/html5shiv.min.js"></script>
+  <script src="../js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="../index.html">/usr/share/nginx/html/app</a></li>
+        <li><a href="index.html">Http</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Transformers/BaseTransformer.php.html#10">BaseTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/CourseTransformer.php.html#9">CourseTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/AddressTransformer.php.html#9">AddressTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/AuthStoreRequest.php.html#5">AuthStoreRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/AddressStoreRequest.php.html#5">AddressStoreRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/AddressUpdateRequest.php.html#5">AddressUpdateRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/DegreeTransformer.php.html#9">DegreeTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/GadzTransformer.php.html#9">GadzTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/SocialTransformer.php.html#9">SocialTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/UserTransformer.php.html#8">UserTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/ResponsibilityTransformer.php.html#9">ResponsibilityTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/ResidenceTransformer.php.html#9">ResidenceTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/JobTransformer.php.html#9">JobTransformer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Middleware/RedirectIfAuthenticated.php.html#8">RedirectIfAuthenticated</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Middleware/Authenticate.php.html#8">Authenticate</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResidenceController.php.html#11">ResidenceController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/JobController.php.html#10">JobController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/DegreeController.php.html#10">DegreeController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/CourseController.php.html#10">CourseController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AddressController.php.html#10">AddressController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResponsibilityController.php.html#10">ResponsibilityController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserResidenceController.php.html#10">UserResidenceController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/SocialController.php.html#10">SocialController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserCourseController.php.html#10">UserCourseController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#12">UserController</a></td><td class="text-right">2%</td></tr>
+       <tr><td><a href="Controllers/SearchController.php.html#12">SearchController</a></td><td class="text-right">5%</td></tr>
+       <tr><td><a href="Controllers/AuthController.php.html#13">AuthController</a></td><td class="text-right">23%</td></tr>
+       <tr><td><a href="Controllers/PhotoController.php.html#14">PhotoController</a></td><td class="text-right">23%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Transformers/UserTransformer.php.html#8">UserTransformer</a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#12">UserController</a></td><td class="text-right">284</td></tr>
+       <tr><td><a href="Transformers/BaseTransformer.php.html#10">BaseTransformer</a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="Controllers/SearchController.php.html#12">SearchController</a></td><td class="text-right">133</td></tr>
+       <tr><td><a href="Controllers/UserResidenceController.php.html#10">UserResidenceController</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Controllers/UserCourseController.php.html#10">UserCourseController</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Controllers/AuthController.php.html#13">AuthController</a></td><td class="text-right">28</td></tr>
+       <tr><td><a href="Middleware/Authenticate.php.html#8">Authenticate</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Transformers/ResponsibilityTransformer.php.html#9">ResponsibilityTransformer</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Transformers/JobTransformer.php.html#9">JobTransformer</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Transformers/AddressTransformer.php.html#9">AddressTransformer</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Transformers/DegreeTransformer.php.html#9">DegreeTransformer</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Transformers/CourseTransformer.php.html#9">CourseTransformer</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Middleware/RedirectIfAuthenticated.php.html#8">RedirectIfAuthenticated</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Transformers/SocialTransformer.php.html#9">SocialTransformer</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Transformers/ResidenceTransformer.php.html#9">ResidenceTransformer</a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controllers/UserResidenceController.php.html#55"><abbr title="UserResidenceController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserResidenceController.php.html#40"><abbr title="UserResidenceController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserResidenceController.php.html#26"><abbr title="UserResidenceController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserCourseController.php.html#103"><abbr title="UserCourseController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserResidenceController.php.html#64"><abbr title="UserResidenceController::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserResidenceController.php.html#91"><abbr title="UserResidenceController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Middleware/RedirectIfAuthenticated.php.html#18"><abbr title="RedirectIfAuthenticated::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Middleware/Authenticate.php.html#18"><abbr title="Authenticate::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserResidenceController.php.html#103"><abbr title="UserResidenceController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserCourseController.php.html#91"><abbr title="UserCourseController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserCourseController.php.html#64"><abbr title="UserCourseController::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#43"><abbr title="UserController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#37"><abbr title="UserController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#29"><abbr title="UserController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/SocialController.php.html#72"><abbr title="SocialController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#112"><abbr title="UserController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#178"><abbr title="UserController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserCourseController.php.html#55"><abbr title="UserCourseController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserCourseController.php.html#40"><abbr title="UserCourseController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserCourseController.php.html#26"><abbr title="UserCourseController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/AddressStoreRequest.php.html#12"><abbr title="AddressStoreRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/AddressStoreRequest.php.html#22"><abbr title="AddressStoreRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/GadzTransformer.php.html#17"><abbr title="GadzTransformer::transform">transform</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/DegreeTransformer.php.html#17"><abbr title="DegreeTransformer::transform">transform</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/CourseTransformer.php.html#17"><abbr title="CourseTransformer::transform">transform</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/BaseTransformer.php.html#102"><abbr title="BaseTransformer::arraySerialize">arraySerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/JobTransformer.php.html#17"><abbr title="JobTransformer::transform">transform</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/ResidenceTransformer.php.html#17"><abbr title="ResidenceTransformer::transform">transform</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/UserTransformer.php.html#31"><abbr title="UserTransformer::transform">transform</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/SocialTransformer.php.html#17"><abbr title="SocialTransformer::transform">transform</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/ResponsibilityTransformer.php.html#17"><abbr title="ResponsibilityTransformer::transform">transform</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/BaseTransformer.php.html#92"><abbr title="BaseTransformer::collectionArray">collectionArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/BaseTransformer.php.html#84"><abbr title="BaseTransformer::itemArray">itemArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/AuthStoreRequest.php.html#22"><abbr title="AuthStoreRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/AuthStoreRequest.php.html#12"><abbr title="AuthStoreRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/AddressUpdateRequest.php.html#22"><abbr title="AddressUpdateRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/AddressUpdateRequest.php.html#12"><abbr title="AddressUpdateRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/AddressTransformer.php.html#17"><abbr title="AddressTransformer::transform">transform</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/BaseTransformer.php.html#27"><abbr title="BaseTransformer::setFieldsMinimal">setFieldsMinimal</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/BaseTransformer.php.html#74"><abbr title="BaseTransformer::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/BaseTransformer.php.html#70"><abbr title="BaseTransformer::filter">filter</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Transformers/BaseTransformer.php.html#36"><abbr title="BaseTransformer::getFilter">getFilter</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/SocialController.php.html#61"><abbr title="SocialController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/SocialController.php.html#49"><abbr title="SocialController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/DegreeController.php.html#38"><abbr title="DegreeController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/DegreeController.php.html#25"><abbr title="DegreeController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/CourseController.php.html#73"><abbr title="CourseController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/CourseController.php.html#62"><abbr title="CourseController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/DegreeController.php.html#50"><abbr title="DegreeController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/DegreeController.php.html#62"><abbr title="DegreeController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/JobController.php.html#38"><abbr title="JobController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/JobController.php.html#25"><abbr title="JobController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/DegreeController.php.html#72"><abbr title="DegreeController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/CourseController.php.html#50"><abbr title="CourseController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/CourseController.php.html#38"><abbr title="CourseController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AddressController.php.html#70"><abbr title="AddressController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AddressController.php.html#52"><abbr title="AddressController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AddressController.php.html#40"><abbr title="AddressController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AddressController.php.html#85"><abbr title="AddressController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AuthController.php.html#45"><abbr title="AuthController::handleProviderCallback">handleProviderCallback</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/CourseController.php.html#25"><abbr title="CourseController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AuthController.php.html#68"><abbr title="AuthController::refresh">refresh</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AuthController.php.html#51"><abbr title="AuthController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/JobController.php.html#49"><abbr title="JobController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/JobController.php.html#61"><abbr title="JobController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/SearchController.php.html#29"><abbr title="SearchController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResponsibilityController.php.html#72"><abbr title="ResponsibilityController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResponsibilityController.php.html#61"><abbr title="ResponsibilityController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResponsibilityController.php.html#49"><abbr title="ResponsibilityController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/SearchController.php.html#42"><abbr title="SearchController::algolia">algolia</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/SearchController.php.html#53"><abbr title="SearchController::standard">standard</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/SocialController.php.html#38"><abbr title="SocialController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/SocialController.php.html#25"><abbr title="SocialController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/SearchController.php.html#73"><abbr title="SearchController::anonymous function">anonymous function</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AddressController.php.html#26"><abbr title="AddressController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResponsibilityController.php.html#38"><abbr title="ResponsibilityController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/PhotoController.php.html#88"><abbr title="PhotoController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/PhotoController.php.html#55"><abbr title="PhotoController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/JobController.php.html#72"><abbr title="JobController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResidenceController.php.html#26"><abbr title="ResidenceController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResidenceController.php.html#39"><abbr title="ResidenceController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResidenceController.php.html#73"><abbr title="ResidenceController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResidenceController.php.html#62"><abbr title="ResidenceController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResidenceController.php.html#50"><abbr title="ResidenceController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/ResponsibilityController.php.html#25"><abbr title="ResponsibilityController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/AuthController.php.html#34"><abbr title="AuthController::redirectToProvider">redirectToProvider</abbr></a></td><td class="text-right">50%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Transformers/UserTransformer.php.html#31"><abbr title="UserTransformer::transform">transform</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#112"><abbr title="UserController::update">update</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Controllers/SearchController.php.html#53"><abbr title="SearchController::standard">standard</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Transformers/BaseTransformer.php.html#36"><abbr title="BaseTransformer::getFilter">getFilter</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#43"><abbr title="UserController::store">store</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Middleware/Authenticate.php.html#18"><abbr title="Authenticate::handle">handle</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Controllers/UserResidenceController.php.html#55"><abbr title="UserResidenceController::store">store</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Controllers/UserCourseController.php.html#55"><abbr title="UserCourseController::store">store</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Transformers/DegreeTransformer.php.html#17"><abbr title="DegreeTransformer::transform">transform</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Transformers/JobTransformer.php.html#17"><abbr title="JobTransformer::transform">transform</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Transformers/CourseTransformer.php.html#17"><abbr title="CourseTransformer::transform">transform</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Transformers/AddressTransformer.php.html#17"><abbr title="AddressTransformer::transform">transform</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controllers/AuthController.php.html#51"><abbr title="AuthController::store">store</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Transformers/ResponsibilityTransformer.php.html#17"><abbr title="ResponsibilityTransformer::transform">transform</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Transformers/SocialTransformer.php.html#17"><abbr title="SocialTransformer::transform">transform</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Middleware/RedirectIfAuthenticated.php.html#18"><abbr title="RedirectIfAuthenticated::handle">handle</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controllers/SearchController.php.html#29"><abbr title="SearchController::index">index</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controllers/SearchController.php.html#42"><abbr title="SearchController::algolia">algolia</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Transformers/ResidenceTransformer.php.html#17"><abbr title="ResidenceTransformer::transform">transform</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 2.2.4</a> using <a href="https://secure.php.net/" target="_top">PHP 5.6.22-0+deb8u1</a> and <a href="https://phpunit.de/">PHPUnit 4.8.26</a> at Mon Jun 20 11:07:15 UTC 2016.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../js/jquery.min.js" type="text/javascript"></script>
+  <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../js/holder.min.js" type="text/javascript"></script>
+  <script src="../js/d3.min.js" type="text/javascript"></script>
+  <script src="../js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([24,2,0,2,0,0,0,0,0,0,0,8], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([85,0,0,0,0,0,1,0,0,0,0,10], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,5,"<a href=\"Controllers\/AddressController.php.html#10\">AddressController<\/a>"],[23.529411764706,7,"<a href=\"Controllers\/AuthController.php.html#13\">AuthController<\/a>"],[100,2,"<a href=\"Controllers\/CampusController.php.html#10\">CampusController<\/a>"],[100,0,"<a href=\"Controllers\/Controller.php.html#12\">Controller<\/a>"],[0,5,"<a href=\"Controllers\/CourseController.php.html#10\">CourseController<\/a>"],[0,5,"<a href=\"Controllers\/DegreeController.php.html#10\">DegreeController<\/a>"],[0,5,"<a href=\"Controllers\/JobController.php.html#10\">JobController<\/a>"],[23.809523809524,5,"<a href=\"Controllers\/PhotoController.php.html#14\">PhotoController<\/a>"],[0,5,"<a href=\"Controllers\/ResidenceController.php.html#11\">ResidenceController<\/a>"],[0,5,"<a href=\"Controllers\/ResponsibilityController.php.html#10\">ResponsibilityController<\/a>"],[5.5555555555556,12,"<a href=\"Controllers\/SearchController.php.html#12\">SearchController<\/a>"],[0,5,"<a href=\"Controllers\/SocialController.php.html#10\">SocialController<\/a>"],[2.5,17,"<a href=\"Controllers\/UserController.php.html#12\">UserController<\/a>"],[0,9,"<a href=\"Controllers\/UserCourseController.php.html#10\">UserCourseController<\/a>"],[0,9,"<a href=\"Controllers\/UserResidenceController.php.html#10\">UserResidenceController<\/a>"],[100,0,"<a href=\"Kernel.php.html#9\">Kernel<\/a>"],[0,4,"<a href=\"Middleware\/Authenticate.php.html#8\">Authenticate<\/a>"],[100,0,"<a href=\"Middleware\/EncryptCookies.php.html#7\">EncryptCookies<\/a>"],[0,2,"<a href=\"Middleware\/RedirectIfAuthenticated.php.html#8\">RedirectIfAuthenticated<\/a>"],[100,0,"<a href=\"Middleware\/VerifyCsrfToken.php.html#7\">VerifyCsrfToken<\/a>"],[0,2,"<a href=\"Requests\/AddressStoreRequest.php.html#5\">AddressStoreRequest<\/a>"],[0,2,"<a href=\"Requests\/AddressUpdateRequest.php.html#5\">AddressUpdateRequest<\/a>"],[0,2,"<a href=\"Requests\/AuthStoreRequest.php.html#5\">AuthStoreRequest<\/a>"],[100,0,"<a href=\"Requests\/Request.php.html#7\">Request<\/a>"],[0,3,"<a href=\"Transformers\/AddressTransformer.php.html#9\">AddressTransformer<\/a>"],[0,12,"<a href=\"Transformers\/BaseTransformer.php.html#10\">BaseTransformer<\/a>"],[100,6,"<a href=\"Transformers\/CampusTransformer.php.html#9\">CampusTransformer<\/a>"],[0,3,"<a href=\"Transformers\/CourseTransformer.php.html#9\">CourseTransformer<\/a>"],[0,3,"<a href=\"Transformers\/DegreeTransformer.php.html#9\">DegreeTransformer<\/a>"],[0,1,"<a href=\"Transformers\/GadzTransformer.php.html#9\">GadzTransformer<\/a>"],[0,3,"<a href=\"Transformers\/JobTransformer.php.html#9\">JobTransformer<\/a>"],[100,1,"<a href=\"Transformers\/PhotoTransformer.php.html#9\">PhotoTransformer<\/a>"],[0,2,"<a href=\"Transformers\/ResidenceTransformer.php.html#9\">ResidenceTransformer<\/a>"],[0,3,"<a href=\"Transformers\/ResponsibilityTransformer.php.html#9\">ResponsibilityTransformer<\/a>"],[0,2,"<a href=\"Transformers\/SocialTransformer.php.html#9\">SocialTransformer<\/a>"],[0,18,"<a href=\"Transformers\/UserTransformer.php.html#8\">UserTransformer<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Controllers\/AddressController.php.html#26\">AddressController::index<\/a>"],[0,1,"<a href=\"Controllers\/AddressController.php.html#40\">AddressController::show<\/a>"],[0,1,"<a href=\"Controllers\/AddressController.php.html#52\">AddressController::store<\/a>"],[0,1,"<a href=\"Controllers\/AddressController.php.html#70\">AddressController::update<\/a>"],[0,1,"<a href=\"Controllers\/AddressController.php.html#85\">AddressController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/AuthController.php.html#23\">AuthController::__construct<\/a>"],[50,1,"<a href=\"Controllers\/AuthController.php.html#34\">AuthController::redirectToProvider<\/a>"],[0,1,"<a href=\"Controllers\/AuthController.php.html#45\">AuthController::handleProviderCallback<\/a>"],[0,3,"<a href=\"Controllers\/AuthController.php.html#51\">AuthController::store<\/a>"],[0,1,"<a href=\"Controllers\/AuthController.php.html#68\">AuthController::refresh<\/a>"],[100,1,"<a href=\"Controllers\/CampusController.php.html#24\">CampusController::index<\/a>"],[100,1,"<a href=\"Controllers\/CampusController.php.html#36\">CampusController::show<\/a>"],[0,1,"<a href=\"Controllers\/CourseController.php.html#25\">CourseController::index<\/a>"],[0,1,"<a href=\"Controllers\/CourseController.php.html#38\">CourseController::show<\/a>"],[0,1,"<a href=\"Controllers\/CourseController.php.html#50\">CourseController::store<\/a>"],[0,1,"<a href=\"Controllers\/CourseController.php.html#62\">CourseController::update<\/a>"],[0,1,"<a href=\"Controllers\/CourseController.php.html#73\">CourseController::destroy<\/a>"],[0,1,"<a href=\"Controllers\/DegreeController.php.html#25\">DegreeController::index<\/a>"],[0,1,"<a href=\"Controllers\/DegreeController.php.html#38\">DegreeController::show<\/a>"],[0,1,"<a href=\"Controllers\/DegreeController.php.html#50\">DegreeController::store<\/a>"],[0,1,"<a href=\"Controllers\/DegreeController.php.html#62\">DegreeController::update<\/a>"],[0,1,"<a href=\"Controllers\/DegreeController.php.html#72\">DegreeController::destroy<\/a>"],[0,1,"<a href=\"Controllers\/JobController.php.html#25\">JobController::index<\/a>"],[0,1,"<a href=\"Controllers\/JobController.php.html#38\">JobController::show<\/a>"],[0,1,"<a href=\"Controllers\/JobController.php.html#49\">JobController::store<\/a>"],[0,1,"<a href=\"Controllers\/JobController.php.html#61\">JobController::update<\/a>"],[0,1,"<a href=\"Controllers\/JobController.php.html#72\">JobController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/PhotoController.php.html#30\">PhotoController::index<\/a>"],[100,1,"<a href=\"Controllers\/PhotoController.php.html#44\">PhotoController::show<\/a>"],[0,1,"<a href=\"Controllers\/PhotoController.php.html#55\">PhotoController::store<\/a>"],[0,1,"<a href=\"Controllers\/PhotoController.php.html#88\">PhotoController::update<\/a>"],[100,1,"<a href=\"Controllers\/PhotoController.php.html#102\">PhotoController::destroy<\/a>"],[0,1,"<a href=\"Controllers\/ResidenceController.php.html#26\">ResidenceController::index<\/a>"],[0,1,"<a href=\"Controllers\/ResidenceController.php.html#39\">ResidenceController::show<\/a>"],[0,1,"<a href=\"Controllers\/ResidenceController.php.html#50\">ResidenceController::store<\/a>"],[0,1,"<a href=\"Controllers\/ResidenceController.php.html#62\">ResidenceController::update<\/a>"],[0,1,"<a href=\"Controllers\/ResidenceController.php.html#73\">ResidenceController::destroy<\/a>"],[0,1,"<a href=\"Controllers\/ResponsibilityController.php.html#25\">ResponsibilityController::index<\/a>"],[0,1,"<a href=\"Controllers\/ResponsibilityController.php.html#38\">ResponsibilityController::show<\/a>"],[0,1,"<a href=\"Controllers\/ResponsibilityController.php.html#49\">ResponsibilityController::store<\/a>"],[0,1,"<a href=\"Controllers\/ResponsibilityController.php.html#61\">ResponsibilityController::update<\/a>"],[0,1,"<a href=\"Controllers\/ResponsibilityController.php.html#72\">ResponsibilityController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/SearchController.php.html#24\">SearchController::__construct<\/a>"],[0,2,"<a href=\"Controllers\/SearchController.php.html#29\">SearchController::index<\/a>"],[0,2,"<a href=\"Controllers\/SearchController.php.html#42\">SearchController::algolia<\/a>"],[0,6,"<a href=\"Controllers\/SearchController.php.html#53\">SearchController::standard<\/a>"],[0,1,"<a href=\"Controllers\/SearchController.php.html#73\">SearchController::anonymous function<\/a>"],[0,1,"<a href=\"Controllers\/SocialController.php.html#25\">SocialController::index<\/a>"],[0,1,"<a href=\"Controllers\/SocialController.php.html#38\">SocialController::show<\/a>"],[0,1,"<a href=\"Controllers\/SocialController.php.html#49\">SocialController::store<\/a>"],[0,1,"<a href=\"Controllers\/SocialController.php.html#61\">SocialController::update<\/a>"],[0,1,"<a href=\"Controllers\/SocialController.php.html#72\">SocialController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/UserController.php.html#24\">UserController::__construct<\/a>"],[0,1,"<a href=\"Controllers\/UserController.php.html#29\">UserController::index<\/a>"],[0,1,"<a href=\"Controllers\/UserController.php.html#37\">UserController::show<\/a>"],[0,5,"<a href=\"Controllers\/UserController.php.html#43\">UserController::store<\/a>"],[0,8,"<a href=\"Controllers\/UserController.php.html#112\">UserController::update<\/a>"],[0,1,"<a href=\"Controllers\/UserController.php.html#178\">UserController::destroy<\/a>"],[0,1,"<a href=\"Controllers\/UserCourseController.php.html#26\">UserCourseController::index<\/a>"],[0,1,"<a href=\"Controllers\/UserCourseController.php.html#40\">UserCourseController::show<\/a>"],[0,4,"<a href=\"Controllers\/UserCourseController.php.html#55\">UserCourseController::store<\/a>"],[0,1,"<a href=\"Controllers\/UserCourseController.php.html#64\">UserCourseController::anonymous function<\/a>"],[0,1,"<a href=\"Controllers\/UserCourseController.php.html#91\">UserCourseController::update<\/a>"],[0,1,"<a href=\"Controllers\/UserCourseController.php.html#103\">UserCourseController::destroy<\/a>"],[0,1,"<a href=\"Controllers\/UserResidenceController.php.html#26\">UserResidenceController::index<\/a>"],[0,1,"<a href=\"Controllers\/UserResidenceController.php.html#40\">UserResidenceController::show<\/a>"],[0,4,"<a href=\"Controllers\/UserResidenceController.php.html#55\">UserResidenceController::store<\/a>"],[0,1,"<a href=\"Controllers\/UserResidenceController.php.html#64\">UserResidenceController::anonymous function<\/a>"],[0,1,"<a href=\"Controllers\/UserResidenceController.php.html#91\">UserResidenceController::update<\/a>"],[0,1,"<a href=\"Controllers\/UserResidenceController.php.html#103\">UserResidenceController::destroy<\/a>"],[0,4,"<a href=\"Middleware\/Authenticate.php.html#18\">Authenticate::handle<\/a>"],[0,2,"<a href=\"Middleware\/RedirectIfAuthenticated.php.html#18\">RedirectIfAuthenticated::handle<\/a>"],[0,1,"<a href=\"Requests\/AddressStoreRequest.php.html#12\">AddressStoreRequest::authorize<\/a>"],[0,1,"<a href=\"Requests\/AddressStoreRequest.php.html#22\">AddressStoreRequest::rules<\/a>"],[0,1,"<a href=\"Requests\/AddressUpdateRequest.php.html#12\">AddressUpdateRequest::authorize<\/a>"],[0,1,"<a href=\"Requests\/AddressUpdateRequest.php.html#22\">AddressUpdateRequest::rules<\/a>"],[0,1,"<a href=\"Requests\/AuthStoreRequest.php.html#12\">AuthStoreRequest::authorize<\/a>"],[0,1,"<a href=\"Requests\/AuthStoreRequest.php.html#22\">AuthStoreRequest::rules<\/a>"],[0,3,"<a href=\"Transformers\/AddressTransformer.php.html#17\">AddressTransformer::transform<\/a>"],[0,1,"<a href=\"Transformers\/BaseTransformer.php.html#27\">BaseTransformer::setFieldsMinimal<\/a>"],[0,6,"<a href=\"Transformers\/BaseTransformer.php.html#36\">BaseTransformer::getFilter<\/a>"],[0,1,"<a href=\"Transformers\/BaseTransformer.php.html#70\">BaseTransformer::filter<\/a>"],[0,1,"<a href=\"Transformers\/BaseTransformer.php.html#74\">BaseTransformer::anonymous function<\/a>"],[0,1,"<a href=\"Transformers\/BaseTransformer.php.html#84\">BaseTransformer::itemArray<\/a>"],[0,1,"<a href=\"Transformers\/BaseTransformer.php.html#92\">BaseTransformer::collectionArray<\/a>"],[0,1,"<a href=\"Transformers\/BaseTransformer.php.html#102\">BaseTransformer::arraySerialize<\/a>"],[100,6,"<a href=\"Transformers\/CampusTransformer.php.html#17\">CampusTransformer::transform<\/a>"],[0,3,"<a href=\"Transformers\/CourseTransformer.php.html#17\">CourseTransformer::transform<\/a>"],[0,3,"<a href=\"Transformers\/DegreeTransformer.php.html#17\">DegreeTransformer::transform<\/a>"],[0,1,"<a href=\"Transformers\/GadzTransformer.php.html#17\">GadzTransformer::transform<\/a>"],[0,3,"<a href=\"Transformers\/JobTransformer.php.html#17\">JobTransformer::transform<\/a>"],[100,1,"<a href=\"Transformers\/PhotoTransformer.php.html#17\">PhotoTransformer::transform<\/a>"],[0,2,"<a href=\"Transformers\/ResidenceTransformer.php.html#17\">ResidenceTransformer::transform<\/a>"],[0,3,"<a href=\"Transformers\/ResponsibilityTransformer.php.html#17\">ResponsibilityTransformer::transform<\/a>"],[0,2,"<a href=\"Transformers\/SocialTransformer.php.html#17\">SocialTransformer::transform<\/a>"],[0,18,"<a href=\"Transformers\/UserTransformer.php.html#31\">UserTransformer::transform<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
