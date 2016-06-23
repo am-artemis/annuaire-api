@@ -23,8 +23,13 @@ addons:
     apt:
         packages:
             - sshpass
+    ssh_known_hosts: artemis.am
+
+
 after_success:
-  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST 'git --git-dir=$DEPLOY_PATH/.git reset --hard HEAD'
-  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST 'git --git-dir=$DEPLOY_PATH/.git pull'
-  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST '$DEPLOY_PATH/vendor/bin/composer install'
-  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST 'php $DEPLOY_PATH/artisan migrate'
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && ls -la"
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && git fetch"
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && git reset --hard HEAD"
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && git status"
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && git pull"
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && composer install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader"
