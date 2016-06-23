@@ -66,7 +66,7 @@ class PhotoController extends Controller
         ];
         $photo = Photo::forceCreate($photoArray);
 
-        $result = $cloudder->upload($request->get('photo'), null, [], $tags)->getResult();
+        $result = $cloudder->upload($request->input('photo'), null, [], $tags)->getResult();
 
         $photo->src = $result['secure_url'];
         $photo->cloudinary_id = $result['public_id'];
@@ -74,7 +74,7 @@ class PhotoController extends Controller
 
         DB::commit();
 
-        return $photo;
+        return $this->response->created(null, $photo);
     }
 
     /**

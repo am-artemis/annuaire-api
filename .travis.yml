@@ -17,5 +17,14 @@ install:
 
 script:
   - vendor/bin/phpcs
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit --stop-on-failure
 
+addons:
+    apt:
+        packages:
+            - sshpass
+after_success:
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST 'git --git-dir=$DEPLOY_PATH/.git reset --hard HEAD'
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST 'git --git-dir=$DEPLOY_PATH/.git pull'
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST '$DEPLOY_PATH/vendor/bin/composer install'
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST 'php $DEPLOY_PATH/artisan migrate'
