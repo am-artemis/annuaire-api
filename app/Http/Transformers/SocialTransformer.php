@@ -24,8 +24,10 @@ class SocialTransformer extends BaseTransformer
 
         if (isset($social->pivot)) {
             $data['url'] = $social->pivot->url;
+            $data['self'] = app('Dingo\Api\Routing\UrlGenerator')->version('v1')
+                ->route('users.socials.show', [$social->pivot->user_id, $social->id]);
         }
-        
+
         return $data;
     }
 }

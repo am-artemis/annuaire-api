@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Transformers\ResponsibilityTransformer;
-
+use Illuminate\Http\ResponsibilityStoreRequest;
+use Illuminate\Http\ResponsibilityUpdateRequest;
 use App\Models\Responsibility;
 
 class ResponsibilityController extends Controller
@@ -24,9 +24,7 @@ class ResponsibilityController extends Controller
      */
     public function index(Request $request)
     {
-        $responsibilities = Responsibility::with(self::$relationships)->paginate($request->input('items', 30));
-
-        return $responsibilities;
+        return Responsibility::paginate($request->input('items', 30));;
     }
 
     /**
@@ -37,7 +35,7 @@ class ResponsibilityController extends Controller
      */
     public function show(Responsibility $responsibility)
     {
-        return $responsibility->load(self::$relationships);
+        return $responsibility;
     }
 
     /**
@@ -46,9 +44,13 @@ class ResponsibilityController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ResponsibilityStoreRequest $request)
     {
-        //
+        $responsibilityArray = $request->intersect(['user_id', 'campus_id', 'title', 'strass', 'from', 'to']);
+
+        $responsibility = Responsibility::forceCreate($responsibilityArray);
+
+        return $this->response->created(null, $responsibility);
     }
 
     /**
@@ -58,9 +60,13 @@ class ResponsibilityController extends Controller
      * @param Responsibility $responsibility
      * @return Response
      */
-    public function update(Request $request, Responsibility $responsibility)
+    public function update(ResponsibilityUpdateRequest $request, Responsibility $responsibility)
     {
-        //
+        $responsibilityArray = $request->intersect(['campus_id', 'title', 'strass', 'from', 'to']);
+
+        $responsibility->update($responsibilityArray);
+
+        return $this->response->accepted(null, $responsibility);
     }
 
     /**
@@ -72,5 +78,7 @@ class ResponsibilityController extends Controller
     public function destroy(Responsibility $responsibility)
     {
         $responsibility->delete();
+
+        return $this->response->noContent();
     }
 }

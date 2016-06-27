@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Course;
-use Illuminate\Support\Facades\DB;
+use App\Models\Residence;
+use Illuminate\Http\Request;
 
-class UserCourseController extends Controller
+class UserSocialController extends Controller
 {
     /**
      * List of relationships to load.
      *
      * @var array
      */
-    private static $relationships = ['campus'];
+    private static $relationships = [];
 
     /**
      * Display a listing of the resource.
@@ -25,22 +24,19 @@ class UserCourseController extends Controller
      */
     public function index(User $user)
     {
-        return $user->courses()->with(self::$relationships)->get();
+        return $user->socials;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Course $course
+     * @param Residence $residence
      *
      * @return Response
      */
-    public function show(User $user, $user_course_id)
+    public function show(User $user, $social_id)
     {
-        // On utilise l'id du pivot pour retrouver la bonne relation
-        $course = $user->courses()->where('user_course.id', $user_course_id)->get();
-
-        return $course->load(self::$relationships);
+        return $user->socials()->find($social_id);
     }
 
     /**
@@ -52,7 +48,7 @@ class UserCourseController extends Controller
      */
     public function store(Request $request, User $user)
     {
-        $fields = ['id', 'room', 'from', 'to'];
+        $fields = ['id', 'url'];
         // Regarde si on nous envoie un objet unique ou une collection
         if ($request->has('id')) {
             $collection = [$request->intersect($fields)];
@@ -65,29 +61,27 @@ class UserCourseController extends Controller
             }
         }
 
-        foreach ($collection as $course) {
+        foreach ($collection as $social) {
             $pivot = [
-                'room' => $course['room'],
-                'from' => $course['from'],
-                'to'   => $course['to'],
+                'url' => $social['url'],
             ];
-            $user->courses()->attach($course['id'], $pivot);
+            $user->socials()->detach($social['id']);
+            $user->socials()->attach($social['id'], $pivot);
         }
 
-        return $this->response->created(null, $user->courses);
+        return $this->response->created(null, $user->socials);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Course $course
+     * @param Residence $residence
      *
      * @return Response
      */
-    public function destroy($user_id, $user_course_id)
+    public function destroy(User $user, $social_id)
     {
-        // On utilise l'id du pivot pour retrouver la bonne relation
-        DB::table('user_course')->where('user_id', $user_id)->delete($user_course_id);
+        $user->socials()->detach($social_id);
 
         return $this->response->noContent();
     }

@@ -31,19 +31,16 @@ namespace App\Models;
  */
 class Responsibility extends ApiModel
 {
-
     public $timestamps = true;
     protected $table = 'responsibilities';
-    protected $fillable = ['title', 'strass', 'from', 'to'];
-    protected $hidden = ['id', 'user_id', 'campus_id', 'created_at', 'updated_at'];
+    protected $fillable = ['campus_id', 'title', 'strass', 'from', 'to'];
+    protected $hidden = ['id', 'user_id', 'created_at', 'updated_at'];
     protected $dates = ['from', 'to', 'created_at', 'updated_at'];
-
 
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
-
 
     public function campus()
     {

@@ -17,7 +17,7 @@ class JobTransformer extends BaseTransformer
     public function transform(Job $job)
     {
         $data = [
-            'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('jobs.show', $job->id),
+            'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('users.jobs.show', [$job->user_id, $job->id]),
             'title' => $job->title,
             'description' => $job->description,
             'from' => is_null($job->from) ? null : $job->from->format('Y-m-d'),

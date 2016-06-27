@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Transformers\CampusTransformer;
-
 use App\Models\Campus;
 
 class CampusController extends Controller
@@ -18,23 +15,22 @@ class CampusController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param Request $request
+     *
      * @return \Dingo\Api\Http\Response\
      */
-    public function index(Request $request)
+    public function index()
     {
-        $campuses = Campus::with(self::$relationships)->paginate($request->input('items', 30));
-
-        return $campuses;
+        return Campus::all();
     }
 
     /**
      * Display the specified resource.
+     *
      * @param Campus $campus
      * @return \Dingo\Api\Http\Response
      */
     public function show(Campus $campus)
     {
-        return $campus->load(self::$relationships);
+        return $campus;
     }
 }

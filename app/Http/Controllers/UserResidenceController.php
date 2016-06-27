@@ -25,9 +25,7 @@ class UserResidenceController extends Controller
      */
     public function index(User $user)
     {
-        $residences = $user->residences()->with(self::$relationships)->get();
-
-        return $residences;
+        return $user->residences()->with(self::$relationships)->get();
     }
 
     /**
@@ -57,7 +55,7 @@ class UserResidenceController extends Controller
         $fields = ['id', 'room', 'from', 'to'];
         // Regarde si on nous envoie un objet unique ou une collection
         if ($request->has('id')) {
-            $collection = [$request->only($fields)];
+            $collection = [$request->intersect($fields)];
         } else {
             $collection = [];
             foreach ($request->all() as $item) {
@@ -73,24 +71,11 @@ class UserResidenceController extends Controller
                 'from' => $residence['from'],
                 'to'   => $residence['to'],
             ];
-            $user->residences()->detach($residence['id']);
+
             $user->residences()->attach($residence['id'], $pivot);
         }
 
         return $this->response->created(null, $user->residences);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param    int $id
-     *
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Address;
 use Dingo\Api\Contract\Http\Request;
-use App\Http\Requests\AddressStoreRequest;
-use App\Http\Requests\AddressUpdateRequest;
+use App\Http\Requests\UserAddressStoreRequest;
+use App\Http\Requests\UserAddressUpdateRequest;
 
-class AddressController extends Controller
+class UserAddressController extends Controller
 {
     /**
      * List of relationships to load.
@@ -23,9 +24,9 @@ class AddressController extends Controller
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(User $user)
     {
-        return Address::paginate($request->input('items', 30));
+        return $user->addresses;
     }
 
     /**
@@ -35,9 +36,9 @@ class AddressController extends Controller
      *
      * @return Response
      */
-    public function show(Address $address)
+    public function show(User $user, $address_id)
     {
-        return $address;
+        return $user->addresses()->find($address_id);
     }
 
     /**
@@ -47,14 +48,16 @@ class AddressController extends Controller
      *
      * @return Response
      */
-    public function store(AddressStoreRequest $request)
+    public function store(UserAddressStoreRequest $request, User $user)
     {
-        $addressArray = $request->intersect(['user_id', 'name', 'address', 'zipcode', 'city',
+        $addressArray = $request->intersect(['name', 'address', 'zipcode', 'city',
             'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
 
-        $address = Address::forceCreate($addressArray);
+        $address = new Address($addressArray);
 
-        return $this->response->created(null, $address);
+        $user->addresses()->save($address);
+
+        return $this->response->created(null, $user->addresses);
     }
 
     /**
@@ -65,8 +68,12 @@ class AddressController extends Controller
      *
      * @return Response
      */
-    public function update(AddressUpdateRequest $request, Address $address)
-    {
+    public function update(UserAddressUpdateRequest $request, $user_id, Address $address)
+    {   
+        if ($address->user_id != $user_id) {
+            return $this->response->errorBadRequest();
+        }
+
         $addressArray = $request->intersect(['name', 'address', 'zipcode', 'city',
             'country', 'lat', 'lng', 'phone', 'from', 'to', 'type']);
 
@@ -83,7 +90,7 @@ class AddressController extends Controller
     public function destroy(Address $address)
     {
         $address->delete();
-
+        
         return $this->response->noContent();
     }
 }

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Transformers\JobTransformer;
-use App\Http\Requests\JobStoreRequest;
-use App\Http\Requests\JobUpdateRequest;
-
+use App\Models\User;
 use App\Models\Job;
+use Dingo\Api\Contract\Http\Request;
+use App\Http\Requests\UserJobStoreRequest;
+use App\Http\Requests\UserJobUpdateRequest;
 
-class JobController extends Controller
+class UserJobController extends Controller
 {
     /**
      * List of relationships to load.
@@ -22,37 +21,42 @@ class JobController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(User $user)
     {
-        return Job::paginate($request->input('items', 30));;
+        return $user->jobs;
     }
 
     /**
      * Display the specified resource.
      *
      * @param Job $job
+     *
      * @return Response
      */
-    public function show(Job $job)
+    public function show(User $user, $job_id)
     {
-        return $job;
+        return $user->jobs()->find($job_id);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     *
      * @return Response
      */
-    public function store(JobStoreRequest $request)
+    public function store(UserJobStoreRequest $request, User $user)
     {
-        $jobArray = $request->intersect(['user_id', 'title', 'description', 'from', 'to']);
+        $jobArray = $request->intersect(['title', 'description', 'from', 'to']);
 
-        $job = Job::forceCreate($jobArray);
+        $job = new Job($jobArray);
 
-        return $this->response->created(null, $job);
+        $user->jobs()->save($job);
+
+        return $this->response->created(null, $user->jobs);
     }
 
     /**
@@ -60,10 +64,15 @@ class JobController extends Controller
      *
      * @param Request $request
      * @param Job $job
+     *
      * @return Response
      */
-    public function update(JobUpdateRequest $request, Job $job)
-    {
+    public function update(UserJobUpdateRequest $request, $user_id, Job $job)
+    {   
+         if ($job->user_id != $user_id) {
+            return $this->response->errorBadRequest();
+        }
+
         $jobArray = $request->intersect(['title', 'description', 'from', 'to']);
 
         $job->update($jobArray);
@@ -75,12 +84,11 @@ class JobController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Job $job
-     * @return Response
      */
     public function destroy(Job $job)
     {
         $job->delete();
-
+        
         return $this->response->noContent();
     }
 }
