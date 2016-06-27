@@ -14,6 +14,7 @@ use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\DataArraySerializer;
 use Tymon\JWTAuth\JWTAuth;
+use Mockery as m;
 
 
 class TestCase extends LaravelTestCase
@@ -141,5 +142,19 @@ class TestCase extends LaravelTestCase
         $resource = new Item($data, $transformer, $resourceKey);
 
         return $manager->createData($resource)->toArray();
+    }
+
+    public function mockTransformer($model)
+    {
+        $class = 'App\Http\Transformers\\'. $model . 'Transformer';
+        $transformer = m::mock($class);
+        $transformer
+            ->shouldReceive('getDefaultIncludes')->andReturn([])
+            ->shouldReceive('getAvailableIncludes')->andReturn([])
+            ->shouldReceive('transform')->andReturn(['transformer' => true]);
+
+        $this->app->bind($class, function () use ($transformer) {
+            return $transformer;
+        });
     }
 }

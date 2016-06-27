@@ -1,27 +1,32 @@
 <?php
 namespace Tests\Models;
 
+use App\Http\Transformers\CampusTransformer;
 use Tests\TestCase;
 
 use App\Models\Campus;
+use Mockery as m;
 
 class CampusControllerTest extends TestCase
 {
     public function setUp()
     {
         parent::setUp();
+        $this->mockTransformer('Campus');
+
     }
 
     public function testIndex()
     {
         $this->jsonWithJWT('GET', 'campuses');
 
+
         $this->assertResponseOk();
         $this->assertCount(Campus::count(), $this->jsonResponse('data'));
 
         $expectedJsonStructure = [
             'data' => [
-                ['self', 'id', 'name', 'city', 'short', 'prep', 'prefix', 'address', 'pos', 'photo']
+                ['transformer']
             ],
             'meta' => [
                 "pagination" => [
@@ -31,6 +36,7 @@ class CampusControllerTest extends TestCase
         ];
 
         $this->seeJsonStructure($expectedJsonStructure);
+        $this->seeJson(['transformer' => true]);
     }
 
     public function testShow()
@@ -39,12 +45,7 @@ class CampusControllerTest extends TestCase
 
         $this->jsonWithJWT('GET', implode('/', ['campuses', $campus->id]));
 
-        $this->assertResponseOk();
+        $this->seeJson(['transformer' => true]);
 
-        $expectedJsonStructure = [
-            'data' => ['self', 'id', 'name', 'city', 'short', 'prep', 'prefix', 'address', 'pos', 'photo']
-        ];
-
-        $this->seeJsonStructure($expectedJsonStructure);
     }
 }
