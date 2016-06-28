@@ -2,23 +2,23 @@
 namespace Tests\Models;
 
 use Tests\TestCase;
-use App\Models\Campus;
+use App\Models\Residence;
 
-class CampusControllerTest extends TestCase
+class ResidenceControllerTest extends TestCase
 {
     public function setUp()
     {
         parent::setUp();
-        $this->mockTransformer('Campus');
+        $this->mockTransformer('Residence');
     }
 
     public function testIndex()
     {
-        $this->jsonWithJWT('GET', 'campuses');
+        $this->jsonWithJWT('GET', 'residences');
 
 
         $this->assertResponseOk();
-        $this->assertCount(Campus::count(), $this->jsonResponse('data'));
+        $this->assertCount(Residence::count(), $this->jsonResponse('data'));
 
         $expectedJsonStructure = [
             'data' => [
@@ -32,16 +32,16 @@ class CampusControllerTest extends TestCase
         ];
 
         $this->seeJsonStructure($expectedJsonStructure);
-        $this->seeJson(['transformer' => 'Campus']);
+        $this->seeJson(['transformer' => true]);
     }
 
     public function testShow()
     {
-        $campus = Campus::first();
+        $residence = Residence::first();
 
-        $this->jsonWithJWT('GET', implode('/', ['campuses', $campus->id]));
+        $this->jsonWithJWT('GET', implode('/', ['residences', $residence->id]));
 
-        $this->seeJson(['transformer' => 'Campus']);
+        $this->seeJson(['transformer' => true]);
 
     }
 }
