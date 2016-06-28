@@ -7,55 +7,39 @@ use App\Models\User;
 
 class UserTransformer extends BaseTransformer
 {
-    /**
-     * List of fields available.
-     *
-     * @var array
-     */
     protected $fields = ['id', 'self', 'contact', 'promo', 'gadz', 'photos', 'addresses', 'residences', 'courses',
         'tags', 'degrees', 'responsibilities', 'jobs', 'socials'];
 
-    /**
-     * List of minimal set of fields to filter before sending the response if null, all fields will be sent.
-     *
-     * @var array
-     */
     protected $fields_minimal = ['id', 'self', 'contact', 'promo', 'gadz'];
 
-    /**
-     * Turn this item object into a generic array
-     *
-     * @param User $user
-     * @return array
-     */
     public function transform(User $user)
     {
         $data = [
-            'id' => $user->id,
-            'self' => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('users.show', $user->id),
-            'contact' => [
+            'id'               => $user->id,
+            'self'             => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('users.show', $user->id),
+            'contact'          => [
                 'firstname' => $user->firstname,
-                'lastname' => $user->lastname,
-                'birthday' => $user->birthday->format('Y-m-d'),
-                'gender' => $user->gender,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'photo' => $user->profile_photo,
+                'lastname'  => $user->lastname,
+                'birthday'  => $user->birthday->format('Y-m-d'),
+                'gender'    => $user->gender,
+                'email'     => $user->email,
+                'phone'     => $user->phone,
+                'photo'     => $user->profile_photo,
             ],
-            'promo' => [
+            'promo'            => [
                 'campus' => $this->itemArray($user->campus, new CampusTransformer),
-                'year' => (int) $user->year,
+                'year'   => (int)$user->year,
             ],
-            'gadz' => null,
-            'photos' => null,
-            'addresses' => null,
-            'residences' => null,
-            'courses' => null,
-            'tags' => $user->tags,
-            'degrees' => null,
+            'gadz'             => null,
+            'photos'           => null,
+            'addresses'        => null,
+            'residences'       => null,
+            'courses'          => null,
+            'tags'             => $user->tags,
+            'degrees'          => null,
             'responsibilities' => null,
-            'jobs' => null,
-            'socials' => null,
+            'jobs'             => null,
+            'socials'          => null,
         ];
 
         if ($gadz = $user->gadz) {

@@ -8,12 +8,6 @@ use App\Models\Social;
 
 class SocialTransformer extends BaseTransformer
 {
-    /**
-     * Turn this item object into a generic array
-     *
-     * @param Social $social
-     * @return array
-     */
     public function transform(Social $social)
     {
         $data = [

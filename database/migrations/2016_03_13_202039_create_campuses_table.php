@@ -20,8 +20,8 @@ class CreateCampusesTable extends Migration
             $table->string('short', 20);
             $table->string('prefix', 2)->nullable();
             $table->text('address');
-            $table->decimal('lat', 10, 6);
-            $table->decimal('lng', 10, 6);
+            $table->string('lat', 10);
+            $table->string('lng', 10);
             $table->string('photo', 100);
         });
     }

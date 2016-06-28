@@ -8,12 +8,6 @@ use App\Models\Campus;
 
 class CampusTransformer extends BaseTransformer
 {
-    /**
-     * Turn this item object into a generic array
-     *
-     * @param Campus $campus
-     * @return array
-     */
     public function transform(Campus $campus)
     {
         // Choix de la préposition
@@ -44,8 +38,8 @@ class CampusTransformer extends BaseTransformer
             'prefix' => $campus->prefix,
             'address' => $campus->address,
             'pos' => [
-                'lat' => (double) $campus->lat,
-                'lng' => (double) $campus->lng,
+                'lat' => (string) $campus->lat,
+                'lng' => (string) $campus->lng,
             ],
             'photo' => url($campus->photo),
         ];

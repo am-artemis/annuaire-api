@@ -5,7 +5,6 @@ use Tests\TestCase;
 
 use App\Models\User;
 use App\Models\Gadz;
-use App\Models\Campus;
 use App\Http\Transformers\GadzTransformer;
 
 class GadzTransformerTest extends TestCase

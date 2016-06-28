@@ -8,12 +8,6 @@ use App\Models\Responsibility;
 
 class ResponsibilityTransformer extends BaseTransformer
 {
-    /**
-     * Turn this item object into a generic array
-     *
-     * @param Responsibility $responsibility
-     * @return array
-     */
     public function transform(Responsibility $responsibility)
     {
         $data = [

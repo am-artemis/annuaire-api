@@ -17,8 +17,8 @@ class CreateResidencesTable extends Migration
 
             $table->string('name', 100);
             $table->text('address');
-            $table->decimal('lat', 10, 6);
-            $table->decimal('lng', 10, 6);
+            $table->string('lat', 10);
+            $table->string('lng', 10);
             $table->integer('campus_id')->unsigned();
         });
     }

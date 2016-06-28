@@ -8,12 +8,6 @@ use App\Models\Photo;
 
 class PhotoTransformer extends BaseTransformer
 {
-    /**
-     * Turn this item object into a generic array
-     *
-     * @param Photo $photo
-     * @return array
-     */
     public function transform(Photo $photo)
     {
         $data = [

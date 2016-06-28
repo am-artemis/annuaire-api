@@ -28,6 +28,56 @@ class BaseTransformer extends TransformerAbstract
     {
         $this->fields_minimal = $array;
     }
+
+    public function itemArray($model, $transformer, $resourceKey = null)
+    {
+        // Transforme le model
+        $resource = $this->item($model, $transformer, $resourceKey);
+
+        return $this->arraySerialize($resource);
+    }
+
+    private function arraySerialize($resource)
+    {
+        // Instancie le manager
+        $manager = new Manager();
+        $manager->setSerializer(new ArraySerializer());
+
+        // Retourne la resource sous la forme d'un array
+        return $manager->createData($resource)->toArray();;
+    }
+
+
+    // Transformer functions
+
+    public function collectionArray($collection, $transformer, $resourceKey = null)
+    {
+        // Transforme la collection
+        $resource = $this->collection($collection, $transformer, $resourceKey);
+
+        $result = $this->arraySerialize($resource);
+
+        return $result['data'];
+    }
+
+    /**
+     * Filter an array with given fields.
+     *
+     * @param $data
+     *
+     * @return array
+     */
+    protected function filter($data)
+    {
+        $filter = $this->getFilter();
+
+        $filtered_array = array_filter($data, function ($value, $key) use ($filter) {
+            return in_array($key, $filter);
+        }, ARRAY_FILTER_USE_BOTH);
+
+        return $filtered_array;
+    }
+
     /**
      * Get filter set to apply
      *
@@ -59,53 +109,5 @@ class BaseTransformer extends TransformerAbstract
                 return $this->fields_minimal;
             }
         }
-    }
-
-    /**
-     * Filter an array with given fields.
-     *
-     * @param $data
-     * @return array
-     */
-    protected function filter($data)
-    {
-        $filter = $this->getFilter();
-
-        $filtered_array = array_filter($data, function ($value, $key) use ($filter) {
-            return in_array($key, $filter);
-        }, ARRAY_FILTER_USE_BOTH);
-
-        return $filtered_array;
-    }
-
-
-    // Transformer functions
-
-    public function itemArray($model, $transformer, $resourceKey = null)
-    {
-        // Transforme le model
-        $resource = $this->item($model, $transformer, $resourceKey);
-
-        return $this->arraySerialize($resource);
-    }
-
-    public function collectionArray($collection, $transformer, $resourceKey = null)
-    {
-        // Transforme la collection
-        $resource = $this->collection($collection, $transformer, $resourceKey);
-
-        $result = $this->arraySerialize($resource);
-
-        return $result['data'];
-    }
-
-    private function arraySerialize($resource)
-    {
-        // Instancie le manager
-        $manager = new Manager();
-        $manager->setSerializer(new ArraySerializer());
-
-        // Retourne la resource sous la forme d'un array
-        return $manager->createData($resource)->toArray();;
     }
 }
