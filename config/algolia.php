@@ -38,8 +38,8 @@ return [
     'connections' => [
 
         'main' => [
-            'id' => env('ALGOLIA_ID'),
-            'key' => env('ALGOLIA_KEY'),
+            'id' => env('ALGOLIA_ID', 'test_id'),
+            'key' => env('ALGOLIA_KEY', 'test_key'),
         ],
 
         'alternative' => [
@@ -49,6 +49,6 @@ return [
 
     ],
 
-    'index' => env('ALGOLIA_INDEX')
+    'index' => env('ALGOLIA_INDEX', 'test_index')
 
 ];

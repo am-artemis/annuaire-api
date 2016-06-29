@@ -10,6 +10,9 @@ cache:
 services:
   - mysql
 
+env:
+  - APP_URL=http://api.annuaire.artemis.am APP_DEBUG=true API_DEBUG=true
+
 install:
   - composer install --no-interaction
   - mysql -u root -e "CREATE DATABASE annuaire_test";
@@ -17,7 +20,7 @@ install:
 
 script:
   - vendor/bin/phpcs
-  - vendor/bin/phpunit --stop-on-failure
+  - vendor/bin/phpunit
 
 addons:
     apt:
@@ -27,9 +30,8 @@ addons:
 
 
 after_success:
-  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && ls -la"
-  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && git fetch"
-  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && git reset --hard HEAD"
-  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && git status"
-  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && git pull"
-  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && composer install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader"
+  - sshpass -e ssh $SSHUSER@$SSHHOST "cd $APP_PATH && tar -cf ../backup.tar ."
+  - sshpass -e ssh $SSHUSER@$SSHHOST "cd $APP_PATH && git reset --hard HEAD"
+  - sshpass -e ssh $SSHUSER@$SSHHOST "cd $APP_PATH && git pull"
+  - sshpass -e ssh $SSHUSER@$SSHHOST "cd $APP_PATH && composer install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader"
+  - curl --data "token=$ADMIN_TOKEN" $APP_URL/migrate

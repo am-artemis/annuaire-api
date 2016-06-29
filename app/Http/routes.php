@@ -35,6 +35,7 @@ app('Dingo\Api\Transformer\Factory')->register('App\Models\Social', 'App\Http\Tr
 $api = app(Router::class);
 $api->version('v1', ['namespace' => 'App\Http\Controllers'], function (Router $api) {
 
+    $api->post('migrate', 'MigrationController@migrate');
     $api->get('/auth', ['as' => 'auth.redirect', 'uses' => 'AuthController@redirectToProvider']);
     $api->put('/auth', ['as' => 'auth.refresh', 'uses' => 'AuthController@refresh']);
     $api->any('/auth/callback', ['as' => 'auth.callback', 'uses' => 'AuthController@handleProviderCallback']);
