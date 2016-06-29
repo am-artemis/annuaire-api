@@ -19,12 +19,10 @@ class CourseTransformer extends BaseTransformer
         ];
 
         // There's not always a campus
+        $campusTransformer = app()->make(CampusTransformer::class);
+
         if ($course->campus) {
-            $data['campus'] = [
-                'self'  => app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('campuses.show', $course->campus->id),
-                'short' => $course->campus->short,
-                'name'  => $course->campus->name,
-            ];
+            $data['campus'] = $this->itemArray($course->campus, $campusTransformer);
         } else {
             $data['school'] = $course->school;
         }
