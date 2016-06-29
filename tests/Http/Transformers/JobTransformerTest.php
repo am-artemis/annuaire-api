@@ -19,10 +19,10 @@ class JobTransformerTest extends TestCase
     public function testTransformerwithoutTo()
     {
         $jobArray = [
-            'title'       => $title = $this->faker->title,
-            'description' => $description = $this->faker->words(3, true),
+            'title'       => $this->faker->title,
+            'description' => $this->faker->words(3, true),
             'user_id'     => $this->user->id,
-            'from'        => $from = $this->faker->date(),
+            'from'        => $this->faker->date(),
         ];
 
         $job = Job::forceCreate($jobArray);
@@ -30,17 +30,16 @@ class JobTransformerTest extends TestCase
         $expectedTransformed = [
             'data' => [
                 'self'        => url(implode('/', ['users', $this->user->id, 'jobs', $job->id])),
-                'title'       => $title,
-                'description' => $description,
+                'title'       => $jobArray['title'],
+                'description' => $jobArray['description'],
                 /* TODO : Tarmak à rajouter ??
                  * 'user'        => [
                     'self' => url('users', $this->user->id),
                 ],*/
-                'from'        => $from,
+                'from'        => $jobArray['from'],
                 'to'          => null,
             ],
         ];
-
 
         $transformed = self::transformItem($job, new JobTransformer);
 
@@ -51,11 +50,11 @@ class JobTransformerTest extends TestCase
     public function testTransformerwithTo()
     {
         $jobArray = [
-            'title'       => $title = $this->faker->title,
-            'description' => $description = $this->faker->words(3, true),
+            'title'       => $this->faker->title,
+            'description' => $this->faker->words(3, true),
             'user_id'     => $this->user->id,
-            'from'        => $from = $this->faker->date(),
-            'to'          => $to = $this->faker->date(),
+            'from'        => $this->faker->date(),
+            'to'          => $this->faker->date(),
         ];
 
         $job = Job::forceCreate($jobArray);
@@ -63,17 +62,16 @@ class JobTransformerTest extends TestCase
         $expectedTransformed = [
             'data' => [
                 'self'        => url(implode('/', ['users', $this->user->id, 'jobs', $job->id])),
-                'title'       => $title,
-                'description' => $description,
+                'title'       => $jobArray['title'],
+                'description' => $jobArray['description'],
                 /* TODO : Tarmak à rajouter ??
                  * 'user'        => [
                     'self' => url('users', $this->user->id),
                 ],*/
-                'from'        => $from,
-                'to'          => $to,
+                'from'        => $jobArray['from'],
+                'to'          => $jobArray['to'],
             ],
         ];
-
 
         $transformed = self::transformItem($job, new JobTransformer);
 
