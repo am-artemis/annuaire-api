@@ -32,7 +32,7 @@ class ResidenceControllerTest extends TestCase
         ];
 
         $this->seeJsonStructure($expectedJsonStructure);
-        $this->seeJson(['transformer' => true]);
+        $this->seeJson(['transformer' => 'Residence']);
     }
 
     public function testShow()
@@ -41,7 +41,7 @@ class ResidenceControllerTest extends TestCase
 
         $this->jsonWithJWT('GET', implode('/', ['residences', $residence->id]));
 
-        $this->seeJson(['transformer' => true]);
+        $this->seeJson(['transformer' => 'Residence']);
 
     }
 }
