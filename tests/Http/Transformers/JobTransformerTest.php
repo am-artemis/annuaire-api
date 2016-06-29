@@ -29,7 +29,7 @@ class JobTransformerTest extends TestCase
 
         $expectedTransformed = [
             'data' => [
-                'self'        => url('jobs', $job->id),
+                'self'        => url(implode('/', ['users', $this->user->id, 'jobs', $job->id])),
                 'title'       => $title,
                 'description' => $description,
                 /* TODO : Tarmak à rajouter ??
@@ -62,7 +62,7 @@ class JobTransformerTest extends TestCase
 
         $expectedTransformed = [
             'data' => [
-                'self'        => url('jobs', $job->id),
+                'self'        => url(implode('/', ['users', $this->user->id, 'jobs', $job->id])),
                 'title'       => $title,
                 'description' => $description,
                 /* TODO : Tarmak à rajouter ??
