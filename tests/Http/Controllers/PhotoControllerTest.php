@@ -96,6 +96,9 @@ class PhotoControllerTest extends TestCase
             'user_id' => $user->id,
             'photo' => $photo
         ]);
+
+        $this->assertResponseStatus(201);
+
         $this->seeInDatabase('photos', [
             'title'         => 'Titre',
             'type'          => 'profile',
@@ -103,8 +106,6 @@ class PhotoControllerTest extends TestCase
             'src'           => 'https://essai',
             'cloudinary_id' => 134,
         ]);
-
-        $this->assertResponseStatus(201);
 
         $expectedJsonStructure = [
             'data' => ['self', 'src', 'type', 'title', 'user']
@@ -124,13 +125,14 @@ class PhotoControllerTest extends TestCase
             'type'  => 'blabla',
         ]);
 
+        $this->assertResponseOk();
+
         $this->seeInDatabase('photos', [
             'id'      => $photo->id,
             'title'   => 'Un titre',
             'type'    => 'blabla',
-            'user_id'    => $user->id,
+            'user_id' => $user->id,
         ]);
-        $this->assertResponseOk();
 
         $expectedJsonStructure = [
             'data' => ['self', 'src', 'type', 'title', 'user']
@@ -146,7 +148,7 @@ class PhotoControllerTest extends TestCase
         $photo->user()->associate($user)->save();
 
         $this->jsonWithJWT('DELETE', implode('/', ['photos', $photo->id]));
-        $this->assertResponseStatus(202);
+        $this->assertResponseStatus(204);
 
         $this->assertTrue(is_null(Photo::find($photo->id)));
     }

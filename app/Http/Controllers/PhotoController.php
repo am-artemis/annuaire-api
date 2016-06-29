@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Photo;
 use Illuminate\Http\Request;
 use JD\Cloudder\CloudinaryWrapper;
-use Illuminate\Http\PhotoStoreRequest;
+use App\Http\Requests\PhotoStoreRequest;
+use App\Http\Requests\PhotoUpdateRequest;
 use Illuminate\Support\Facades\DB;
 
 
@@ -82,11 +83,11 @@ class PhotoController extends Controller
      *
      * @return Response
      */
-    public function update(PhotoStoreRequest $request, Photo $photo)
+    public function update(PhotoUpdateRequest $request, Photo $photo)
     {
         $photo->update($request->intersect(['title', 'type']));
 
-        return $this->response->accepted(null, $photo);
+        return $photo;
     }
 
     /**
