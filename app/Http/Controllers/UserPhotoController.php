@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Photo;
 use Illuminate\Http\Request;
 use JD\Cloudder\CloudinaryWrapper;
@@ -9,7 +10,7 @@ use Illuminate\Http\PhotoStoreRequest;
 use Illuminate\Support\Facades\DB;
 
 
-class PhotoController extends Controller
+class UserPhotoController extends Controller
 {
     /**
      * List of relationships to load.
@@ -25,9 +26,9 @@ class PhotoController extends Controller
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(User $user)
     {
-        return Photo::paginate($request->input('items', 30));
+        return $user->photos;;
     }
 
     /**
@@ -37,9 +38,9 @@ class PhotoController extends Controller
      *
      * @return Response
      */
-    public function show(Photo $photo)
+    public function show(User $user, $photo_id)
     {
-        return $photo;
+        return $user->photos()->find($photo_id);
     }
 
     /**
@@ -48,7 +49,7 @@ class PhotoController extends Controller
      * @param Request $request
      * @param CloudinaryWrapper $cloudder
      */
-    public function store(PhotoStoreRequest $request, CloudinaryWrapper $cloudder)
+    public function store(PhotoStoreRequest $request, CloudinaryWrapper $cloudder, User $user)
     {
         // Tag la photo avec l'environnement
         $tags = ['env_' . env('APP_ENV')];
@@ -58,20 +59,20 @@ class PhotoController extends Controller
         $photoArray = [
             'title'   => $request->input('title'),
             'type'    => $request->input('type'),
-            'user_id' => $request->input('user_id'),
             'src'     => '',
         ];
-        $photo = Photo::forceCreate($photoArray);
+        $photo = new Photo($photoArray);
 
-        $result = $cloudder->upload($request->input('photo'), null, [], $tags)->getResult();
+        $result = $cloudder->upload($request->get('photo'), null, [], $tags)->getResult();
 
-        $photo->src           = $result['secure_url'];
+        $photo->src = $result['secure_url'];
         $photo->cloudinary_id = $result['public_id'];
-        $photo->save();
+
+        $user->photos()->save($photo);
 
         DB::commit();
 
-        return $this->response->created(null, $photo);
+        return $this->response->created(null, $user->photos);
     }
 
     /**

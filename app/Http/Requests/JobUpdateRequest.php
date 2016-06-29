@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class AddressUpdateRequest extends Request
+class JobUpdateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,9 +21,13 @@ class AddressUpdateRequest extends Request
      */
     public function rules()
     {
-        $rules = (new AddressStoreRequest())->rules();
+        $rules = (new JobStoreRequest())->rules();
 
         unset($rules['user_id']);
+
+        foreach ($rules as &$rule) {
+            $rule = str_replace('required|', '', $rule);
+        }
         
         return $rules;
     }

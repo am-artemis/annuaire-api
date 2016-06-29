@@ -46,6 +46,7 @@ class Address extends ApiModel
     protected $table = 'addresses';
     protected $fillable = ['name', 'address', 'zipcode', 'city', 'country', 'lat', 'lng', 'phone', 'from', 'to', 'type'];
     protected $hidden = ['id', 'user_id', 'created_at', 'updated_at'];
+    protected $dates = ['from', 'to'];
     public $timestamps = true;
 
 
@@ -55,6 +56,6 @@ class Address extends ApiModel
      */
     public function user()
     {
-        $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 }

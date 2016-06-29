@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class AddressStoreRequest extends Request
+class UserAddressUpdateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,17 @@ class AddressStoreRequest extends Request
     public function rules()
     {
         return [
-            'user_id' => 'required|alpha_num|exists:users,id',
-            'name'    => 'required|string|min:3',
-            'address' => 'required|string|min:3',
-            'zipcode' => 'required|numeric',
-            'city'    => 'required|min:1',
+            'name'    => 'string|min:3',
+            'address' => 'string|min:3',
+            'zipcode' => 'numeric',
+            'city'    => 'min:1',
             'country' => '',
             'lat'     => 'numeric',
             'lng'     => 'numeric',
             'phone'   => 'regex:/^[-+ .0-9]+$/',
-            'from'    => 'required|date',
+            'from'    => 'date',
             'to'      => 'date',
-            'type'    => 'required|in:perso,family',
+            'type'    => 'in:perso,family',
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class AddressStoreRequest extends Request
+class UserAddressStoreRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,6 @@ class AddressStoreRequest extends Request
     public function rules()
     {
         return [
-            'user_id' => 'required|alpha_num|exists:users,id',
             'name'    => 'required|string|min:3',
             'address' => 'required|string|min:3',
             'zipcode' => 'required|numeric',
