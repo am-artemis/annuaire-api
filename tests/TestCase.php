@@ -151,7 +151,7 @@ class TestCase extends LaravelTestCase
         $transformer
             ->shouldReceive('getDefaultIncludes')->andReturn([])
             ->shouldReceive('getAvailableIncludes')->andReturn([])
-            ->shouldReceive('transform')->andReturn(['transformer' => true]);
+            ->shouldReceive('transform')->andReturn(['transformer' => $model]);
 
         $this->app->bind($class, function () use ($transformer) {
             return $transformer;

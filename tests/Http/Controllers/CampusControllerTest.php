@@ -27,16 +27,11 @@ class CampusControllerTest extends TestCase
         $expectedJsonStructure = [
             'data' => [
                 ['transformer']
-            ],
-            'meta' => [
-                "pagination" => [
-                    "total", "count", "per_page", "current_page", "total_pages", "links"
-                ],
-            ],
+            ]
         ];
 
         $this->seeJsonStructure($expectedJsonStructure);
-        $this->seeJson(['transformer' => true]);
+        $this->seeJson(['transformer' => 'Campus']);
     }
 
     public function testShow()
@@ -45,7 +40,7 @@ class CampusControllerTest extends TestCase
 
         $this->jsonWithJWT('GET', implode('/', ['campuses', $campus->id]));
 
-        $this->seeJson(['transformer' => true]);
+        $this->seeJson(['transformer' => 'Campus']);
 
     }
 }
