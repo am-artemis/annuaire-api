@@ -1,0 +1,14 @@
+# You can use a Docker image from Docker Hub or your own container registry
+image: composer/composer:1.1-php5
+   
+pipelines:
+  default:
+    - step:
+        script:
+          - composer --version
+          - wget https://www.dropbox.com/s/mjgfw239mcoy2ib/vendor.tar.gz
+          - tar -zxf vendor.tar.gz -C . && rm vendor.tar.gz
+          - cp .env.example .env
+          - composer install --no-interaction
+          - vendor/bin/phpunit --version
+          - vendor/bin/phpunit --configuration phpunit.xml
