@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // @codeCoverageIgnoreStart
+        if ($this->app->environment() === 'local') {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
+        // @codeCoverageIgnoreEnd
     }
 }
