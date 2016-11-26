@@ -42,6 +42,7 @@ class AlgoliaService
     public function __construct(AlgoliaManager $algolia)
     {
         $this->algolia = $algolia;
+        $this->algolia->setConnectTimeout(10, 60, 10);
         $this->index = $this->algolia->initIndex(config('algolia.index'));
 
     }
@@ -163,9 +164,6 @@ class AlgoliaService
 
     public function searchUsers($query, $parameters = [])
     {
-        $user = new User();
-        $result = $this->index->search($query, $parameters);
-
-        return $result;
+        return $this->index->search($query, $parameters);
     }
 }

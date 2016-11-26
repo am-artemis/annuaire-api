@@ -99,5 +99,6 @@ class DatabaseSeeder extends Seeder
         $algolia = app()->make(AlgoliaService::class);
         $algolia->reIndexUsers();
 
+        dump('Seed done !');
     }
 }
