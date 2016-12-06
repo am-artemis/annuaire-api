@@ -3,6 +3,8 @@
 namespace Tests\Models;
 
 use AlgoliaSearch\Index;
+use App\Models\Degree;
+use App\Models\Gadz;
 use App\Models\User;
 use App\Services\AlgoliaService;
 use Carbon\Carbon;
@@ -28,12 +30,13 @@ class AlgoliaServiceTest extends TestCase
         $this->index = m::mock(Index::class);
 
         $this->manager = m::mock(AlgoliaManager::class);
+        $this->manager->shouldReceive('setConnectTimeout');
         $this->manager->shouldReceive('initIndex')->once()->andReturn($this->index);
 
         $this->service = new AlgoliaService($this->manager);
     }
 
-    public function testuserToObjects()
+    public function testUserToObjects()
     {
         $this->seedCustomUsers();
         $zaru = User::find('000001');
@@ -53,7 +56,7 @@ class AlgoliaServiceTest extends TestCase
                 'promsTBK' => 'cl212',
                 'fams' => ['134', ' 169'],
                 'famsPromsTBK' => ['134cl212', ' 169cl212', '134- 169cl212'],
-                'tags' => ['zaru', ' charue'],
+                'tags' => ['all', 'zaru', 'charue'],
                 'rank' => [ 'isStudent' => 0, 'isGadz' => 1, 'year' => 2012],
             ],
         ];
@@ -105,8 +108,8 @@ class AlgoliaServiceTest extends TestCase
     {
         /** @var User $user*/
         $user = factory(User::class)->create($attributesUser);
-        $user->gadz()->save($gadz = factory(\App\Models\Gadz::class)->make(['proms' => $user->year - 200] + $attributesGadz));
-        $user->degrees()->attach($degree = factory(\App\Models\Degree::class)->create()->id, ['year' =>2012]);
+        $user->gadz()->save(factory(Gadz::class)->make(['proms' => $user->year - 200] + $attributesGadz));
+        $user->degrees()->attach(factory(Degree::class)->create()->id, ['year' =>2012]);
         return $user;
     }
 

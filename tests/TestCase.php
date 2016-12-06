@@ -149,6 +149,7 @@ class TestCase extends LaravelTestCase
         $class = 'App\Http\Transformers\\'. $model . 'Transformer';
         $transformer = m::mock($class);
         $transformer
+            ->shouldReceive('setCurrentScope')->andReturn([])
             ->shouldReceive('getDefaultIncludes')->andReturn([])
             ->shouldReceive('getAvailableIncludes')->andReturn([])
             ->shouldReceive('transform')->andReturn(['transformer' => $model]);

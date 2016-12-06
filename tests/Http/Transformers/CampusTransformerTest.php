@@ -30,7 +30,7 @@ class CampusTransformerTest extends TestCase
                     'lat' => 46.2157467,
                     'lng' => 2.2088258,
                 ],
-                'photo'   => url('campus/cluns.jpg'),
+                'photo'   => url('img/campus/cluns.jpg'),
             ],
         ];
 
@@ -57,7 +57,7 @@ class CampusTransformerTest extends TestCase
                     'lat' => 47.475162699999998,
                     'lng' => -0.55935409999999997,
                 ],
-                'photo'   => url('campus/boquette.jpg'),
+                'photo'   => url('img/campus/boquette.jpg'),
             ],
         ];
 
@@ -84,7 +84,7 @@ class CampusTransformerTest extends TestCase
                         'lat' => 42.703680400000003,
                         'lng' => 9.4520107000000007,
                 ],
-                'photo'   => url('campus/bastia.jpg'),
+                'photo'   => url('img/campus/bastia.jpg'),
             ],
 
         ];

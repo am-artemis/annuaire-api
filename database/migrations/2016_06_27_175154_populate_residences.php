@@ -22,9 +22,9 @@ class PopulateResidences extends Migration
         ]);
     }
 
-    private function campus($short)
+    private function campus($prefix)
     {
-        return Campus::whereShort($short)->first('id')->id;
+        return Campus::wherePrefix($prefix)->first(['id'])->id;
     }
 
     /**

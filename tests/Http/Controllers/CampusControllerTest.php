@@ -16,7 +16,6 @@ class CampusControllerTest extends TestCase
     {
         $this->jsonWithJWT('GET', 'campuses');
 
-
         $this->assertResponseOk();
         $this->assertCount(Campus::count(), $this->jsonResponse('data'));
 

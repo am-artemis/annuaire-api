@@ -121,7 +121,7 @@ class AlgoliaService
 
         if ($tags = $user->tags) {
             foreach (explode(',', $tags) as $tag) {
-                $obj_user['tags'][] = $tag;
+                $obj_user['tags'][] = trim($tag);
             }
         }
 
