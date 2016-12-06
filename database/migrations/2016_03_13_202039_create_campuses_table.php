@@ -18,7 +18,7 @@ class CreateCampusesTable extends Migration
             $table->string('name', 40);
             $table->string('city', 20);
             $table->string('short', 20);
-            $table->string('prefix', 2)->nullable();
+            $table->string('prefix', 3)->nullable();
             $table->boolean('tbk');
             $table->text('address');
             $table->string('lat', 10);
