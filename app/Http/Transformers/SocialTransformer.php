@@ -2,8 +2,6 @@
 
 namespace App\Http\Transformers;
 
-use Illuminate\Http\Request;
-
 use App\Models\Social;
 
 class SocialTransformer extends BaseTransformer

@@ -2,8 +2,6 @@
 
 namespace App\Http\Transformers;
 
-use Illuminate\Http\Request;
-
 use App\Models\Degree;
 
 class DegreeTransformer extends BaseTransformer
@@ -18,9 +16,9 @@ class DegreeTransformer extends BaseTransformer
         ];
 
         if (isset($degree->pivot)) {
-            $data['pivot'] = [
+            $data = array_merge($data, [
                 'year' => (int)$degree->pivot->year,
-            ];
+            ]);
         }
 
         return $data;
