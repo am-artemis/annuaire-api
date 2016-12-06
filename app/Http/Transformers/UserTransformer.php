@@ -2,8 +2,10 @@
 
 namespace App\Http\Transformers;
 
-use Dingo\Api\Http\Request;
+use App\Models\Degree;
+use App\Models\Residence;
 use App\Models\User;
+use Carbon\Carbon;
 
 class UserTransformer extends BaseTransformer
 {
@@ -40,6 +42,7 @@ class UserTransformer extends BaseTransformer
             'responsibilities' => null,
             'jobs'             => null,
             'socials'          => null,
+            'search'           => null, // special field for search result
         ];
 
         if ($gadz = $user->gadz) {
@@ -57,6 +60,14 @@ class UserTransformer extends BaseTransformer
 
         if ($residences = $user->residences and $residences->count()) {
             $data['residences'] = $this->collectionArray($residences, new ResidenceTransformer);
+            $residence = $residences->sortByDesc('created_at')
+                ->first(function ($uselessKeyFixedInLaravel53, Residence $residence) {
+                    return $residence->pivot->from <= Carbon::now() && Carbon::now() <= $residence->pivot->to;
+                }, null);
+
+            if ($residence) {
+                $data['search']['residence'] = $this->itemArray($residence, new ResidenceTransformer);
+            }
         }
 
         if ($courses = $user->courses and $courses->count()) {
@@ -65,6 +76,14 @@ class UserTransformer extends BaseTransformer
 
         if ($degrees = $user->degrees and $degrees->count()) {
             $data['degrees'] = $this->collectionArray($degrees, new DegreeTransformer);
+            $degree = $degrees->sortByDesc('created_at')
+                ->first(function ($uselessKeyFixedInLaravel53, Degree $degree) {
+                    return $degree->am;
+                }, null);
+
+            if ($degree) {
+                $data['search']['degree'] = $this->itemArray($degree, new DegreeTransformer);
+            }
         }
 
         if ($responsabilities = $user->responsabilities and $responsabilities->count()) {
