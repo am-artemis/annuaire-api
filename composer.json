@@ -6,7 +6,7 @@
         "dingo/api": "1.0.x@dev",
         "laravel/socialite": "^2.0",
         "doctrine/dbal": "2.5.*",
-        "barryvdh/laravel-cors": "^0.8.0",
+        "barryvdh/laravel-cors": "^0.8.2",
         "tymon/jwt-auth": "^0.5.9",
         "jrm2k6/cloudder": "0.2.*",
         "vinkla/algolia": "^2.3"

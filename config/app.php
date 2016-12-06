@@ -163,6 +163,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         JD\Cloudder\CloudderServiceProvider::class,
         Vinkla\Algolia\AlgoliaServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
 
     ],
 
