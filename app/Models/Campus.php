@@ -12,16 +12,19 @@ namespace App\Models;
  * @property string $city
  * @property string $short
  * @property string $prefix
+ * @property boolean $tbk
  * @property string $address
- * @property float $lat
- * @property float $lng
+ * @property string $lat
+ * @property string $lng
  * @property string $photo
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read mixed $photo_url
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Campus whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Campus whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Campus whereCity($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Campus whereShort($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Campus wherePrefix($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Campus whereTbk($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Campus whereAddress($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Campus whereLat($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Campus whereLng($value)
@@ -37,10 +40,16 @@ class Campus extends ApiModel
     protected $hidden = ['id', 'pivot', 'created_at', 'updated_at'];
     protected $dates = [];
 
+    const UPLOAD_DIR = 'img/campus/';
 
     public function users()
     {
         return $this->hasMany('App\Models\User', 'campus_id');
+    }
+
+    public function getPhotoUrlAttribute()
+    {
+        return $this->getUploadedDocumentUrl('photo');
     }
 
     /* Pas d'autre classes pour le moment

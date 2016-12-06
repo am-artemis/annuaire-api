@@ -14,4 +14,11 @@ abstract class ApiModel extends Model
      * @var array
      */
     protected $dates = ['created_at', 'updated_at'];
+
+    protected function getUploadedDocumentUrl($field)
+    {
+        return str_contains($this->$field, 'http') ?
+            $this->$field :
+            asset(static::UPLOAD_DIR . $this->$field);
+    }
 }

@@ -29,7 +29,7 @@ namespace App\Models;
 class Photo extends ApiModel
 {
 
-    const PROFILE_DEFAULT = 'link/to/default';
+    const PROFILE_DEFAULT = 'img/profile/default.jpg';
     public $timestamps = true;
     protected $table = 'photos';
     protected $fillable = ['src', 'type', 'title'];

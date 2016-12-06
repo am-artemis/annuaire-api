@@ -41,7 +41,7 @@ class CampusTransformer extends BaseTransformer
                 'lat' => (string) $campus->lat,
                 'lng' => (string) $campus->lng,
             ],
-            'photo' => url($campus->photo),
+            'photo' => $campus->photo_url,
         ];
 
         return $data;

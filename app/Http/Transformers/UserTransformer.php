@@ -48,7 +48,6 @@ class UserTransformer extends BaseTransformer
         }
 
         if ($photos = $user->photos and $photos->count()) {
-            // $data['contact']['photo'] = $user->profilePicSrc();
             $data['photos'] = $this->collectionArray($photos, new PhotoTransformer);
         }
 
