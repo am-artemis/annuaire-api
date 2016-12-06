@@ -9,7 +9,6 @@ use JD\Cloudder\CloudinaryWrapper;
 use Illuminate\Http\PhotoStoreRequest;
 use Illuminate\Support\Facades\DB;
 
-
 class UserPhotoController extends Controller
 {
     /**

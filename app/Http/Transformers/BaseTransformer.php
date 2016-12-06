@@ -2,10 +2,9 @@
 
 namespace App\Http\Transformers;
 
-use League\Fractal\TransformerAbstract;
-
 use League\Fractal\Manager;
 use League\Fractal\Serializer\ArraySerializer;
+use League\Fractal\TransformerAbstract;
 
 class BaseTransformer extends TransformerAbstract
 {
@@ -22,7 +21,6 @@ class BaseTransformer extends TransformerAbstract
      * @var array
      */
     protected $fields_minimal = null;
-
 
     public function setFieldsMinimal($array)
     {
@@ -92,7 +90,9 @@ class BaseTransformer extends TransformerAbstract
         if ($request->has('fields')) {
             $request_fields = explode(',', $request->input('fields'));
 
-            // If $this->fields_minimal is not null, let the possiblity to query all (by defaul all is sent if $fields_minimal is null)
+            // If $this->fields_minimal is not null,
+            // let the possiblity to query all (by defaul all is sent if $fields_minimal is null)
+
             if (in_array('all', $request_fields) or in_array('*', $request_fields)) {
                 return $this->fields;
             } elseif (in_array('min', $request_fields)) {
@@ -103,11 +103,7 @@ class BaseTransformer extends TransformerAbstract
             return array_intersect($this->fields, $request_fields);
         } else {
             // If nothing specified, return all the available fields or the minimal set
-            if (is_null($this->fields_minimal)) {
-                return $this->fields;
-            } else {
-                return $this->fields_minimal;
-            }
+            return $this->fields_minimal ?: $this->fields;
         }
     }
 }

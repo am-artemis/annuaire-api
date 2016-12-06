@@ -68,8 +68,8 @@ class UserJobController extends Controller
      * @return Response
      */
     public function update(UserJobUpdateRequest $request, $user_id, Job $job)
-    {   
-         if ($job->user_id != $user_id) {
+    {
+        if ($job->user_id != $user_id) {
             return $this->response->errorBadRequest();
         }
 

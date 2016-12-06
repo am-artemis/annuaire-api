@@ -8,14 +8,14 @@ namespace App\Models;
  * App\Models\Address
  *
  * @property integer $id
- * @property integer $user_id
+ * @property string $user_id
  * @property string $name
  * @property string $address
  * @property string $zipcode
  * @property string $city
  * @property string $country
- * @property float $lat
- * @property float $lng
+ * @property string $lat
+ * @property string $lng
  * @property string $phone
  * @property \Carbon\Carbon $from
  * @property \Carbon\Carbon $to

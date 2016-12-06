@@ -179,6 +179,5 @@ class UserController extends Controller
     {
         $user->delete();
         $this->algolia->deleteUser($user);
-
     }
 }

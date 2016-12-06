@@ -8,7 +8,7 @@ namespace App\Models;
  * App\Models\Photo
  *
  * @property integer $id
- * @property integer $user_id
+ * @property string $user_id
  * @property string $src
  * @property string $type
  * @property string $title
@@ -21,6 +21,7 @@ namespace App\Models;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereSrc($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereType($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereCloudinaryId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Photo whereUpdatedAt($value)
  * @mixin \Eloquent

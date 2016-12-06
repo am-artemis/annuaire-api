@@ -69,7 +69,7 @@ class UserAddressController extends Controller
      * @return Response
      */
     public function update(UserAddressUpdateRequest $request, $user_id, Address $address)
-    {   
+    {
         if ($address->user_id != $user_id) {
             return $this->response->errorBadRequest();
         }

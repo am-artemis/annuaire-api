@@ -9,7 +9,6 @@ use App\Http\Requests\PhotoStoreRequest;
 use App\Http\Requests\PhotoUpdateRequest;
 use Illuminate\Support\Facades\DB;
 
-
 class PhotoController extends Controller
 {
     /**

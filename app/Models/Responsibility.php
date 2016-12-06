@@ -8,7 +8,7 @@ namespace App\Models;
  * App\Models\Responsibility
  *
  * @property integer $id
- * @property integer $user_id
+ * @property string $user_id
  * @property string $title
  * @property string $strass
  * @property integer $campus_id

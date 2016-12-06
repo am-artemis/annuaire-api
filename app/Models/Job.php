@@ -8,7 +8,7 @@ namespace App\Models;
  * App\Models\Job
  *
  * @property integer $id
- * @property integer $user_id
+ * @property string $user_id
  * @property string $title
  * @property string $description
  * @property \Carbon\Carbon $from

@@ -44,7 +44,6 @@ class AlgoliaService
         $this->algolia = $algolia;
         $this->algolia->setConnectTimeout(10, 60, 10);
         $this->index = $this->algolia->initIndex(config('algolia.index'));
-
     }
 
     /**

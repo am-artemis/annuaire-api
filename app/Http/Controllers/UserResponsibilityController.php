@@ -69,7 +69,7 @@ class UserResponsibilityController extends Controller
      * @return Response
      */
     public function update(UserResponsibilityUpdateRequest $request, $user_id, Responsibility $responsibility)
-    {   
+    {
         if ($responsibility->user_id != $user_id) {
             return $this->response->errorBadRequest();
         }

@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 /**
  * App\Models\User
  *
- * @property integer $id
+ * @property string $id
  * @property string $firstname
  * @property string $lastname
  * @property \Carbon\Carbon $birthday
@@ -21,14 +21,15 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
  * @property string $tags
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property-read mixed $profile_photo
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Photo[] $photos
  * @property-read \App\Models\Campus $campus
  * @property-read \App\Models\Gadz $gadz
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Photo[] $photos
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Address[] $addresses
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Residence[] $residences
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Course[] $courses
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Degree[] $degrees
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Responsibility[] $responsabilities
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Responsibility[] $responsibilities
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Job[] $jobs
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Social[] $socials
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
@@ -44,9 +45,6 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Responsibility[] $responsibilities
- * @property-read mixed $profile
- * @property-read mixed $profile_photo
  */
 class User extends ApiModel implements AuthenticatableContract
 {
@@ -74,13 +72,12 @@ class User extends ApiModel implements AuthenticatableContract
 
 
     /**
-     * Return the url to the user's profile photo. Return a default one if none is available
-     *
-     * @param $value
+     * Return the url to the user's profile photo.
+     * Return a default one if none is available
      *
      * @return string this->src
      */
-    public function getProfilePhotoAttribute($value)
+    public function getProfilePhotoAttribute()
     {
         $photo = $this->photos()->where('type', 'profile')->orderBy('created_at', 'desc')->first();
 

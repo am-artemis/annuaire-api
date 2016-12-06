@@ -7,8 +7,7 @@ namespace App\Models;
 /**
  * App\Models\Gadz
  *
- * @property integer $id
- * @property integer $user_id
+ * @property string $user_id
  * @property string $buque
  * @property string $fams
  * @property string $famsSearch
@@ -16,7 +15,6 @@ namespace App\Models;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Gadz whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gadz whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gadz whereBuque($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gadz whereFams($value)
