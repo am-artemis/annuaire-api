@@ -41,11 +41,15 @@ class SearchController extends Controller
 
     public function algolia($q)
     {
+        if ($q === 'all') {
+            return User::all();
+        }
+
         $parameters['attributesToRetrieve'] = 'user_id';
         $results = $this->algolia->searchUsers($q, $parameters);
         $users_id = [];
         foreach ($results['hits'] as $elt) {
-            array_push($users_id, $elt['user_id']);
+            $users_id[] = $elt['user_id'];
         }
         return User::findMany($users_id);
     }

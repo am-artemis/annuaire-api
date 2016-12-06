@@ -24,7 +24,7 @@ class CustomUserSeeder extends Seeder
                     'phone' => '0625690445',
                     'year' => 2012,
                     'campus_id' => 1,
-                    'tags' => 'zaru, charue',
+                    'tags' => 'all, zaru, charue',
                 ],
                 'gadz' => [
                     'buque' => 'Iwazaru',
@@ -90,7 +90,7 @@ class CustomUserSeeder extends Seeder
                     'phone' => '0600000002',
                     'year' => 2013,
                     'campus_id' => 1,
-                    'tags' => null,
+                    'tags' => 'all',
                 ],
                 'gadz' => [
                     'buque' => 'Tarmak',
