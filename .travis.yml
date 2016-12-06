@@ -31,7 +31,7 @@ addons:
 
 after_success:
   - sshpass -e ssh $SSHUSER@$SSHHOST "cd $APP_PATH && tar -cf ../backup.tar ."
-  - sshpass -e ssh $SSHUSER@$SSHHOST "cd $APP_PATH && git reset --hard HEAD"
+#  - sshpass -e ssh $SSHUSER@$SSHHOST "cd $APP_PATH && git reset --hard HEAD"
   - sshpass -e ssh $SSHUSER@$SSHHOST "cd $APP_PATH && git pull"
   - sshpass -e ssh $SSHUSER@$SSHHOST "cd $APP_PATH && composer install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader"
   - curl --data "token=$ADMIN_TOKEN" $APP_URL/migrate
